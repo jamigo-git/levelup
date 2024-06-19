@@ -5,7 +5,7 @@ const appContent = 'Вот тут будет жить ваше приложен�
 
 // @ts-ignore
 global.fetch = jest.fn(() =>
-  Promise.resolve({ json: () => Promise.resolve('hey') })
+  Promise.resolve({ json: () => Promise.resolve('hey') }),
 )
 
 test('Example test', async () => {
