@@ -12,4 +12,15 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@/api': '/src/api',
+      '@/hooks': '/src/hooks',
+      '@/pages': '/src/pages',
+      '@/assets': '/src/assets',
+      '@/slices': '/src/store/slices',
+      '@/routing': '/src/routing',
+      '@/components': '/src/components',
+    },
+  },
 })
