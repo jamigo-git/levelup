@@ -1,0 +1,66 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "../../.eslintrc.js",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "eslint-config-prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "eslint-import-resolver-custom-alias": {
+        "alias": {
+          "@/api": "./src/api",
+          "@/hooks": "./src/hooks",
+          "@/pages": "./src/pages",
+          "@/assets": "./src/assets",
+          "@/slices": "./src/store/slices",
+          "@/routing": "./src/routing",
+          "@/components": "./src/components"
+        },
+        "extensions": [".ts", ".tsx"],
+        "packages": ["packages/*"]
+      }
+    }
+  },
+  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "rules": {
+    "quotes": ["error", "single"],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true
+      }
+    ],
+    "no-unused-vars": [
+      "error",
+      {
+        "vars": "all",
+        "args": "after-used",
+        "ignoreRestSiblings": true,
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "require-jsdoc": "off",
+    "@typescript-eslint/no-var-requires": 0,
+    "react/react-in-jsx-scope": "off"
+  }
+}

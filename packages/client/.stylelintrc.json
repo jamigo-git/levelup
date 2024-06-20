@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "stylelint-config-standard-scss",
-    "stylelint-config-clean-order/error"
-  ],
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-clean-order/error"],
   "rules": {
     "selector-class-pattern": ".+",
     "no-empty-source": [true, { "severity": "warning" }],
