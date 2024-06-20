@@ -1,5 +1,6 @@
-import { Typography } from 'antd'
+import { Button, Flex, Input, Typography } from 'antd'
 import { Helmet } from 'react-helmet-async'
+const { Title } = Typography
 
 export const GamePage = () => {
   return (
@@ -7,7 +8,11 @@ export const GamePage = () => {
       <Helmet>
         <title>Game</title>
       </Helmet>
-      <Typography>GamePage</Typography>
+      <Title level={1}>GamePage</Title>
+      <Flex gap={20}>
+        <Button>some buttton</Button>
+        <Input placeholder="Basic usage" />
+      </Flex>
     </>
   )
 }

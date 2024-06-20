@@ -1,5 +1,6 @@
 import { Typography } from 'antd'
 import { Helmet } from 'react-helmet-async'
+const { Title } = Typography
 
 export const ProfilePage = () => {
   return (
@@ -7,7 +8,7 @@ export const ProfilePage = () => {
       <Helmet>
         <title>Профаил</title>
       </Helmet>
-      <Typography>ProfilePage</Typography>
+      <Title level={1}>ProfilePage</Title>
     </>
   )
 }

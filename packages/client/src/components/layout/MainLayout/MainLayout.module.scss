@@ -4,10 +4,31 @@
   min-height: 100vh;
 }
 
-.main {
-  flex-grow: 1;
+.header {
+  position: relative;
 }
 
-.header {
-  color: #fff;
+.background {
+  position: absolute;
+  inset: 0;
+
+  background-image: url('background.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  &::before {
+    content: '';
+
+    position: absolute;
+    inset: 0;
+
+    background: rgb(0 0 0 / 50%);
+    backdrop-filter: blur(8px);
+  }
+}
+
+.content {
+  position: relative;
+  padding: 24px;
 }
