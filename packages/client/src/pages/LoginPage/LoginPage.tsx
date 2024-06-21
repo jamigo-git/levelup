@@ -4,6 +4,7 @@ import { login } from '@/store/slices/auth/authSlice'
 import { routes } from '@/routing/routes'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { getIsAuth } from '@/store/slices/auth/authSelector'
+
 const { Title } = Typography
 
 export const LoginPage = () => {
@@ -21,7 +22,7 @@ export const LoginPage = () => {
       </Helmet>
       <Title level={1}>LoginPage</Title>
       <Typography>logged in: {isAuth.toString()}</Typography>
-      <Button type="primary" onClick={fakeLogin}>
+      <Button type='primary' onClick={fakeLogin}>
         login
       </Button>
     </>

@@ -5,13 +5,12 @@
   },
   "extends": [
     "../../.eslintrc.js",
-    "eslint:recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended",
-    "plugin:import/recommended",
-    "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
-    "eslint-config-prettier"
+    "plugin:prettier/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -19,8 +18,10 @@
       "jsx": true
     },
     "ecmaVersion": 12,
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["dist", "node_modules", ".eslintrc.json", "vite.config.ts", "**/*.js", "**/*.d.ts"],
   "settings": {
     "react": {
       "version": "detect"
@@ -42,26 +43,39 @@
       }
     }
   },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
+  "plugins": ["react", "react-refresh", "@typescript-eslint", "prettier"],
   "rules": {
-    "quotes": ["error", "single"],
-    "prettier/prettier": [
-      "error",
+    "no-tabs": 0,
+    "no-continue": 0,
+    "no-plusplus": 0,
+    "comma-dangle": 0,
+    "linebreak-style": 0,
+    "arrow-body-style": 0,
+    "implicit-arrow-linebreak": 0,
+    "import/extensions": 0,
+    "import/prefer-default-export": 0,
+    "react/no-danger": 0,
+    "react/prop-types": 0,
+    "react/no-array-index-key": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/require-default-props": 0,
+    "react/jsx-props-no-spreading": 0,
+    "react/destructuring-assignment": 0,
+    "@typescript-eslint/no-shadow": 0,
+    "@typescript-eslint/comma-dangle": 0,
+    "@typescript-eslint/ban-ts-comment": 0,
+    "react/function-component-definition": [
+      2,
       {
-        "singleQuote": true
+        "namedComponents": "arrow-function"
       }
     ],
-    "no-unused-vars": [
-      "error",
+    "react/no-unknown-property": [
+      2,
       {
-        "vars": "all",
-        "args": "after-used",
-        "ignoreRestSiblings": true,
-        "argsIgnorePattern": "^_"
+        "ignore": ["jsx", "global"]
       }
     ],
-    "require-jsdoc": "off",
-    "@typescript-eslint/no-var-requires": 0,
-    "react/react-in-jsx-scope": "off"
+    "no-param-reassign": [1, { "props": true, "ignorePropertyModificationsForRegex": ["^draft", "acc", "state"] }]
   }
 }

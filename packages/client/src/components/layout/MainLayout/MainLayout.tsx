@@ -23,7 +23,7 @@ export const MainLayout = () => {
     <Layout className={styles.page}>
       <div className={styles.background} />
       <Header className={styles.header} style={{ background: colorPrimaryBg }}>
-        <Flex align="center" gap={20}>
+        <Flex align='center' gap={20}>
           <NavLink to={routes.root.path}>
             <Logo fillColor={colorPrimary} />
           </NavLink>

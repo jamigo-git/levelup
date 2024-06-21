@@ -1,6 +1,7 @@
 import { Space, Typography } from 'antd'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
+
 const { Title } = Typography
 
 export const HomePage = () => {
@@ -11,8 +12,8 @@ export const HomePage = () => {
       </Helmet>
       <Title level={1}>HomePage</Title>
       <Space>
-        <Link to="profile">Profile</Link>
-        <Link to="game">Game</Link>
+        <Link to='profile'>Profile</Link>
+        <Link to='game'>Game</Link>
       </Space>
     </>
   )
