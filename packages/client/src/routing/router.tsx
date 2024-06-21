@@ -1,10 +1,12 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { routes } from './routes'
 import { ErrorPage } from '@/pages/ErrorPage'
 import { ProfilePage } from '@/pages/ProfilePage'
 import { MainLayout } from '@/components/layout/MainLayout'
 import { HomePage } from '@/pages/HomePage'
 import { GamePage } from '@/pages/GamePage'
+import { LoginPage } from '@/pages/LoginPage'
+import { routes } from './routes'
+import { PrivatePageHOC } from './PrivatePageHOC'
 
 export const router = createBrowserRouter([
   {
@@ -17,18 +19,20 @@ export const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: routes.login.path,
+        element: <LoginPage />,
+      },
+      {
         path: routes.profile.path,
-        element: <ProfilePage />,
-        handle: {
-          title: routes.profile.title,
-        },
+        element: (
+          <PrivatePageHOC>
+            <ProfilePage />
+          </PrivatePageHOC>
+        ),
       },
       {
         path: routes.game.path,
         element: <GamePage />,
-        handle: {
-          title: routes.profile.title,
-        },
       },
     ],
   },

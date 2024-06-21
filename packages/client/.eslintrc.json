@@ -32,6 +32,7 @@
           "@/hooks": "./src/hooks",
           "@/pages": "./src/pages",
           "@/assets": "./src/assets",
+          "@/store": "./src/store",
           "@/slices": "./src/store/slices",
           "@/routing": "./src/routing",
           "@/components": "./src/components"

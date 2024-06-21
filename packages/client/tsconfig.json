@@ -21,6 +21,7 @@
       "@/hooks/*": ["hooks/*"],
       "@/pages/*": ["pages/*"],
       "@/assets/*": ["assets/*"],
+      "@/store/*": ["store/*"],
       "@/slices/*": ["store/slices/*"],
       "@/routing/*": ["routing/*"],
       "@/components/*": ["components/*"]

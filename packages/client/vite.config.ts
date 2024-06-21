@@ -19,6 +19,7 @@ export default defineConfig({
       '@/pages': '/src/pages',
       '@/assets': '/src/assets',
       '@/slices': '/src/store/slices',
+      '@/store': '/src/store',
       '@/routing': '/src/routing',
       '@/components': '/src/components',
     },
