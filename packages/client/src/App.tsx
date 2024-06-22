@@ -1,18 +1,21 @@
-import { useEffect } from 'react'
-import './App.css'
+import { Provider } from 'react-redux'
+import { ConfigProvider } from 'antd'
+import { RouterProvider } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
+import { router } from '@/routing/router'
+import { store } from './store'
+import { customTheme } from './styles/antdConfig'
 
-function App() {
-  useEffect(() => {
-    const fetchServerData = async () => {
-      const url = `http://localhost:${__SERVER_PORT__}`
-      const response = await fetch(url)
-      const data = await response.json()
-      console.log(data)
-    }
-
-    fetchServerData()
-  }, [])
-  return <div className="App">Вот тут будет жить ваше приложение :)</div>
+const App = () => {
+  return (
+    <HelmetProvider>
+      <Provider store={store}>
+        <ConfigProvider theme={customTheme}>
+          <RouterProvider router={router} />
+        </ConfigProvider>
+      </Provider>
+    </HelmetProvider>
+  )
 }
 
 export default App
