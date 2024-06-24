@@ -1,4 +1,5 @@
-const fs = require('fs')
+// const fs = require('fs')
+import * as fs from 'node:fs';
 
 fs.copyFileSync('.env.sample', '.env')
 
