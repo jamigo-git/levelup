@@ -6,8 +6,7 @@
   display: flex;
   flex-direction: column;
 
-  min-width: 400px;
-  max-width: 600px;
+  width: 400px;
   margin-right: auto;
   margin-bottom: auto;
   padding: 20px 30px;
@@ -24,14 +23,8 @@
 .modalHeader {
   display: flex;
   justify-content: center;
-  margin: 1rem;
 }
 
 .modalFooter {
-  margin-top: 1rem;
-}
-
-.inputForm {
-    display: flex;
-    
+  margin-top: 2rem;
 }
