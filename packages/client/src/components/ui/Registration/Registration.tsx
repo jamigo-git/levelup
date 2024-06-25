@@ -46,8 +46,7 @@ export const Registration = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete='off'
-        layout='vertical'
-        validateMessages={validateMessages}>
+        layout='vertical'>
         <div className={styles.modalHeader}>
           <Title level={2}>Регистрация</Title>
         </div>
