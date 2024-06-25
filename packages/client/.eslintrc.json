@@ -74,7 +74,7 @@
     "react/no-unknown-property": [
       2,
       {
-        "ignore": ["jsx", "global"]
+        "ignore": ["jsx", "global", "init.js"]
       }
     ],
     "no-param-reassign": [1, { "props": true, "ignorePropertyModificationsForRegex": ["^draft", "acc", "state"] }]

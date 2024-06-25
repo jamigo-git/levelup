@@ -24,6 +24,5 @@ module.exports = {
         project: ['packages/*/tsconfig.json'],
       },
     },
-  ],
-  ignores: ["init.js"]
+  ]
 }
