@@ -6,13 +6,21 @@
 
 .header {
   position: relative;
+  display: flex;
+  justify-content: center;
+  background-color: var(--ant-color-primary-bg);
+
+  &__content {
+    width: 100%;
+    max-width: 1280px;
+  }
 }
 
 .background {
-  position: absolute;
+  position: fixed;
   inset: 0;
 
-  background-image: url('background.png');
+  background-image: url('/img/background.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -24,11 +32,18 @@
     inset: 0;
 
     background: rgb(0 0 0 / 50%);
-    backdrop-filter: blur(8px);
+    backdrop-filter: blur(5px);
   }
 }
 
 .content {
   position: relative;
+  display: flex;
+  justify-content: center;
   padding: 24px;
+
+  &__wrapper {
+    width: 100%;
+    max-width: 1280px;
+  }
 }
