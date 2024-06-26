@@ -14,4 +14,12 @@ export const routes = {
     path: '/game',
     title: 'Game',
   },
+  forum: {
+    path: '/forum',
+    title: 'Forum',
+  },
+  forumTopic: {
+    path: '/forum/topic/:id',
+    title: 'Forum Topic',
+  },
 } as const

@@ -5,6 +5,8 @@ import { MainLayout } from '@/components/layout/MainLayout'
 import { HomePage } from '@/pages/HomePage'
 import { GamePage } from '@/pages/GamePage'
 import { LoginPage } from '@/pages/LoginPage'
+import { ForumPage } from '@/pages/ForumPage'
+import { ForumTopicPage } from '@/pages/ForumTopicPage'
 import { routes } from './routes'
 import { PrivatePageHOC } from './PrivatePageHOC'
 
@@ -32,7 +34,19 @@ export const router = createBrowserRouter([
       },
       {
         path: routes.game.path,
-        element: <GamePage />,
+        element: (
+          <PrivatePageHOC>
+            <GamePage />
+          </PrivatePageHOC>
+        ),
+      },
+      {
+        path: routes.forum.path,
+        element: <ForumPage />,
+      },
+      {
+        path: 'forum/topic/:id',
+        element: <ForumTopicPage />,
       },
     ],
   },
