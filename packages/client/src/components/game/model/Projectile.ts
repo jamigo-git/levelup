@@ -18,6 +18,8 @@ export class Projectile {
 
   radius: number
 
+  baseSpeedMultiplier: number = 5
+
   constructor({ ctx, position, enemy }: ProjectileConstructor) {
     this.ctx = ctx
     this.position = position
@@ -40,14 +42,18 @@ export class Projectile {
     this.ctx.fill()
   }
 
-  update() {
-    this.draw()
+  fly() {
     const angle = Math.atan2(this.enemy.getCenter.y - this.position.y, this.enemy.getCenter.x - this.position.x)
-    const power = 5
-    this.velocity.x = Math.cos(angle) * power
-    this.velocity.y = Math.sin(angle) * power
+
+    this.velocity.x = Math.cos(angle) * this.baseSpeedMultiplier
+    this.velocity.y = Math.sin(angle) * this.baseSpeedMultiplier
 
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
+  }
+
+  update() {
+    this.draw()
+    this.fly()
   }
 }

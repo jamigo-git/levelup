@@ -26,6 +26,8 @@ export class Enemy {
 
   velocity: Velocity
 
+  baseSpeedMultiplier: number = 1
+
   constructor({ ctx, position, waypoints, sizes }: EnemyConstructor) {
     this.position = position
     this.sizes = sizes
@@ -59,7 +61,7 @@ export class Enemy {
   draw() {
     if (!this.ctx) return
     this.ctx.fillStyle = 'red'
-    // this.ctx.fillRect(this.position.x, this.position.y, this.sizes.width, this.sizes.height)
+
     this.ctx.beginPath()
     this.ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
     this.ctx.fill()
@@ -71,17 +73,15 @@ export class Enemy {
     this.ctx.fillRect(this.position.x, this.position.y - 12, (this.sizes.width * this.health) / 100, 10)
   }
 
-  update() {
-    this.draw()
+  walk() {
     const waypoint = this.waypoints[this.waypointsIndex]
 
     const yDistance = waypoint.y - this.center.y
     const xDistance = waypoint.x - this.center.x
     const angle = Math.atan2(yDistance, xDistance)
 
-    const speedMultiplier = 1
-    this.velocity.x = Math.cos(angle) * speedMultiplier
-    this.velocity.y = Math.sin(angle) * speedMultiplier
+    this.velocity.x = Math.cos(angle) * this.baseSpeedMultiplier
+    this.velocity.y = Math.sin(angle) * this.baseSpeedMultiplier
 
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
@@ -98,5 +98,10 @@ export class Enemy {
     ) {
       this.waypointsIndex++
     }
+  }
+
+  update() {
+    this.draw()
+    this.walk()
   }
 }

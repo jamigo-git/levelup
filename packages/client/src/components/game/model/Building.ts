@@ -25,6 +25,12 @@ export class Building {
 
   frames: number
 
+  eachFrameShoot: number = 100
+
+  radiusMultiplier: number = 3
+
+  static cost: number = 50
+
   constructor({ ctx, position, sizes }: BuildingConstructor) {
     this.ctx = ctx
     this.position = position
@@ -33,7 +39,7 @@ export class Building {
       x: this.position.x + this.sizes.width / 2,
       y: this.position.y + this.sizes.height / 2,
     }
-    this.radius = 24 + 48 * 3
+    this.radius = this.sizes.width / 2 + this.sizes.width * this.radiusMultiplier
     this.frames = 0
     this.projectiles = []
   }
@@ -47,9 +53,8 @@ export class Building {
     this.ctx.fillRect(this.position.x, this.position.y, this.sizes.width, this.sizes.height)
   }
 
-  update() {
-    this.draw()
-    if (this.frames % 100 === 0 && !!this.target) {
+  shoot() {
+    if (this.frames % this.eachFrameShoot === 0 && !!this.target) {
       this.projectiles.push(
         new Projectile({
           ctx: this.ctx,
@@ -58,6 +63,11 @@ export class Building {
         })
       )
     }
+  }
+
+  update() {
+    this.draw()
+    this.shoot()
     this.frames++
   }
 }
