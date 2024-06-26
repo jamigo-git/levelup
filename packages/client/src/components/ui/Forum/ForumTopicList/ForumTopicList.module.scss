@@ -1,0 +1,8 @@
+@import 'src/styles/variables';
+
+.list {
+  padding: 20px;
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
+}

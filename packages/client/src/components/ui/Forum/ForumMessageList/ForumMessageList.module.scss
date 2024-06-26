@@ -1,0 +1,58 @@
+@import 'src/styles/variables';
+
+.list {
+  padding: 20px;
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
+}
+
+.message {
+  display: grid;
+  grid-template-areas: 'author text date';
+  grid-template-columns: 110px 1fr auto;
+  gap: 12px;
+
+  width: 100%;
+
+  @media (width <= 768px) {
+    grid-template-areas:
+      'text text'
+      'author date';
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.author {
+  grid-area: author;
+  align-self: flex-start;
+
+  :global(.ant-typography) {
+    margin-bottom: 0;
+  }
+
+  &__name {
+    text-align: center;
+  }
+
+  @media (width <= 768px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+}
+
+.text {
+  grid-area: text;
+  flex-grow: 1;
+  width: 100%;
+}
+
+.date {
+  grid-area: date;
+
+  @media (width <= 768px) {
+    align-self: center;
+    text-align: right;
+  }
+}

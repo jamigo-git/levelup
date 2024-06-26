@@ -14,10 +14,17 @@ export const ErrorPage = () => {
       error.status) ||
     502
 
+  let message = 'Что-то пошло не так :('
+  if (typeof error === 'object' && error !== null && 'message' in error) {
+    message = error.message as string
+  } else if (status === 404) {
+    message = 'Вы заплутали :)'
+  }
+
   return (
     <div>
       <p>{status}</p>
-      <p>Что-то пошло не так :(</p>
+      <p>{message}</p>
     </div>
   )
 }
