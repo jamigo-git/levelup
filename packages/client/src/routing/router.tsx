@@ -5,6 +5,7 @@ import { MainLayout } from '@/components/layout/MainLayout'
 import { HomePage } from '@/pages/HomePage'
 import { GamePage } from '@/pages/GamePage'
 import { LoginPage } from '@/pages/LoginPage'
+import { RegistrationPage } from '@/pages/RegistrationPage'
 import { routes } from './routes'
 import { PrivatePageHOC } from './PrivatePageHOC'
 
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: routes.game.path,
         element: <GamePage />,
+      },
+      {
+        path: routes.registration.path,
+        element: <RegistrationPage />,
       },
     ],
   },

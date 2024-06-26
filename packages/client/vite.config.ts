@@ -22,6 +22,7 @@ export default defineConfig({
       '@/store': '/src/store',
       '@/routing': '/src/routing',
       '@/components': '/src/components',
+      '@/utils': '/src/utils',
     },
   },
 })

@@ -6,6 +6,10 @@ export const routes = {
     path: '/login',
     title: 'Login',
   },
+  registration: {
+    path: '/registration',
+    title: 'Registration',
+  },
   profile: {
     path: '/profile',
     title: 'Profile',
