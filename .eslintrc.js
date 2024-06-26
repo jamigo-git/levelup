@@ -24,5 +24,5 @@ module.exports = {
         project: ['packages/*/tsconfig.json'],
       },
     },
-  ],
+  ]
 }

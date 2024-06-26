@@ -7,6 +7,7 @@ import { GamePage } from '@/pages/GamePage'
 import { LoginPage } from '@/pages/LoginPage'
 import { ForumPage } from '@/pages/ForumPage'
 import { ForumTopicPage } from '@/pages/ForumTopicPage'
+import { RegistrationPage } from '@/pages/RegistrationPage'
 import { routes } from './routes'
 import { PrivatePageHOC } from './PrivatePageHOC'
 
@@ -23,6 +24,10 @@ export const router = createBrowserRouter([
       {
         path: routes.login.path,
         element: <LoginPage />,
+      },
+      {
+        path: routes.registration.path,
+        element: <RegistrationPage />,
       },
       {
         path: routes.profile.path,
