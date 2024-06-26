@@ -20,7 +20,7 @@ export class Enemy {
 
   private radius: number
 
-  private ctx = null
+  private ctx: CanvasRenderingContext2D
 
   health: number
 

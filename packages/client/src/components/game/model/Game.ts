@@ -14,7 +14,7 @@ export interface GameConfigConstructor {
 export class GameConfig {
   canvas: HTMLCanvasElement
 
-  ctx: CanvasRenderingContext2D
+  ctx: CanvasRenderingContext2D | null = null
 
   map: MapConfig
 
@@ -34,13 +34,13 @@ export class GameConfig {
 
   activeTile: PlacementTile | null = null
 
-  image: HTMLImageElement
+  image: HTMLImageElement | null = null
 
   setStatistic: SetStatistic
 
   constructor({ canvas, map, setStatistic }: GameConfigConstructor) {
     this.canvas = canvas
-    this.ctx = this.canvas.getContext('2d')
+    this.ctx = canvas.getContext('2d')
     this.map = map
     this.enemies = []
     this.buildings = []
@@ -52,10 +52,12 @@ export class GameConfig {
   }
 
   gameSetup() {
+    if (!this.ctx) return
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
     const map = new Image()
     map.src = this.map.src
     map.onload = () => {
+      if (!this.ctx) return
       this.ctx.drawImage(map, 0, 0)
     }
     this.image = map
@@ -73,6 +75,7 @@ export class GameConfig {
     this.placementsTileData2d.forEach((row, y) => {
       row.forEach((symbol, x) => {
         if (symbol === this.map.placementsSymbol) {
+          if (!this.ctx) return
           this.placementsTiles.push(
             new PlacementTile({
               ctx: this.ctx,
@@ -89,6 +92,7 @@ export class GameConfig {
     const spaceBetweenEnemy = 150
     const baseEnemyCount = 3
     for (let i = 1; i <= baseEnemyCount * waveCount; i++) {
+      if (!this.ctx) return
       this.enemies.push(
         new Enemy({
           ctx: this.ctx,
@@ -104,6 +108,7 @@ export class GameConfig {
     if (this.activeTile && !this.activeTile.isOccupied) {
       if (this.coins >= Building.cost) {
         this.coins -= Building.cost
+        if (!this.ctx) return
         this.buildings.push(
           new Building({
             ctx: this.ctx,
@@ -190,8 +195,11 @@ export class GameConfig {
   }
 
   animate(mousePosition: { x: number; y: number }) {
+    if (!this.ctx) return
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-    this.ctx.drawImage(this.image, 0, 0)
+    if (this.image) {
+      this.ctx.drawImage(this.image, 0, 0)
+    }
     this.placementsTiles.forEach(tile => tile.update(mousePosition))
     this.enemySpawnLoop()
     this.buildingShootLoop()

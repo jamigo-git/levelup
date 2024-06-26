@@ -7,6 +7,7 @@ const initialState = {
   currenKillCount: 0,
   bestKillCount: 0,
   bestWavesCount: 0,
+  currentCoins: 0,
 }
 
 export const gameSlice = createSlice({

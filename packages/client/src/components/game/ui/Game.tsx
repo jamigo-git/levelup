@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from 'react'
+import { FC, LegacyRef, useEffect, useMemo, useRef, useState } from 'react'
 import { GameConfig } from '@/components/game/model/Game'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { getGameStatistic } from '@/slices/game/gameSelector'
@@ -14,7 +14,7 @@ export const Game: FC = () => {
   const gameStatistic = useAppSelector(getGameStatistic)
   const [mapName] = useState('DesertOrks')
   const mousePosition = useRef({ x: 0, y: 0 })
-  const canvasRef = useRef<HTMLCanvasElement>()
+  const canvasRef = useRef<HTMLCanvasElement | null>()
   const animationRef = useRef<number | null>(null)
   const gameRef = useRef<GameConfig>()
 
@@ -27,6 +27,7 @@ export const Game: FC = () => {
   useEffect(() => {
     if (!canvasRef.current || !mapConfig) return
     const canvas = canvasRef.current
+    if (!canvas) return
     const game = new GameConfig({
       map: mapConfig,
       canvas,
@@ -52,7 +53,7 @@ export const Game: FC = () => {
       if (!canvasRef.current || !gameRef.current) return
       const canvas = canvasRef.current
       const game = gameRef.current
-
+      if (!canvas) return
       canvas.removeEventListener('click', game.buildTower)
       if (animationRef.current) {
         if (typeof animationRef.current === 'number') {
@@ -77,6 +78,7 @@ export const Game: FC = () => {
   useEffect(() => {
     const canvas = canvasRef.current
     const handleMouseMove = (event: MouseEvent) => {
+      if (!canvas) return
       const rect = canvas.getBoundingClientRect()
       const x = event.clientX - rect.left
       const y = event.clientY - rect.top
@@ -87,7 +89,9 @@ export const Game: FC = () => {
     }
 
     return () => {
-      canvas.removeEventListener('mousemove', handleMouseMove)
+      if (canvas) {
+        canvas.removeEventListener('mousemove', handleMouseMove)
+      }
       dispatch(setIsEnding(false))
       dispatch(setIsRunning(false))
     }
@@ -103,7 +107,7 @@ export const Game: FC = () => {
         height={mapConfig.mapPixelHeight}
         width={mapConfig.mapPixelWidth}
         style={{ background: 'rgba(0, 0, 0, 0)' }}
-        ref={canvasRef}
+        ref={canvasRef as LegacyRef<HTMLCanvasElement>}
       />
     </Overlay>
   )
