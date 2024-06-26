@@ -2,6 +2,8 @@ import { Button, Typography, Form, Input } from 'antd'
 import type { FormProps } from 'antd'
 import { Helmet } from 'react-helmet-async'
 import { login } from '@/store/slices/auth/authSlice'
+import { setUser } from '@/store/slices/user/userSlice'
+import { userMock } from '@/utils/mocks'
 import { routes } from '@/routing/routes'
 import { passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
@@ -30,6 +32,7 @@ export const Login: React.FC = () => {
 
   const fakeLogin = () => {
     dispatch(login())
+    dispatch(setUser({ user: userMock }))
   }
 
   return (

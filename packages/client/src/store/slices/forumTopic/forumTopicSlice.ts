@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Topic } from '@/types/forum'
 import { topicListMock } from '@/utils/mocks'
+import { Topic } from '@/types/forum'
 
 const initialStateMock: { idList: string[]; byId: Record<string, Topic> } = {
   idList: topicListMock.map(topic => topic.id),
