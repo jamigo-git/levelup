@@ -27,10 +27,8 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
   console.error('Failed:', errorInfo)
 }
 
-export const Registration = () => {
+export const Registration: React.FC = () => {
   const dispatch = useAppDispatch()
-  //   const isAuth = useAppSelector(getIsAuth)
-
   const fakeRegistration = () => {
     dispatch(login())
   }
