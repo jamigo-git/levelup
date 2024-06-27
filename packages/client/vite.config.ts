@@ -12,4 +12,22 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [react()],
+<<<<<<< HEAD
+=======
+  resolve: {
+    alias: {
+      '@/api': '/src/api',
+      '@/hooks': '/src/hooks',
+      '@/pages': '/src/pages',
+      '@/assets': '/src/assets',
+      '@/slices': '/src/store/slices',
+      '@/store': '/src/store',
+      '@/routing': '/src/routing',
+      '@/components': '/src/components',
+      '@/utils': '/src/utils',
+      '@/types': '/src/types',
+      '@/constants': '/src/constants',
+    },
+  },
+>>>>>>> 60768d0 (LVL-36: Реализовать логику авторизации)
 })

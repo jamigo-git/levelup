@@ -1,4 +1,72 @@
 {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    "name": "client",
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "lint": "eslint .",
+        "format": "prettier --write .",
+        "test": "jest ./"
+    },
+    "dependencies": {
+        "dotenv": "^16.4.5",
+        "eslint-config-prettier": "^9.1.0",
+        "prettier": "^3.3.2",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    },
+    "devDependencies": {
+        "@eslint/js": "^8.57.0",
+        "@stylelint/npm-package-json-lint-config": "^5.0.1",
+        "@testing-library/dom": "^10.0.0",
+        "@testing-library/react": "^16.0.0",
+        "@types/chai": "^4.3.16",
+        "@types/jest": "^29.5.12",
+        "@types/mocha": "^10.0.6",
+        "@types/node": "^20.13.0",
+        "@types/react": "^18.3.3",
+        "@types/react-dom": "^18.3.0",
+        "@types/sinon": "^17.0.3",
+        "@typescript-eslint/eslint-plugin": "^7.13.1",
+        "@typescript-eslint/parser": "^7.13.1",
+        "@vitejs/plugin-react": "^4.3.1",
+        "antd": "^5.18.2",
+        "chai": "^5.1.1",
+        "eslint": "^9.5.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin": "^1.0.1",
+        "globals": "^15.0.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "jsdom": "^24.1.0",
+        "lefthook": "^1.6.16",
+        "lint-staged": "^15.2.5",
+        "mocha": "^10.4.0",
+        "npm-package-json-lint": "^8.0.0",
+        "npm-run-all": "^4.1.5",
+        "prettier": "^3.3.2",
+        "sinon": "^18.0.0",
+        "stylelint": "^16.4.0",
+        "stylelint-declaration-block-no-ignored-properties": "^2.8.0",
+        "stylelint-order": "^6.0.4",
+        "ts-jest": "^29.1.5",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5",
+        "typescript-eslint": "^7.7.1",
+        "vite": "^5.3.1"
+    },
+    "resolutions": {
+        "eslint": "^8.56.0",
+        "npm-package-json-lint": "^7.0.0"
+    },
+    "license": "MIT"
+=======
+>>>>>>> bb2f4a9 (LVL-36: Реализовать логику авторизации)
   "name": "client",
   "version": "0.0.0",
   "type": "module",
@@ -6,6 +74,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+<<<<<<< HEAD
     "lint": "eslint .",
     "format": "prettier --write .",
     "test": "jest ./"
@@ -35,4 +104,89 @@
     "vite": "^3.0.7"
   },
   "license": "MIT"
+=======
+    "lint": "eslint . && stylelint \"src/**/*.scss\"",
+    "format": "prettier --write . && stylelint \"src/**/*.scss\" --fix",
+    "test": "jest ./"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@reduxjs/toolkit": "^2.2.5",
+    "antd": "^5.18.3",
+    "dayjs": "^1.11.11",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^6.23.1",
+    "reselect": "^5.1.1"
+  },
+  "devDependencies": {
+    "@ant-design/icons": "^5.3.7",
+    "@eslint/eslintrc": "^3.1.0",
+    "@eslint/js": "^9.5.0",
+    "@eslint/migrate-config": "^1.1.0",
+    "@stylelint/npm-package-json-lint-config": "^5.0.1",
+    "@testing-library/dom": "^10.0.0",
+    "@testing-library/react": "^16.0.0",
+    "@types/chai": "^4.3.16",
+    "@types/jest": "^29.5.12",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.13.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/react-helmet": "^6.1.11",
+    "@types/sinon": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^7.13.1",
+    "@typescript-eslint/parser": "^7.13.1",
+    "@vitejs/plugin-react": "^4.3.1",
+    "chai": "^5.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config": "^0.3.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-custom-alias": "^1.3.2",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin": "^1.0.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.9.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
+    "globals": "^15.6.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^24.1.0",
+    "lefthook": "^1.6.16",
+    "lint-staged": "^15.2.5",
+    "mocha": "^10.4.0",
+    "npm-package-json-lint": "^8.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.2",
+    "sass": "^1.77.6",
+    "sinon": "^18.0.0",
+    "stylelint": "^16.4.0",
+    "stylelint-config-clean-order": "^6.0.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.8.0",
+    "ts-jest": "^29.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.7.1",
+    "vite": "^5.3.1"
+  },
+  "resolutions": {
+    "eslint": "^8.56.0",
+    "npm-package-json-lint": "^7.0.0"
+  },
+  "license": "MIT"
+>>>>>>> 60768d0 (LVL-36: Реализовать логику авторизации)
+>>>>>>> bb2f4a9 (LVL-36: Реализовать логику авторизации)
 }

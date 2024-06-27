@@ -14,7 +14,25 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+<<<<<<< HEAD
     "jsx": "react-jsx"
+=======
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "paths": {
+      "@/api/*": ["api/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/pages/*": ["pages/*"],
+      "@/assets/*": ["assets/*"],
+      "@/store/*": ["store/*"],
+      "@/slices/*": ["store/slices/*"],
+      "@/routing/*": ["routing/*"],
+      "@/components/*": ["components/*"],
+      "@/utils/*": ["utils/*"],
+      "@/types/*": ["types/*"],
+      "@/constants/*": ["constants/*"]
+    }
+>>>>>>> 60768d0 (LVL-36: Реализовать логику авторизации)
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
