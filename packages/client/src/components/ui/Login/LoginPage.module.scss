@@ -1,3 +1,5 @@
+@import 'src/styles/variables';
+
 .loginForm {
   position: fixed;
   top: 30%;
@@ -11,9 +13,9 @@
   margin-bottom: auto;
   padding: 20px 30px;
 
-  background-color: rgb(0 0 0 / 50%);
-  border-radius: 12px;
-  box-shadow: 0 0 6px 0 gray;
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
 }
 
 .formBotton {

@@ -1,6 +1,7 @@
-import { theme } from 'antd'
+import { ThemeConfig, theme } from 'antd'
 
-export const customTheme = {
+export const customTheme: ThemeConfig = {
+  cssVar: true,
   token: {
     colorPrimary: '#fa8c16',
     colorInfo: '#fa8c16',

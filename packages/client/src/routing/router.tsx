@@ -5,6 +5,8 @@ import { MainLayout } from '@/components/layout/MainLayout'
 import { HomePage } from '@/pages/HomePage'
 import { GamePage } from '@/pages/GamePage'
 import { LoginPage } from '@/pages/LoginPage'
+import { ForumPage } from '@/pages/ForumPage'
+import { ForumTopicPage } from '@/pages/ForumTopicPage'
 import { RegistrationPage } from '@/pages/RegistrationPage'
 import { routes } from './routes'
 import { PrivatePageHOC } from './PrivatePageHOC'
@@ -24,6 +26,10 @@ export const router = createBrowserRouter([
         element: <LoginPage />,
       },
       {
+        path: routes.registration.path,
+        element: <RegistrationPage />,
+      },
+      {
         path: routes.profile.path,
         element: (
           <PrivatePageHOC>
@@ -33,11 +39,19 @@ export const router = createBrowserRouter([
       },
       {
         path: routes.game.path,
-        element: <GamePage />,
+        element: (
+          <PrivatePageHOC>
+            <GamePage />
+          </PrivatePageHOC>
+        ),
       },
       {
-        path: routes.registration.path,
-        element: <RegistrationPage />,
+        path: routes.forum.path,
+        element: <ForumPage />,
+      },
+      {
+        path: 'forum/topic/:id',
+        element: <ForumTopicPage />,
       },
     ],
   },

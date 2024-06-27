@@ -23,6 +23,7 @@ export default defineConfig({
       '@/routing': '/src/routing',
       '@/components': '/src/components',
       '@/utils': '/src/utils',
+      '@/types': '/src/types',
     },
   },
 })

@@ -25,7 +25,8 @@
       "@/slices/*": ["store/slices/*"],
       "@/routing/*": ["routing/*"],
       "@/components/*": ["components/*"],
-      "@/utils/*": ["utils/*"]
+      "@/utils/*": ["utils/*"],
+      "@/types/*": ["types/*"]
     }
   },
   "include": ["src"],

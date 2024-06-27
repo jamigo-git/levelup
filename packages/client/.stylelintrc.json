@@ -2,6 +2,12 @@
   "extends": ["stylelint-config-standard-scss", "stylelint-config-clean-order/error"],
   "rules": {
     "selector-class-pattern": ".+",
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ],
     "no-empty-source": [true, { "severity": "warning" }],
     "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
     "scss/at-else-closing-brace-space-after": "always-intermediate",
