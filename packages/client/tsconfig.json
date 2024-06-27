@@ -14,9 +14,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-<<<<<<< HEAD
-    "jsx": "react-jsx"
-=======
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
@@ -32,7 +29,6 @@
       "@/types/*": ["types/*"],
       "@/constants/*": ["constants/*"]
     }
->>>>>>> 60768d0 (LVL-36: Реализовать логику авторизации)
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

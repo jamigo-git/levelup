@@ -20,44 +20,53 @@ export const register = createAsyncThunk<{ id: number }, CreateUser>(
       }
       return rejectWithValue({ reason: 'An unknown error occurred' })
     }
-  }
+  },
 )
 
-export const login = createAsyncThunk<void, LoginRequestData>('login', async (loginData, { rejectWithValue }) => {
-  try {
-    const response = await apiClient.post('/signin', loginData)
-    return response.data
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return rejectWithValue(error.response.data.reason)
+export const login = createAsyncThunk<void, LoginRequestData>(
+  'login',
+  async (loginData, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.post('/signin', loginData)
+      return response.data
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data.reason)
+      }
+      return rejectWithValue({ reason: 'An unknown error occurred' })
     }
-    return rejectWithValue({ reason: 'An unknown error occurred' })
-  }
-})
+  },
+)
 
-export const fetchCurrentUser = createAsyncThunk('me', async (_, { rejectWithValue }) => {
-  try {
-    const response = await apiClient.get('/user')
-    return response.data
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return rejectWithValue(error.response.data.reason)
+export const fetchCurrentUser = createAsyncThunk(
+  'me',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.get('/user')
+      return response.data
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data.reason)
+      }
+      return rejectWithValue({ reason: 'An unknown error occurred' })
     }
-    return rejectWithValue({ reason: 'An unknown error occurred' })
-  }
-})
+  },
+)
 
-export const logout = createAsyncThunk('logout', async (_, { rejectWithValue }) => {
-  try {
-    const response = await apiClient.post('/logout')
-    return response.data
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      return rejectWithValue(error.response.data.reason)
+export const logout = createAsyncThunk(
+  'logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await apiClient.post('/logout')
+      return response.data
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response.data.reason)
+      }
+      return rejectWithValue({ reason: 'An unknown error occurred' })
     }
-    return rejectWithValue({ reason: 'An unknown error occurred' })
-  }
-})
+  },
+)
 
 const authSlice = createSlice({
   name: 'auth',

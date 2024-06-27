@@ -1,8 +1,8 @@
 import { FC, useState } from 'react'
 import { Button, Form, Input } from 'antd'
 import { nanoid } from '@reduxjs/toolkit'
-import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { getUser } from '@/store/slices/auth/authSelector'
+import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { addMessage } from '@/store/slices/forumMessage/forumMessageSlice'
 import { addTopickMessage } from '@/store/slices/forumTopic/forumTopicSlice'
 import { Message } from '@/types/forum'
@@ -48,11 +48,16 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId }) => {
   return (
     <div className={styles.formWrapper}>
       <Form form={form} onFinish={handleSubmit} className={styles.form}>
-        <Form.Item name='message' rules={[{ required: true, message: 'Без сообщения никак' }]}>
-          <Input.TextArea placeholder='Введите сообщение' autoSize={{ minRows: 4, maxRows: 6 }} />
+        <Form.Item
+          name="message"
+          rules={[{ required: true, message: 'Без сообщения никак' }]}>
+          <Input.TextArea
+            placeholder="Введите сообщение"
+            autoSize={{ minRows: 4, maxRows: 6 }}
+          />
         </Form.Item>
         <Form.Item className={styles.form__submit}>
-          <Button type='primary' htmlType='submit' loading={confirmLoading}>
+          <Button type="primary" htmlType="submit" loading={confirmLoading}>
             Отправить
           </Button>
         </Form.Item>

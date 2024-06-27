@@ -12,8 +12,6 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [react()],
-<<<<<<< HEAD
-=======
   resolve: {
     alias: {
       '@/api': '/src/api',
@@ -29,5 +27,4 @@ export default defineConfig({
       '@/constants': '/src/constants',
     },
   },
->>>>>>> 60768d0 (LVL-36: Реализовать логику авторизации)
 })
