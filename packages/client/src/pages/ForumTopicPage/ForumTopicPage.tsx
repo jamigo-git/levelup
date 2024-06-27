@@ -5,7 +5,7 @@ import { useAppSelector } from '@/hooks/reduxHooks'
 import { selectTopicById } from '@/store/slices/forumTopic/forumTopicSelector'
 import { ForumMessageList } from '@/components/ui/Forum/ForumMessageList'
 import { ForumMessageForm } from '@/components/ui/Forum/ForumMessageForm'
-import CustomError from '@/utils/custonError'
+import CustomError from '@/utils/customError'
 import styles from './ForumTopicPage.module.scss'
 
 const { Title } = Typography
