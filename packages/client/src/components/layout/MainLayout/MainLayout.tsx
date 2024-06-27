@@ -25,20 +25,14 @@ export const MainLayout = () => {
     <Layout className={styles.page}>
       <div className={styles.background} />
       <Header className={styles.header}>
-        <Flex align="center" gap={20} className={styles.header__content}>
+        <Flex align='center' gap={20} className={styles.header__content}>
           <NavLink to={routes.root.path}>
             <Logo fillColor={colorPrimary} />
           </NavLink>
           <NavLink to={routes.profile.path}>Профиль</NavLink>
           <NavLink to={routes.game.path}>Игра</NavLink>
           <NavLink to={routes.forum.path}>Форум</NavLink>
-          {isAuth && (
-            <Button
-              icon={<LogoutOutlined />}
-              onClick={handleLogout}
-              style={{ marginLeft: 'auto' }}
-            />
-          )}
+          {isAuth && <Button icon={<LogoutOutlined />} onClick={handleLogout} style={{ marginLeft: 'auto' }} />}
         </Flex>
       </Header>
       <Content className={styles.content}>

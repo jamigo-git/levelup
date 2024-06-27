@@ -48,16 +48,11 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId }) => {
   return (
     <div className={styles.formWrapper}>
       <Form form={form} onFinish={handleSubmit} className={styles.form}>
-        <Form.Item
-          name="message"
-          rules={[{ required: true, message: 'Без сообщения никак' }]}>
-          <Input.TextArea
-            placeholder="Введите сообщение"
-            autoSize={{ minRows: 4, maxRows: 6 }}
-          />
+        <Form.Item name='message' rules={[{ required: true, message: 'Без сообщения никак' }]}>
+          <Input.TextArea placeholder='Введите сообщение' autoSize={{ minRows: 4, maxRows: 6 }} />
         </Form.Item>
         <Form.Item className={styles.form__submit}>
-          <Button type="primary" htmlType="submit" loading={confirmLoading}>
+          <Button type='primary' htmlType='submit' loading={confirmLoading}>
             Отправить
           </Button>
         </Form.Item>

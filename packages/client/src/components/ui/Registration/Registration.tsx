@@ -4,14 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import { fetchCurrentUser, register } from '@/store/slices/auth/authSlice'
 import { NavLink } from 'react-router-dom'
 import { routes } from '@/routing/routes'
-import {
-  emailRules,
-  phoneRules,
-  firstNameRules,
-  secondNameRules,
-  passwordRules,
-  loginRules,
-} from '@/utils/validation'
+import { emailRules, phoneRules, firstNameRules, secondNameRules, passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch } from '@/hooks/reduxHooks'
 import styles from './RegistrationPage.module.scss'
 import { CreateUser } from '@/types/AuthTypes'
@@ -46,88 +39,85 @@ export const Registration: React.FC = () => {
       <Form
         form={form}
         className={styles.registrationForm}
-        name="basic"
+        name='basic'
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        layout="vertical">
+        autoComplete='off'
+        layout='vertical'>
         <div className={styles.modalHeader}>
           <Title level={2}>Регистрация</Title>
         </div>
 
         <Form.Item<CreateUser>
-          label="Имя"
-          name="first_name"
+          label='Имя'
+          name='first_name'
           validateFirst
           hasFeedback
-          validateTrigger="onChange"
+          validateTrigger='onChange'
           rules={firstNameRules}>
           <Input />
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label="Фамилия"
-          name="second_name"
+          label='Фамилия'
+          name='second_name'
           validateFirst
           hasFeedback
-          validateTrigger="onChange"
+          validateTrigger='onChange'
           rules={secondNameRules}>
           <Input />
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label="Email"
-          name="email"
+          label='Email'
+          name='email'
           validateFirst
           hasFeedback
-          validateTrigger="onChange"
+          validateTrigger='onChange'
           rules={emailRules}>
           <Input />
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label="Телефон"
-          name="phone"
+          label='Телефон'
+          name='phone'
           validateFirst
           hasFeedback
-          validateTrigger="onChange"
+          validateTrigger='onChange'
           rules={phoneRules}>
           <Input />
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label="Login"
-          name="login"
+          label='Login'
+          name='login'
           validateFirst
           hasFeedback
-          validateTrigger="onChange"
+          validateTrigger='onChange'
           rules={loginRules}>
           <Input />
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label="Password"
-          name="password"
+          label='Password'
+          name='password'
           validateFirst
           hasFeedback
-          validateTrigger="onChange"
+          validateTrigger='onChange'
           rules={passwordRules}>
           <Input.Password />
         </Form.Item>
 
         <div className={styles.modalFooter}>
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className={styles.formBotton}>
+            <Button type='primary' htmlType='submit' className={styles.formBotton}>
               Registration
             </Button>
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
             <NavLink to={routes.login.path}>
-              <Button type="default" className={styles.formBotton}>
+              <Button type='default' className={styles.formBotton}>
                 Login
               </Button>
             </NavLink>

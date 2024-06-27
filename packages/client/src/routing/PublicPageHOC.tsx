@@ -5,16 +5,14 @@ import { getIsAuth, getIsAuthenticating } from '@/slices/auth/authSelector'
 import { routes } from '@/routing/routes'
 import { useAppSelector } from '@/hooks/reduxHooks'
 
-export const PublicPageHOC: FC<{ children?: React.ReactElement }> = ({
-  children,
-}) => {
+export const PublicPageHOC: FC<{ children?: React.ReactElement }> = ({ children }) => {
   const isAuth = useAppSelector(getIsAuth)
   const isAuthenticating = useAppSelector(getIsAuthenticating)
 
   if (isAuthenticating) {
     return (
       <>
-        <Spin fullscreen size="large" />
+        <Spin fullscreen size='large' />
         {children}
       </>
     )

@@ -11,10 +11,9 @@ import { LoginRequestData } from '@/types/AuthTypes'
 
 const { Title } = Typography
 
-const onFinishFailed: FormProps<LoginRequestData>['onFinishFailed'] =
-  errorInfo => {
-    message.error(`Login error: ${errorInfo.errorFields[0].errors[0]}`)
-  }
+const onFinishFailed: FormProps<LoginRequestData>['onFinishFailed'] = errorInfo => {
+  message.error(`Login error: ${errorInfo.errorFields[0].errors[0]}`)
+}
 
 export const Login: React.FC = () => {
   const dispatch = useAppDispatch()
@@ -38,48 +37,45 @@ export const Login: React.FC = () => {
       </Helmet>
       <Form
         className={styles.loginForm}
-        name="basic"
+        name='basic'
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        layout="vertical">
+        autoComplete='off'
+        layout='vertical'>
         <div className={styles.modalHeader}>
           <Title level={2}>Вход</Title>
         </div>
 
         <Form.Item<LoginRequestData>
-          label="Login"
-          name="login"
+          label='Login'
+          name='login'
           validateFirst
           rules={loginRules}
           hasFeedback
-          validateTrigger="onChange">
+          validateTrigger='onChange'>
           <Input />
         </Form.Item>
 
         <Form.Item<LoginRequestData>
-          label="Password"
-          name="password"
+          label='Password'
+          name='password'
           validateFirst
           rules={passwordRules}
           hasFeedback
-          validateTrigger="onChange">
+          validateTrigger='onChange'>
           <Input.Password />
         </Form.Item>
 
         <div className={styles.modalFooter}>
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className={styles.formBotton}>
+            <Button type='primary' htmlType='submit' className={styles.formBotton}>
               Login
             </Button>
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
             <NavLink to={routes.registration.path}>
-              <Button type="default" className={styles.formBotton}>
+              <Button type='default' className={styles.formBotton}>
                 Registration
               </Button>
             </NavLink>

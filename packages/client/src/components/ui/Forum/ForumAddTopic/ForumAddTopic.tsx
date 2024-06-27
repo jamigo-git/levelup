@@ -72,15 +72,11 @@ export const ForumAddTopic: FC = () => {
 
   return (
     <>
-      <Button
-        icon={<PlusSquareOutlined />}
-        iconPosition="end"
-        onClick={showModal}
-        size="large">
+      <Button icon={<PlusSquareOutlined />} iconPosition='end' onClick={showModal} size='large'>
         Добавить топик
       </Button>
       <Modal
-        title="О чем поговорим?"
+        title='О чем поговорим?'
         width={400}
         open={isModalOpen}
         centered
@@ -89,21 +85,15 @@ export const ForumAddTopic: FC = () => {
         onCancel={handleCancel}
         confirmLoading={confirmLoading}>
         <Form form={form} onFinish={handleSubmit}>
-          <Form.Item
-            name="title"
-            rules={[{ required: true, message: 'Без темы никак' }]}>
-            <Input placeholder="Введите название темы" autoComplete="off" />
+          <Form.Item name='title' rules={[{ required: true, message: 'Без темы никак' }]}>
+            <Input placeholder='Введите название темы' autoComplete='off' />
           </Form.Item>
-          <Form.Item name="message">
-            <Input.TextArea
-              rows={4}
-              autoSize={{ minRows: 4, maxRows: 6 }}
-              placeholder="Добавите первое сообщение?"
-            />
+          <Form.Item name='message'>
+            <Input.TextArea rows={4} autoSize={{ minRows: 4, maxRows: 6 }} placeholder='Добавите первое сообщение?' />
           </Form.Item>
-          <Flex justify="flex-end" gap={8}>
+          <Flex justify='flex-end' gap={8}>
             <Button onClick={handleCancel}>Отмена</Button>
-            <Button type="primary" htmlType="submit" loading={confirmLoading}>
+            <Button type='primary' htmlType='submit' loading={confirmLoading}>
               Создать
             </Button>
           </Flex>
