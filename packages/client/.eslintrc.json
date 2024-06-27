@@ -37,8 +37,8 @@
           "@/slices": "./src/store/slices",
           "@/routing": "./src/routing",
           "@/components": "./src/components",
-          "@/utils": "./src/utils",
-          "@/constants": "./src/constants"
+          "@/constants": "./src/constants",
+          "@/utils": "./src/utils"
         },
         "extensions": [".ts", ".tsx"],
         "packages": ["packages/*"]

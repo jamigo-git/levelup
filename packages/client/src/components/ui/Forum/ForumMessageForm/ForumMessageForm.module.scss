@@ -1,0 +1,16 @@
+@import 'src/styles/variables';
+
+.formWrapper {
+  padding: 20px;
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
+}
+
+.form {
+  position: relative;
+
+  &__submit {
+    margin-bottom: 0;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 // eslint-disable-next-line
 import ReactDOM from 'react-dom/client'
+import dayjs from 'dayjs'
 import App from './App'
 import 'antd/dist/reset.css'
 import './styles/index.scss'
@@ -15,5 +16,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
+  </React.StrictMode>
 )

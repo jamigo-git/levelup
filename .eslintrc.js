@@ -17,4 +17,12 @@ module.exports = {
   rules: {
     '@typescript-eslint/ban-ts-comment': 1,
   },
+  overrides: [
+    {
+      files: ['packages/*/src/**/*.ts', 'packages/*/src/**/*.tsx'],
+      parserOptions: {
+        project: ['packages/*/tsconfig.json'],
+      },
+    },
+  ]
 }
