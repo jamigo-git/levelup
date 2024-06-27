@@ -6,11 +6,12 @@ import { selectMessagesByIdList } from '@/store/slices/forumMessage/forumMessage
 import { Message } from '@/types/forum'
 import styles from './ForumMessageList.module.scss'
 
+const PAGE_SIZE = 10
+
 interface ForumMessageListProps {
   topicId: string
 }
 export const ForumMessageList: FC<ForumMessageListProps> = ({ topicId }) => {
-  const PAGE_SIZE = 10
   const [page, setPage] = useState(1)
   const messageList = useAppSelector(state => selectMessagesByIdList(state, topicId))
 
