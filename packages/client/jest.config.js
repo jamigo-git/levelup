@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+
 dotenv.config()
 
 export default {
@@ -10,6 +11,7 @@ export default {
   },
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'identity-obj-proxy',
+    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
     '^@/api(.*)$': '<rootDir>/src/api/$1',
     '^@/hooks(.*)$': '<rootDir>/src/hooks/$1',
     '^@/pages(.*)$': '<rootDir>/src/pages/$1',
