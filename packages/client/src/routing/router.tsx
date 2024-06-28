@@ -10,6 +10,7 @@ import { ForumTopicPage } from '@/pages/ForumTopicPage'
 import { RegistrationPage } from '@/pages/RegistrationPage'
 import { routes } from './routes'
 import { PrivatePageHOC } from './PrivatePageHOC'
+import { PublicPageHOC } from './PublicPageHOC'
 
 export const router = createBrowserRouter([
   {
@@ -23,11 +24,19 @@ export const router = createBrowserRouter([
       },
       {
         path: routes.login.path,
-        element: <LoginPage />,
+        element: (
+          <PublicPageHOC>
+            <LoginPage />
+          </PublicPageHOC>
+        ),
       },
       {
         path: routes.registration.path,
-        element: <RegistrationPage />,
+        element: (
+          <PublicPageHOC>
+            <RegistrationPage />
+          </PublicPageHOC>
+        ),
       },
       {
         path: routes.profile.path,

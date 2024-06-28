@@ -5,7 +5,7 @@ import { getIsAuth, getIsAuthenticating } from '@/slices/auth/authSelector'
 import { routes } from '@/routing/routes'
 import { useAppSelector } from '@/hooks/reduxHooks'
 
-export const PrivatePageHOC: FC<{ children?: React.ReactElement }> = ({ children }) => {
+export const PublicPageHOC: FC<{ children?: React.ReactElement }> = ({ children }) => {
   const isAuth = useAppSelector(getIsAuth)
   const isAuthenticating = useAppSelector(getIsAuthenticating)
 
@@ -18,8 +18,8 @@ export const PrivatePageHOC: FC<{ children?: React.ReactElement }> = ({ children
     )
   }
 
-  if (!isAuth) {
-    return <Navigate to={routes.login.path} />
+  if (isAuth) {
+    return <Navigate to={routes.game.path} />
   }
   return children || <Outlet />
 }

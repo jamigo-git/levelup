@@ -37,6 +37,7 @@
           "@/slices": "./src/store/slices",
           "@/routing": "./src/routing",
           "@/components": "./src/components",
+          "@/constants": "./src/constants",
           "@/utils": "./src/utils"
         },
         "extensions": [".ts", ".tsx"],
@@ -77,6 +78,12 @@
         "ignore": ["jsx", "global", "init.js"]
       }
     ],
-    "no-param-reassign": [1, { "props": true, "ignorePropertyModificationsForRegex": ["^draft", "acc", "state"] }]
+    "no-param-reassign": [
+      1,
+      {
+        "props": true,
+        "ignorePropertyModificationsForRegex": ["^draft", "acc", "state"]
+      }
+    ]
   }
 }

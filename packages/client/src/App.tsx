@@ -1,19 +1,24 @@
-import { Provider } from 'react-redux'
+import { useEffect } from 'react'
 import { ConfigProvider } from 'antd'
 import { RouterProvider } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { router } from '@/routing/router'
-import { store } from './store'
 import { customTheme } from './styles/antdConfig'
+import { fetchCurrentUser } from './store/slices/auth/authSlice'
+import { useAppDispatch } from './hooks/reduxHooks'
 
 const App = () => {
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser())
+  }, [dispatch])
+
   return (
     <HelmetProvider>
-      <Provider store={store}>
-        <ConfigProvider theme={customTheme}>
-          <RouterProvider router={router} />
-        </ConfigProvider>
-      </Provider>
+      <ConfigProvider theme={customTheme}>
+        <RouterProvider router={router} />
+      </ConfigProvider>
     </HelmetProvider>
   )
 }

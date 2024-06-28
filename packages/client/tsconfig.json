@@ -26,7 +26,8 @@
       "@/routing/*": ["routing/*"],
       "@/components/*": ["components/*"],
       "@/utils/*": ["utils/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
+      "@/constants/*": ["constants/*"]
     }
   },
   "include": ["src"],

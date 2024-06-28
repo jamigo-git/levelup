@@ -1,32 +1,32 @@
 @import 'src/styles/variables';
 
 .registrationForm {
-    position: fixed;
-    top: 20%;
-    left: 40%;
+  position: fixed;
+  top: 20%;
+  left: 40%;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    width: 450px;
-    margin-right: auto;
-    margin-bottom: auto;
-    padding: 20px 30px;
+  width: 450px;
+  margin-right: auto;
+  margin-bottom: auto;
+  padding: 20px 30px;
 
-    background-color: $background-color;
-    border-radius: var(--ant-border-radius);
-    box-shadow: var(--ant-box-shadow);
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
 }
 
 .formBotton {
-    min-width: 200px;
+  min-width: 200px;
 }
 
 .modalHeader {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .modalFooter {
-    margin-top: 1rem;
+  margin-top: 1rem;
 }

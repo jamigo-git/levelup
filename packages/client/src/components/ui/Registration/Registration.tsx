@@ -1,36 +1,34 @@
-import { Button, Typography, Form, Input } from 'antd'
+import { Button, Typography, Form, Input, message } from 'antd'
 import type { FormProps } from 'antd'
 import { Helmet } from 'react-helmet-async'
-import { login } from '@/store/slices/auth/authSlice'
+import { fetchCurrentUser, register } from '@/store/slices/auth/authSlice'
+import { NavLink } from 'react-router-dom'
 import { routes } from '@/routing/routes'
 import { emailRules, phoneRules, firstNameRules, secondNameRules, passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch } from '@/hooks/reduxHooks'
-import { NavLink } from 'react-router-dom'
 import styles from './RegistrationPage.module.scss'
+import { CreateUser } from '@/types/AuthTypes'
 
 const { Title } = Typography
 
-type FieldType = {
-  username?: string
-  password?: string
-  email?: string
-  name?: string
-  secondName?: string
-  phone?: string
-}
-
-const onFinish: FormProps<FieldType>['onFinish'] = values => {
-  console.log('Success:', values)
-}
-
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
-  console.error('Failed:', errorInfo)
+const onFinishFailed: FormProps<CreateUser>['onFinishFailed'] = errorInfo => {
+  message.error(`Register error: ${errorInfo.errorFields[0].errors[0]}`)
 }
 
 export const Registration: React.FC = () => {
+  const [form] = Form.useForm()
   const dispatch = useAppDispatch()
-  const fakeRegistration = () => {
-    dispatch(login())
+
+  const onFinish: FormProps<CreateUser>['onFinish'] = values => {
+    dispatch(register(values))
+      .unwrap()
+      .then(() => {
+        message.success('You have successfully registered')
+        dispatch(fetchCurrentUser())
+      })
+      .catch(error => {
+        message.error(`Registration error: ${error}`)
+      })
   }
 
   return (
@@ -39,6 +37,7 @@ export const Registration: React.FC = () => {
         <title>LVL UP | {routes.registration.title}</title>
       </Helmet>
       <Form
+        form={form}
         className={styles.registrationForm}
         name='basic'
         onFinish={onFinish}
@@ -49,9 +48,9 @@ export const Registration: React.FC = () => {
           <Title level={2}>Регистрация</Title>
         </div>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateUser>
           label='Имя'
-          name='name'
+          name='first_name'
           validateFirst
           hasFeedback
           validateTrigger='onChange'
@@ -59,9 +58,9 @@ export const Registration: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateUser>
           label='Фамилия'
-          name='secondName'
+          name='second_name'
           validateFirst
           hasFeedback
           validateTrigger='onChange'
@@ -69,7 +68,7 @@ export const Registration: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateUser>
           label='Email'
           name='email'
           validateFirst
@@ -79,7 +78,7 @@ export const Registration: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateUser>
           label='Телефон'
           name='phone'
           validateFirst
@@ -89,9 +88,9 @@ export const Registration: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateUser>
           label='Login'
-          name='username'
+          name='login'
           validateFirst
           hasFeedback
           validateTrigger='onChange'
@@ -99,7 +98,7 @@ export const Registration: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<CreateUser>
           label='Password'
           name='password'
           validateFirst
@@ -111,7 +110,7 @@ export const Registration: React.FC = () => {
 
         <div className={styles.modalFooter}>
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-            <Button type='primary' htmlType='submit' onClick={fakeRegistration} className={styles.formBotton}>
+            <Button type='primary' htmlType='submit' className={styles.formBotton}>
               Registration
             </Button>
           </Form.Item>

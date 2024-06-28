@@ -1,38 +1,33 @@
-import { Button, Typography, Form, Input } from 'antd'
+import { Button, Typography, Form, Input, message } from 'antd'
 import type { FormProps } from 'antd'
 import { Helmet } from 'react-helmet-async'
-import { login } from '@/store/slices/auth/authSlice'
-import { setUser } from '@/store/slices/user/userSlice'
-import { userMock } from '@/utils/mocks'
+import { fetchCurrentUser, login } from '@/store/slices/auth/authSlice'
+import { NavLink } from 'react-router-dom'
 import { routes } from '@/routing/routes'
 import { passwordRules, loginRules } from '@/utils/validation'
-import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
-import { getIsAuth } from '@/store/slices/auth/authSelector'
-import { NavLink } from 'react-router-dom'
+import { useAppDispatch } from '@/hooks/reduxHooks'
 import styles from './LoginPage.module.scss'
+import { LoginRequestData } from '@/types/AuthTypes'
 
 const { Title } = Typography
 
-type FieldType = {
-  username?: string
-  password?: string
-}
-
-const onFinish: FormProps<FieldType>['onFinish'] = values => {
-  console.log('Success:', values)
-}
-
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = errorInfo => {
-  console.error('Failed:', errorInfo)
+const onFinishFailed: FormProps<LoginRequestData>['onFinishFailed'] = errorInfo => {
+  message.error(`Login error: ${errorInfo.errorFields[0].errors[0]}`)
 }
 
 export const Login: React.FC = () => {
   const dispatch = useAppDispatch()
-  const isAuth = useAppSelector(getIsAuth)
 
-  const fakeLogin = () => {
-    dispatch(login())
-    dispatch(setUser({ user: userMock }))
+  const onFinish: FormProps<LoginRequestData>['onFinish'] = values => {
+    dispatch(login(values))
+      .unwrap()
+      .then(() => {
+        message.success('You have successfully logged in')
+        dispatch(fetchCurrentUser())
+      })
+      .catch(error => {
+        message.error(`Login error: ${error}`)
+      })
   }
 
   return (
@@ -51,9 +46,9 @@ export const Login: React.FC = () => {
           <Title level={2}>Вход</Title>
         </div>
 
-        <Form.Item<FieldType>
+        <Form.Item<LoginRequestData>
           label='Login'
-          name='username'
+          name='login'
           validateFirst
           rules={loginRules}
           hasFeedback
@@ -61,7 +56,7 @@ export const Login: React.FC = () => {
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item<LoginRequestData>
           label='Password'
           name='password'
           validateFirst
@@ -73,7 +68,7 @@ export const Login: React.FC = () => {
 
         <div className={styles.modalFooter}>
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-            <Button type='primary' htmlType='submit' onClick={fakeLogin} className={styles.formBotton}>
+            <Button type='primary' htmlType='submit' className={styles.formBotton}>
               Login
             </Button>
           </Form.Item>
@@ -85,7 +80,6 @@ export const Login: React.FC = () => {
               </Button>
             </NavLink>
           </Form.Item>
-          <Typography>logged in: {isAuth.toString()}</Typography>
         </div>
       </Form>
     </>
