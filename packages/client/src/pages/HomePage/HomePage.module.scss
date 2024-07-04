@@ -1,0 +1,24 @@
+@import 'src/styles/variables';
+
+.homePage {
+  height: calc(100vh - 183px);
+}
+
+.homePage__header_title {
+  margin-left: 40px;
+  font-size: 120px;
+  text-shadow: 10px 5px 15px rgb(0 0 0 / 75%);
+}
+
+.homePage__body {
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+}
+
+.homePage__body_paragraph {
+  margin: 20px;
+  font-size: 28px;
+  color: var(--ant-colorTextBase);
+  text-align: center;
+  border-radius: var(--ant-border-radius);
+}

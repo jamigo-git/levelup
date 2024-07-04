@@ -27,7 +27,7 @@ export const MainLayout = () => {
       <Header className={styles.header}>
         <Flex align='center' gap={20} className={styles.header__content}>
           <NavLink to={routes.root.path}>
-            <Logo fillColor={colorPrimary} />
+            <Logo fillColor={colorPrimary} size='24' />
           </NavLink>
           <NavLink to={routes.profile.path}>Профиль</NavLink>
           <NavLink to={routes.game.path}>Игра</NavLink>
