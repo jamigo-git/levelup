@@ -1,10 +1,11 @@
 import { Button, Flex, Space, theme, Typography } from 'antd'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Logo } from '@/components/ui/Logo'
+import { routes } from '@/routing/routes'
 import styles from './HomePage.module.scss'
 
-const { Title, Text, Paragraph } = Typography
+const { Text, Paragraph } = Typography
 
 export const HomePage = () => {
   const {
@@ -16,12 +17,11 @@ export const HomePage = () => {
       <Helmet>
         <title>LVL UP!</title>
       </Helmet>
-      <Title level={1}>HomePage</Title>
       <Flex align='center' className={styles.homePage}>
         <Space direction='vertical' align='center' size={80}>
           <Flex align='center'>
-            <Logo fillColor={colorPrimary} size='120' />
-            <Text strong className={styles.homePage__header_title}>
+            <Logo fillColor={colorPrimary} shadow size='120' className={styles.homePage__body_logo} />
+            <Text level={1} strong className={styles.homePage__header_title}>
               LevelUp!
             </Text>
           </Flex>
@@ -40,11 +40,11 @@ export const HomePage = () => {
             </Paragraph>
           </Flex>
 
-          <Link to='game'>
+          <NavLink to={routes.game.path}>
             <Button size='large' type='primary'>
               Игра
             </Button>
-          </Link>
+          </NavLink>
         </Space>
       </Flex>
     </>
