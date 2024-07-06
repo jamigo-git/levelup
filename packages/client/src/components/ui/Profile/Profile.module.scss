@@ -1,0 +1,45 @@
+@import 'src/styles/variables';
+
+.profileForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 800px;
+  margin: auto;
+  padding: 20px 30px;
+
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
+}
+
+.avatar {
+  margin-bottom: var(--ant-margin-xl);
+}
+
+.formItem {
+  flex: 1;
+  width: 500px;
+}
+
+.formButton {
+  min-width: 200px;
+  margin: auto;
+}
+
+.input {
+  display: flex;
+  width: 300px;
+  margin-left: auto;
+}
+
+.text {
+  padding-right: 12px;
+  text-align: right;
+}
+
+.formFooter {
+  margin-top: var(--ant-margin-lg);
+}
