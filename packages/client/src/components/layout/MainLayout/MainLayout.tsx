@@ -10,7 +10,7 @@ import styles from './MainLayout.module.scss'
 
 const { Header, Content } = Layout
 
-export const MainLayout = () => {
+export const MainLayout = ({ children }) => {
   const {
     token: { colorPrimary },
   } = theme.useToken()
@@ -36,9 +36,7 @@ export const MainLayout = () => {
         </Flex>
       </Header>
       <Content className={styles.content}>
-        <div className={styles.content__wrapper}>
-          <Outlet />
-        </div>
+        <div className={styles.content__wrapper}>{children || <Outlet />}</div>
       </Content>
     </Layout>
   )
