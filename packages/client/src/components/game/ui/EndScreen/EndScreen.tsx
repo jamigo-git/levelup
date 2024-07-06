@@ -1,7 +1,9 @@
-import { setIsEnding, setIsRunning } from '@/slices/game/gameSlice'
 import { Button, Flex, Typography } from 'antd'
+
+import { setIsEnding, setIsRunning } from '@/slices/game/gameSlice'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { getGameStatistic } from '@/slices/game/gameSelector'
+
 import style from './end.module.scss'
 
 export const EndScreen = () => {
