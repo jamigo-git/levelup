@@ -12,5 +12,5 @@ test('Example test', async () => {
       <App />
     </Provider>
   )
-  expect(screen.getByText('HomePage')).toBeDefined()
+  expect(screen.getByTestId('HomePage')).toBeDefined()
 })

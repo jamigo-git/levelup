@@ -1,15 +1,22 @@
 import { FC, LegacyRef, useEffect, useMemo, useRef, useState } from 'react'
-import { GameConfig } from '@/components/game/model/Game'
+import { Button, Flex, Typography } from 'antd'
+
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { getGameStatistic } from '@/slices/game/gameSelector'
 import { setIsEnding, setIsRunning, setStatistic } from '@/slices/game/gameSlice'
-import { StartScreen } from '@/components/game/ui/StartScreen/StartScreen'
-import { EndScreen } from '@/components/game/ui/EndScreen/EndScreen'
+import { useFullscreen } from '@/hooks/useFullScreen'
+
+import { GameConfig } from '../model/Game'
+import { StartScreen } from './StartScreen/StartScreen'
+import { EndScreen } from './EndScreen/EndScreen'
+import { Building } from '../model/Building'
 import { MapConfig } from '../commonTypes'
 import { maps } from '../maps'
 import { Overlay } from './Overlay/Overlay'
+import style from './game.module.scss'
 
 export const Game: FC = () => {
+  const { Text } = Typography
   const dispatch = useAppDispatch()
   const gameStatistic = useAppSelector(getGameStatistic)
   const [mapName] = useState('DesertOrks')
@@ -17,6 +24,8 @@ export const Game: FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>()
   const animationRef = useRef<number | null>(null)
   const gameRef = useRef<GameConfig>()
+  const { isFullscreen, toggleFullscreen } = useFullscreen()
+  const fullScreenContent = useRef<HTMLDivElement | null>(null)
 
   const mapConfig = useMemo(() => {
     const index = maps.findIndex((map: MapConfig) => map.name === mapName)
@@ -41,7 +50,7 @@ export const Game: FC = () => {
       const animate = () => {
         animationRef.current = requestAnimationFrame(animate)
         game.animate(mousePosition.current)
-        game.loseCondition(animationRef.current!, isRunning => () => {
+        game.loseCondition(animationRef.current!, isRunning => {
           dispatch(setIsRunning(isRunning))
         })
       }
@@ -100,15 +109,49 @@ export const Game: FC = () => {
 
   if (!mapConfig) return <>ERROR</>
   return (
-    <Overlay>
-      {!gameStatistic.isRunning && !gameStatistic.isEnding && <StartScreen />}
-      {!gameStatistic.isRunning && gameStatistic.isEnding && <EndScreen />}
-      <canvas
-        height={mapConfig.mapPixelHeight}
-        width={mapConfig.mapPixelWidth}
-        style={{ background: 'rgba(0, 0, 0, 0)' }}
-        ref={canvasRef as LegacyRef<HTMLCanvasElement>}
-      />
-    </Overlay>
+    <Flex
+      style={{ width: `${mapConfig.mapPixelWidth}px` }}
+      vertical
+      justify='center'
+      align='center'
+      gap={10}
+      ref={fullScreenContent as LegacyRef<HTMLDivElement>}>
+      <Overlay>
+        {!gameStatistic.isRunning && !gameStatistic.isEnding && <StartScreen />}
+        {!gameStatistic.isRunning && gameStatistic.isEnding && <EndScreen />}
+        <canvas
+          height={mapConfig.mapPixelHeight}
+          width={mapConfig.mapPixelWidth}
+          style={{ background: 'rgba(0, 0, 0, 0)' }}
+          ref={canvasRef as LegacyRef<HTMLCanvasElement>}
+        />
+      </Overlay>
+      <div style={{ width: `${mapConfig.mapPixelWidth}px` }} className={style.controls}>
+        <div className={style.statistic}>
+          {gameStatistic.isRunning && (
+            <>
+              <Text className={`${style.text} ${style.coins}`}>Количество монет: {gameStatistic.currentCoins}</Text>
+              <Button
+                onClick={() => {
+                  dispatch(setIsRunning(false))
+                  dispatch(setIsEnding(true))
+                }}>
+                Остановить игру
+              </Button>
+              <Text className={style.text}>Башня стоит {Building.cost} монет!</Text>
+            </>
+          )}
+        </div>
+        <Button
+          style={{ justifySelf: 'flex-end' }}
+          onClick={() => {
+            if (fullScreenContent.current) {
+              toggleFullscreen(fullScreenContent.current)
+            }
+          }}>
+          {isFullscreen ? 'Свернуть' : 'Развернуть на полный экран'}
+        </Button>
+      </div>
+    </Flex>
   )
 }
