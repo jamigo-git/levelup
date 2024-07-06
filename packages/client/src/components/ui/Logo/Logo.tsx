@@ -4,7 +4,7 @@ export const Logo = ({ fillColor, size, shadow }: { fillColor: string; size: str
   return (
     <div style={{ display: 'flex' }}>
       <svg
-        className={shadow && styles.logo}
+        className={shadow ? styles.logo : ''}
         version='1.0'
         xmlns='http://www.w3.org/2000/svg'
         width={size}
