@@ -19,7 +19,7 @@ export const gameSlice = createSlice({
 
       if (state.isRunning) {
         state.currentWaves = 0
-        state.currentWaves = 0
+        state.currenKillCount = 0
       } else {
         if (state.bestKillCount < state.currenKillCount) {
           state.bestKillCount = state.currenKillCount
