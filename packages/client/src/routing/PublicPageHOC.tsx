@@ -1,11 +1,11 @@
-import { FC } from 'react'
+import { FC, ReactElement } from 'react'
 import { Spin } from 'antd'
 import { Navigate, Outlet } from 'react-router-dom'
 import { getIsAuth, getIsAuthenticating } from '@/slices/auth/authSelector'
 import { routes } from '@/routing/routes'
 import { useAppSelector } from '@/hooks/reduxHooks'
 
-export const PublicPageHOC: FC<{ children?: React.ReactElement }> = ({ children }) => {
+export const PublicPageHOC: FC<{ children?: ReactElement }> = ({ children }) => {
   const isAuth = useAppSelector(getIsAuth)
   const isAuthenticating = useAppSelector(getIsAuthenticating)
 

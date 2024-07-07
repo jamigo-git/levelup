@@ -1,4 +1,4 @@
-import { Position, Sizes } from '@/components/game/commonTypes'
+import { Position, Sizes } from '../commonTypes'
 
 export interface PlacementTileConstructor {
   ctx: CanvasRenderingContext2D
