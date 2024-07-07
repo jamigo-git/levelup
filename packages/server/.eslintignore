@@ -1,0 +1,4 @@
+node_modules/
+dist/
+env.d.ts
+jest.config.js
