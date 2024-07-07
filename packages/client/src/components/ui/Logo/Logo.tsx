@@ -1,10 +1,20 @@
 import styles from './Logo.module.scss'
 
-export const Logo = ({ fillColor, size, shadow }: { fillColor: string; size: string; shadow?: boolean }) => {
+export const Logo = ({
+  fillColor,
+  size,
+  shadow,
+  className,
+}: {
+  fillColor: string
+  size: string
+  shadow?: boolean
+  className?: string
+}) => {
   return (
     <div style={{ display: 'flex' }}>
       <svg
-        className={shadow && styles.logo}
+        className={`${shadow ? styles.logo : ''} ${className || ''}`}
         version='1.0'
         xmlns='http://www.w3.org/2000/svg'
         width={size}

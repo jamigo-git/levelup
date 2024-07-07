@@ -17,11 +17,11 @@ export const HomePage = () => {
       <Helmet>
         <title>LVL UP!</title>
       </Helmet>
-      <Flex align='center' className={styles.homePage}>
+      <Flex align='center' className={styles.homePage} data-testid='HomePage'>
         <Space direction='vertical' align='center' size={80}>
           <Flex align='center'>
-            <Logo fillColor={colorPrimary} shadow size='120' className={styles.homePage__body_logo} />
-            <Text level={1} strong className={styles.homePage__header_title}>
+            <Logo fillColor={colorPrimary} shadow size='120' />
+            <Text strong className={styles.homePage__header_title}>
               LevelUp!
             </Text>
           </Flex>

@@ -1,4 +1,4 @@
-import { Enemy } from '@/components/game/model/Enemy'
+import { Enemy } from './Enemy'
 import { Position, Velocity } from '../commonTypes'
 
 export interface ProjectileConstructor {
