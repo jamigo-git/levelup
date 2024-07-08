@@ -1,4 +1,4 @@
-import { Button, Typography, Form, Input, message } from 'antd'
+import { Button, Typography, Form, Input, message, Spin } from 'antd'
 import type { FormProps } from 'antd'
 import { Helmet } from 'react-helmet-async'
 import { fetchCurrentUser } from '@/store/slices/auth/authSlice'
@@ -22,7 +22,7 @@ export const Profile: React.FC = () => {
   const [isEdit, setIsEdit] = useState(false)
 
   if (!user) {
-    return null
+    return <Spin fullscreen size='large' />
   }
 
   const {
@@ -33,7 +33,7 @@ export const Profile: React.FC = () => {
     second_name: secondName,
     display_name: displayName,
     phone,
-  } = user as UserDTO
+  } = user
 
   const handleSubmit: FormProps<UserProfile>['onFinish'] = values => {
     dispatch(editProfile(values))

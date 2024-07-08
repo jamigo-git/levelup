@@ -52,13 +52,7 @@ export const editProfileAvatar = createAsyncThunk<void, FormData>(
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: null,
-    isAuth: false,
-    status: 'idle',
-    error: null,
-    isAuthenticating: true,
-  },
+  initialState: {},
   reducers: {},
 })
 
