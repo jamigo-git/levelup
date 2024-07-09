@@ -1,11 +1,11 @@
-import { useRouteError } from 'react-router-dom'
+import { useRouteError, useNavigate } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
 import { Button, Flex, Space, Typography } from 'antd'
 import styles from './ErrorPage.module.scss'
 
 export const ErrorPage = () => {
   const error = useRouteError()
-
+  const navigate = useNavigate()
   const { Text } = Typography
   // eslint-disable-next-line no-console
   console.log(error)
@@ -26,13 +26,17 @@ export const ErrorPage = () => {
   }
 
   const handleClick = () => {
-    window.history.back()
+    if (window.history.length > 2) {
+      navigate(-1)
+    } else {
+      navigate('/')
+    }
   }
 
   return (
     <>
       <Helmet>
-        <title>LVL UP!</title>
+        <title>Страница не найдена</title>
       </Helmet>
       <Flex align='center' justify='center' className={styles.errorPage}>
         <Space direction='vertical' align='center' size={20}>
