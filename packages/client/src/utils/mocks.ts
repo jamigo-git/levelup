@@ -1,4 +1,4 @@
-import { User } from '@/types/user'
+import { User } from '@/types/UserTypes'
 import { Message, Topic } from '@/types/forum'
 
 export const userMock: User = {

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import host from '@/constants/host'
-import { CreateUser, LoginRequestData } from '@/types/AuthTypes'
+import { CreateUser, LoginRequestData, UserDTO } from '@/types/AuthTypes'
 
 const apiClient = axios.create({
   baseURL: `${host}/auth`,
@@ -59,15 +59,25 @@ export const logout = createAsyncThunk('logout', async (_, { rejectWithValue }) 
   }
 })
 
+interface AuthState {
+  user: UserDTO | null
+  isAuth: boolean
+  status: 'idle' | 'pending' | 'succeeded' | 'failed'
+  error: string | null
+  isAuthenticating: boolean
+}
+
+const initialState: AuthState = {
+  user: null,
+  isAuth: false,
+  status: 'idle',
+  error: null,
+  isAuthenticating: true,
+}
+
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    isAuth: false,
-    status: 'idle',
-    error: null,
-    isAuthenticating: true,
-  },
+  initialState,
   reducers: {},
   extraReducers: builder => {
     builder

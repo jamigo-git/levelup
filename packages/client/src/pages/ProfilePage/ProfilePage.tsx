@@ -1,8 +1,6 @@
-import { Typography } from 'antd'
 import { Helmet } from 'react-helmet-async'
 import { routes } from '@/routing/routes'
-
-const { Title } = Typography
+import { Profile } from '@/components/ui/Profile/Profile'
 
 export const ProfilePage = () => {
   return (
@@ -10,7 +8,7 @@ export const ProfilePage = () => {
       <Helmet>
         <title>LVL UP | {routes.profile.title}</title>
       </Helmet>
-      <Title level={1}>ProfilePage</Title>
+      <Profile />
     </>
   )
 }

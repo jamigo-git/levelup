@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "lint": "eslint . && stylelint \"src/**/*.scss\"",
+    "lint": "eslint . --fix && stylelint \"src/**/*.scss\"",
     "format": "prettier --write . && stylelint \"src/**/*.scss\" --fix",
     "test": "jest ./"
   },
