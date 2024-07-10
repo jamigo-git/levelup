@@ -1,4 +1,4 @@
-import { User } from './user'
+import { User } from './UserTypes'
 
 export interface Topic {
   id: string
