@@ -2,6 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import { ErrorPage } from '@/pages/ErrorPage'
 import { ProfilePage } from '@/pages/ProfilePage'
 import { MainLayout } from '@/components/layout/MainLayout'
+import { LeaderboardPage } from '@/pages/LeaderboardPage'
 import { HomePage } from '@/pages/HomePage'
 import { GamePage } from '@/pages/GamePage'
 import { LoginPage } from '@/pages/LoginPage'
@@ -61,6 +62,14 @@ export const router = createBrowserRouter([
       {
         path: 'forum/topic/:id',
         element: <ForumTopicPage />,
+      },
+      {
+        path: routes.leaderboard.path,
+        element: (
+          <PrivatePageHOC>
+            <LeaderboardPage />
+          </PrivatePageHOC>
+        ),
       },
     ],
   },

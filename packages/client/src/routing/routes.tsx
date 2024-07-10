@@ -26,4 +26,8 @@ export const routes = {
     path: '/forum/topic/:id',
     title: 'Forum Topic',
   },
+  leaderboard: {
+    path: '/leaderboard',
+    title: 'Leaderboard',
+  },
 } as const

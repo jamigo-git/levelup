@@ -32,6 +32,7 @@ export const MainLayout = () => {
           <NavLink to={routes.profile.path}>Профиль</NavLink>
           <NavLink to={routes.game.path}>Игра</NavLink>
           <NavLink to={routes.forum.path}>Форум</NavLink>
+          <NavLink to={routes.leaderboard.path}>Лидерборд</NavLink>
           {isAuth && <Button icon={<LogoutOutlined />} onClick={handleLogout} style={{ marginLeft: 'auto' }} />}
         </Flex>
       </Header>

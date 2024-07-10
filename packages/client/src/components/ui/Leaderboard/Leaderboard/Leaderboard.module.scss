@@ -1,0 +1,12 @@
+@import 'src/styles/variables';
+
+.leaderboard {
+  padding: 20px;
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
+}
+
+// .leaderboard table {
+//   background-color: rgba(0,0,0,90%);
+// }
