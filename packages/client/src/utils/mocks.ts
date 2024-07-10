@@ -152,7 +152,7 @@ export const messageListMock: Message[] = [
   },
 ]
 
-export const tableDataMock: TableData[] = [
+export const leaderboardMock: TableData[] = [
   {
     key: '1',
     position: 1,

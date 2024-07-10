@@ -1,9 +1,10 @@
 import { Table, Tag, Avatar } from 'antd'
 import type { TableProps } from 'antd'
 import { routes } from '@/routing/routes'
-import { tableDataMock } from '@/utils/mocks'
 import { FC } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useAppSelector } from '@/hooks/reduxHooks'
+import { getLeaderboardData } from '@/store/slices/leaderboard/leaderboardSelector'
 import { Rang, TableData } from '@/types/leaderboard'
 import styles from './Leaderboard.module.scss'
 
@@ -64,12 +65,14 @@ const columns: TableProps<TableData>['columns'] = [
 ]
 
 export const Leaderboard: FC = () => {
+  const leaderboard = useAppSelector(state => getLeaderboardData(state))
+
   return (
     <>
       <Helmet>
         <title>LVL UP | {routes.leaderboard.title}</title>
       </Helmet>
-      <Table className={styles.leaderboard} dataSource={tableDataMock} columns={columns} />
+      <Table className={styles.leaderboard} dataSource={leaderboard} columns={columns} />
     </>
   )
 }
