@@ -61,6 +61,8 @@ const columns: TableProps<TableData>['columns'] = [
     title: 'Ранг',
     key: 'rang',
     dataIndex: 'rang',
+    sorter: (a, b) => (a.rang > b.rang ? 1 : -1),
+    showSorterTooltip: false,
     render: (_, { rang }) => (
       <Tag color={rangColorMap.get(rang)} key={rang}>
         {rang.toUpperCase()}
