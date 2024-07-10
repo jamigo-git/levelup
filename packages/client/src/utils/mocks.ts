@@ -234,4 +234,22 @@ export const leaderboardMock: TableData[] = [
     waves: 30,
     rang: 'Kid',
   },
+  {
+    key: '10',
+    position: 10,
+    avatar: 'https://avatars.githubusercontent.com/u/5587',
+    name: 'Tom Walker',
+    kills: 290,
+    waves: 22,
+    rang: 'Kid',
+  },
+  {
+    key: '11',
+    position: 11,
+    avatar: 'https://avatars.githubusercontent.com/u/5111',
+    name: 'Robert De Niro',
+    kills: 222,
+    waves: 21,
+    rang: 'Kid',
+  },
 ]

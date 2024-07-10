@@ -1,7 +1,7 @@
 import { Table, Tag, Avatar } from 'antd'
 import type { TableProps } from 'antd'
 import { routes } from '@/routing/routes'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { getLeaderboardData } from '@/store/slices/leaderboard/leaderboardSelector'
@@ -16,6 +16,8 @@ const rangColorMap: Map<Rang, string> = new Map([
   ['God', 'orange'],
 ])
 
+const PAGE_SIZE = 10
+
 const columns: TableProps<TableData>['columns'] = [
   {
     title: 'Позиция',
@@ -24,6 +26,7 @@ const columns: TableProps<TableData>['columns'] = [
     width: 100,
     defaultSortOrder: 'ascend',
     sorter: (a, b) => a.position - b.position,
+    showSorterTooltip: false,
   },
   {
     title: 'Аватар',
@@ -36,26 +39,28 @@ const columns: TableProps<TableData>['columns'] = [
     title: 'Имя',
     dataIndex: 'name',
     key: 'name',
-    render: text => <div>{text}</div>,
+    render: text => <span>{text}</span>,
     sorter: (a, b) => (a.name > b.name ? 1 : -1),
+    showSorterTooltip: false,
   },
   {
     title: 'Волны',
     dataIndex: 'waves',
     key: 'waves',
     sorter: (a, b) => a.position - b.position,
+    showSorterTooltip: false,
   },
   {
     title: 'Убийства',
     dataIndex: 'kills',
     key: 'kills',
     sorter: (a, b) => a.position - b.position,
+    showSorterTooltip: false,
   },
   {
     title: 'Ранг',
     key: 'rang',
     dataIndex: 'rang',
-    sorter: true,
     render: (_, { rang }) => (
       <Tag color={rangColorMap.get(rang)} key={rang}>
         {rang.toUpperCase()}
@@ -65,14 +70,31 @@ const columns: TableProps<TableData>['columns'] = [
 ]
 
 export const Leaderboard: FC = () => {
+  const [page, setPage] = useState(1)
   const leaderboard = useAppSelector(state => getLeaderboardData(state))
+
+  useEffect(() => {
+    if (leaderboard?.length && page * PAGE_SIZE < leaderboard.length) {
+      setPage(page)
+    }
+  }, [leaderboard?.length, page])
 
   return (
     <>
       <Helmet>
         <title>LVL UP | {routes.leaderboard.title}</title>
       </Helmet>
-      <Table className={styles.leaderboard} dataSource={leaderboard} columns={columns} />
+      <Table
+        className={styles.leaderboard}
+        dataSource={leaderboard}
+        columns={columns}
+        pagination={{
+          pageSize: PAGE_SIZE,
+          hideOnSinglePage: true,
+          current: page,
+          onChange: setPage,
+        }}
+      />
     </>
   )
 }
