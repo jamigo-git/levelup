@@ -6,10 +6,11 @@ import { router } from '@/routing/router'
 import { customTheme } from './styles/antdConfig'
 import { fetchCurrentUser } from './store/slices/auth/authSlice'
 import { useAppDispatch } from './hooks/reduxHooks'
+import { useInternetConnectionMessage } from './hooks/useInternetConnectionMessage'
 
 const App = () => {
+  useInternetConnectionMessage()
   const dispatch = useAppDispatch()
-
   useEffect(() => {
     dispatch(fetchCurrentUser())
   }, [dispatch])
