@@ -6,11 +6,12 @@ import { getIsAuth } from '@/store/slices/auth/authSelector'
 import { routes } from '@/routing/routes'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { Logo } from '@/components/ui/Logo'
+import { FC } from 'react'
 import styles from './MainLayout.module.scss'
 
 const { Header, Content } = Layout
 
-export const MainLayout = () => {
+export const MainLayout: FC<{ children?: React.ReactElement }> = ({ children }) => {
   const {
     token: { colorPrimary },
   } = theme.useToken()
@@ -36,9 +37,7 @@ export const MainLayout = () => {
         </Flex>
       </Header>
       <Content className={styles.content}>
-        <div className={styles.content__wrapper}>
-          <Outlet />
-        </div>
+        <div className={styles.content__wrapper}>{children || <Outlet />}</div>
       </Content>
     </Layout>
   )
