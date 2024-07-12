@@ -25,7 +25,7 @@ export const MainLayout: FC<{ children?: React.ReactElement }> = ({ children }) 
 
   const { t, i18n } = useTranslation()
 
-  const languageToggle = language => (language === 'ru' ? 'en' : 'ru')
+  const languageToggle = (language: string): string => (language === 'ru' ? 'en' : 'ru')
 
   const changeLanguage = () => {
     i18n.changeLanguage(languageToggle(i18n.language))
