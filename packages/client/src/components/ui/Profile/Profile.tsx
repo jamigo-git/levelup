@@ -8,6 +8,7 @@ import { getUser } from '@/store/slices/auth/authSelector'
 import { useState } from 'react'
 import { editProfile } from '@/store/slices/user/userSlice'
 import { emailRules, phoneRules, firstNameRules, secondNameRules, loginRules } from '@/utils/validation'
+import { useTranslation } from 'react-i18next'
 import styles from './Profile.module.scss'
 import { UserDTO } from '@/types/AuthTypes'
 import { ProfileChangePassword } from './ProfileChangePassword/ProfileChangePassword'
@@ -20,6 +21,7 @@ export const Profile: React.FC = () => {
   const user = useAppSelector(getUser)
   const dispatch = useAppDispatch()
   const [isEdit, setIsEdit] = useState(false)
+  const { t } = useTranslation()
 
   if (!user) {
     return <Spin fullscreen size='large' />
@@ -39,11 +41,11 @@ export const Profile: React.FC = () => {
     dispatch(editProfile(values))
       .unwrap()
       .then(() => {
-        message.success('Данные успешно изменены!')
+        message.success(t('Profile.successMessage'))
         dispatch(fetchCurrentUser())
       })
       .catch(error => {
-        message.error(`Ошибка: ${error}`)
+        message.error(`${t('Profile.errorMessage')}: ${error}`)
       })
   }
 
@@ -59,10 +61,10 @@ export const Profile: React.FC = () => {
         onFinish={handleSubmit}
         autoComplete='off'
         layout='horizontal'>
-        <Title level={2}>Профиль</Title>
+        <Title level={2}>{t('Profile.title')}</Title>
         <ProfileAvatar avatar={avatar} isEdit={isEdit} />
         <Form.Item<UserDTO>
-          label='Почта'
+          label={t('Profile.emailLabel')}
           name='email'
           className={styles.formItem}
           validateFirst
@@ -72,7 +74,7 @@ export const Profile: React.FC = () => {
           {isEdit ? <Input className={styles.input} /> : <Typography className={styles.text}>{email}</Typography>}
         </Form.Item>
         <Form.Item<UserDTO>
-          label='Логин'
+          label={t('Profile.loginLabel')}
           name='login'
           className={styles.formItem}
           validateFirst
@@ -82,7 +84,7 @@ export const Profile: React.FC = () => {
           {isEdit ? <Input className={styles.input} /> : <Typography className={styles.text}>{login}</Typography>}
         </Form.Item>
         <Form.Item<UserDTO>
-          label='Имя'
+          label={t('Profile.firstNameLabel')}
           name='first_name'
           className={styles.formItem}
           validateFirst
@@ -92,7 +94,7 @@ export const Profile: React.FC = () => {
           {isEdit ? <Input className={styles.input} /> : <Typography className={styles.text}>{firstName}</Typography>}
         </Form.Item>
         <Form.Item<UserDTO>
-          label='Фамилия'
+          label={t('Profile.lastNameLabel')}
           name='second_name'
           className={styles.formItem}
           validateFirst
@@ -101,11 +103,11 @@ export const Profile: React.FC = () => {
           rules={isEdit ? secondNameRules : undefined}>
           {isEdit ? <Input className={styles.input} /> : <Typography className={styles.text}>{secondName}</Typography>}
         </Form.Item>
-        <Form.Item<UserDTO> label='Псевдоним' name='display_name' className={styles.formItem}>
+        <Form.Item<UserDTO> label={t('Profile.nickNameLabel')} name='display_name' className={styles.formItem}>
           {isEdit ? <Input className={styles.input} /> : <Typography className={styles.text}>{displayName}</Typography>}
         </Form.Item>
         <Form.Item<UserDTO>
-          label='Телефон'
+          label={t('Profile.phoneLabel')}
           name='phone'
           className={styles.formItem}
           validateFirst
@@ -119,7 +121,7 @@ export const Profile: React.FC = () => {
             <>
               <Form.Item>
                 <Button htmlType='submit' type='primary' onClick={() => setIsEdit(true)} block>
-                  Редактировать профиль
+                  {t('Profile.editProfileButtonText')}
                 </Button>
               </Form.Item>
               <ProfileChangePassword />
@@ -127,7 +129,7 @@ export const Profile: React.FC = () => {
           ) : (
             <Form.Item>
               <Button block type='primary' htmlType='button' onClick={() => setIsEdit(false)}>
-                Сохранить изменения
+                {t('Profile.saveButtonText')}
               </Button>
             </Form.Item>
           )}

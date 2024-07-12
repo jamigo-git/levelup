@@ -7,6 +7,7 @@ import { routes } from '@/routing/routes'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { Logo } from '@/components/ui/Logo'
 import { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import styles from './MainLayout.module.scss'
 
 const { Header, Content } = Layout
@@ -22,6 +23,14 @@ export const MainLayout: FC<{ children?: React.ReactElement }> = ({ children }) 
     dispatch(logout())
   }
 
+  const { t, i18n } = useTranslation()
+
+  const languageToggle = language => (language === 'ru' ? 'en' : 'ru')
+
+  const changeLanguage = () => {
+    i18n.changeLanguage(languageToggle(i18n.language))
+  }
+
   return (
     <Layout className={styles.page}>
       <div className={styles.background} />
@@ -30,9 +39,10 @@ export const MainLayout: FC<{ children?: React.ReactElement }> = ({ children }) 
           <NavLink to={routes.root.path}>
             <Logo fillColor={colorPrimary} size='24' />
           </NavLink>
-          <NavLink to={routes.profile.path}>Профиль</NavLink>
-          <NavLink to={routes.game.path}>Игра</NavLink>
-          <NavLink to={routes.forum.path}>Форум</NavLink>
+          <NavLink to={routes.profile.path}>{t('MainLayout.profileLink')}</NavLink>
+          <NavLink to={routes.game.path}>{t('MainLayout.gameLink')}</NavLink>
+          <NavLink to={routes.forum.path}>{t('MainLayout.forumLink')}</NavLink>
+          <Button onClick={() => changeLanguage()}>{languageToggle(i18n.language)}</Button>
           {isAuth && <Button icon={<LogoutOutlined />} onClick={handleLogout} style={{ marginLeft: 'auto' }} />}
         </Flex>
       </Header>

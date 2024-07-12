@@ -8,6 +8,7 @@ import 'antd/dist/reset.css'
 import './styles/index.scss'
 import 'dayjs/locale/ru'
 import { store } from './store'
+import './i18n'
 
 dayjs.locale('ru')
 

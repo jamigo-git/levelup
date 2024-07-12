@@ -3,6 +3,7 @@ import { Button, Flex, Form, Input, message, Modal } from 'antd'
 import { useAppDispatch } from '@/hooks/reduxHooks'
 import { passwordRules } from '@/utils/validation'
 import { changePassword } from '@/store/slices/user/userSlice'
+import { useTranslation } from 'react-i18next'
 import { ChangePassword } from '@/types/UserTypes'
 
 interface FormValues {
@@ -15,6 +16,7 @@ export const ProfileChangePassword: FC = () => {
   const [form] = Form.useForm<FormValues>()
   const [confirmLoading, setConfirmLoading] = useState(false)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const showModal = () => {
     setIsModalOpen(true)
@@ -31,12 +33,12 @@ export const ProfileChangePassword: FC = () => {
     dispatch(changePassword(values))
       .unwrap()
       .then(() => {
-        message.success('Смена пароля успешно завершена!')
+        message.success(t('ProfileChangePassword.successMessage'))
         setConfirmLoading(false)
         setIsModalOpen(false)
       })
       .catch(error => {
-        message.error(`Смена пароля произошла с ошибкой: ${error}`)
+        message.error(`${t('ProfileChangePassword.errorMessage')}: ${error}`)
         setConfirmLoading(false)
       })
   }
@@ -44,10 +46,10 @@ export const ProfileChangePassword: FC = () => {
   return (
     <>
       <Button block type='primary' onClick={showModal}>
-        Поменять пароль
+        {t('ProfileChangePassword.changePasswordButtonText')}
       </Button>
       <Modal
-        title='Смена пароля'
+        title={t('ProfileChangePassword.title')}
         width={400}
         open={isModalOpen}
         centered
@@ -57,7 +59,7 @@ export const ProfileChangePassword: FC = () => {
         confirmLoading={confirmLoading}>
         <Form form={form} onFinish={handleSubmit} layout='vertical'>
           <Form.Item<ChangePassword>
-            label='Старый пароль'
+            label={t('ProfileChangePassword.oldPassword')}
             name='oldPassword'
             validateFirst
             hasFeedback
@@ -67,7 +69,7 @@ export const ProfileChangePassword: FC = () => {
           </Form.Item>
 
           <Form.Item<ChangePassword>
-            label='Новый пароль'
+            label={t('ProfileChangePassword.newPassword')}
             name='newPassword'
             validateFirst
             hasFeedback
@@ -77,9 +79,9 @@ export const ProfileChangePassword: FC = () => {
           </Form.Item>
 
           <Flex justify='flex-end' gap={8}>
-            <Button onClick={handleCancel}>Отмена</Button>
+            <Button onClick={handleCancel}>{t('ProfileChangePassword.cancelButtonText')}</Button>
             <Button type='primary' htmlType='submit' loading={confirmLoading}>
-              Поменять
+              {t('ProfileChangePassword.changeButtonText')}
             </Button>
           </Flex>
         </Form>

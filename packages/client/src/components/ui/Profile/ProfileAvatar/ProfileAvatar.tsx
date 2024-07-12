@@ -4,6 +4,7 @@ import { UserOutlined } from '@ant-design/icons'
 import { useAppDispatch } from '@/hooks/reduxHooks'
 import { editProfileAvatar } from '@/store/slices/user/userSlice'
 import host from '@/constants/host'
+import { useTranslation } from 'react-i18next'
 import { UserAvatar } from '@/types/UserTypes'
 import styles from './ProfileAvatar.module.scss'
 
@@ -15,6 +16,7 @@ type Props = {
 export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit }) => {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(avatar)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   const changeAvatar = (options: { file: string | Blob }) => {
     const formData = new FormData()
@@ -24,13 +26,13 @@ export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit }) => {
       .then((response: { avatar: UserAvatar } | void) => {
         if (response) {
           setAvatarUrl(response.avatar)
-          message.success('Аватар обновлен успешно!')
+          message.success(t('ProfileAvatar.successMessage'))
         } else {
-          message.error('Ошибка обновления аватара')
+          message.error(t('ProfileAvatar.errorMessage'))
         }
       })
       .catch(error => {
-        message.error(`Ошибка обновления аватара: ${error}`)
+        message.error(`${t('ProfileAvatar.errorMessage')}: ${error}`)
       })
   }
 

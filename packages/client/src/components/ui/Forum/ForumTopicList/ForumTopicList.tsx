@@ -3,7 +3,7 @@ import { Topic } from 'types/forum'
 import { List, Avatar } from 'antd'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { selectTopicList } from '@/store/slices/forumTopic/forumTopicSelector'
-import { getTopicDescription } from './helpers'
+import { GetTopicDescription } from './helpers'
 import styles from './ForumTopicList.module.scss'
 
 export const ForumTopicList = () => {
@@ -23,7 +23,7 @@ export const ForumTopicList = () => {
             <List.Item.Meta
               avatar={<Avatar src={topic.author.avatar} />}
               title={<Link to={`/forum/topic/${topic.id}`}>{topic.title}</Link>}
-              description={getTopicDescription(topic)}
+              description={GetTopicDescription(topic)}
             />
           </List.Item>
         )}

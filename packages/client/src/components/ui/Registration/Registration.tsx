@@ -6,28 +6,30 @@ import { NavLink } from 'react-router-dom'
 import { routes } from '@/routing/routes'
 import { emailRules, phoneRules, firstNameRules, secondNameRules, passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch } from '@/hooks/reduxHooks'
+import { useTranslation } from 'react-i18next'
 import styles from './RegistrationPage.module.scss'
 import { CreateUser } from '@/types/AuthTypes'
 
 const { Title } = Typography
 
-const onFinishFailed: FormProps<CreateUser>['onFinishFailed'] = errorInfo => {
-  message.error(`Register error: ${errorInfo.errorFields[0].errors[0]}`)
-}
-
 export const Registration: React.FC = () => {
   const [form] = Form.useForm()
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
+
+  const onFinishFailed: FormProps<CreateUser>['onFinishFailed'] = errorInfo => {
+    message.error(`${t('Registration.errorMessage')}: ${errorInfo.errorFields[0].errors[0]}`)
+  }
 
   const onFinish: FormProps<CreateUser>['onFinish'] = values => {
     dispatch(register(values))
       .unwrap()
       .then(() => {
-        message.success('You have successfully registered')
+        message.success(t('Registration.successMessage'))
         dispatch(fetchCurrentUser())
       })
       .catch(error => {
-        message.error(`Registration error: ${error}`)
+        message.error(`${t('Registration.errorMessage')}: ${error}`)
       })
   }
 
@@ -45,11 +47,11 @@ export const Registration: React.FC = () => {
         autoComplete='off'
         layout='vertical'>
         <div className={styles.modalHeader}>
-          <Title level={2}>Регистрация</Title>
+          <Title level={2}>{t('Registration.title')}</Title>
         </div>
 
         <Form.Item<CreateUser>
-          label='Имя'
+          label={t('Registration.firstNameLabel')}
           name='first_name'
           validateFirst
           hasFeedback
@@ -59,7 +61,7 @@ export const Registration: React.FC = () => {
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label='Фамилия'
+          label={t('Registration.lastNameLabel')}
           name='second_name'
           validateFirst
           hasFeedback
@@ -69,7 +71,7 @@ export const Registration: React.FC = () => {
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label='Email'
+          label={t('Registration.emailLabel')}
           name='email'
           validateFirst
           hasFeedback
@@ -79,7 +81,7 @@ export const Registration: React.FC = () => {
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label='Телефон'
+          label={t('Registration.phoneLabel')}
           name='phone'
           validateFirst
           hasFeedback
@@ -89,7 +91,7 @@ export const Registration: React.FC = () => {
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label='Login'
+          label={t('Registration.loginLabel')}
           name='login'
           validateFirst
           hasFeedback
@@ -99,7 +101,7 @@ export const Registration: React.FC = () => {
         </Form.Item>
 
         <Form.Item<CreateUser>
-          label='Password'
+          label={t('Registration.passwordLabel')}
           name='password'
           validateFirst
           hasFeedback
@@ -111,14 +113,14 @@ export const Registration: React.FC = () => {
         <div className={styles.modalFooter}>
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
             <Button type='primary' htmlType='submit' className={styles.formBotton}>
-              Registration
+              {t('Registration.registrationButtonText')}
             </Button>
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
             <NavLink to={routes.login.path}>
               <Button type='default' className={styles.formBotton}>
-                Login
+                {t('Registration.loginButtonText')}
               </Button>
             </NavLink>
           </Form.Item>
