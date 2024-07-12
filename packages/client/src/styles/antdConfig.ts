@@ -14,4 +14,11 @@ export const customTheme: ThemeConfig = {
     fontFamily: 'Golos Text',
   },
   algorithm: [theme.darkAlgorithm],
+  components: {
+    Table: {
+      colorBgContainer: '#0003',
+      bodySortBg: '#6767674b',
+      rowHoverBg: '#6767674b',
+    },
+  },
 }
