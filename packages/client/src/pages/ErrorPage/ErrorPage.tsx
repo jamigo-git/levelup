@@ -7,7 +7,7 @@ import styles from './ErrorPage.module.scss'
 export const ErrorPage = () => {
   const error = useRouteError()
   const navigate = useNavigate()
-  const { t } = useTranslation('en')
+  const { t } = useTranslation()
   const { Text } = Typography
   // eslint-disable-next-line no-console
   console.log(error)
