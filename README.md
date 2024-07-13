@@ -1,3 +1,9 @@
+### Основные данные по проектной работе
+1. Ссылка на репозиторий https://github.com/jamigo-git/LevelUp
+2. Ссылка на борд https://linear.app/levelup-team/team/LVL/all 
+3. Ссылка на работающий проект в vercel https://levelup-tower-defense.vercel.app
+4. Ссылка на видео с работой проекта
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
