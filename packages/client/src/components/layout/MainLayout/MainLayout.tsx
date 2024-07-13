@@ -6,11 +6,12 @@ import { getIsAuth } from '@/store/slices/auth/authSelector'
 import { routes } from '@/routing/routes'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { Logo } from '@/components/ui/Logo'
+import { FC } from 'react'
 import styles from './MainLayout.module.scss'
 
 const { Header, Content } = Layout
 
-export const MainLayout = () => {
+export const MainLayout: FC<{ children?: React.ReactElement }> = ({ children }) => {
   const {
     token: { colorPrimary },
   } = theme.useToken()
@@ -32,13 +33,12 @@ export const MainLayout = () => {
           <NavLink to={routes.profile.path}>Профиль</NavLink>
           <NavLink to={routes.game.path}>Игра</NavLink>
           <NavLink to={routes.forum.path}>Форум</NavLink>
+          <NavLink to={routes.leaderboard.path}>Лидерборд</NavLink>
           {isAuth && <Button icon={<LogoutOutlined />} onClick={handleLogout} style={{ marginLeft: 'auto' }} />}
         </Flex>
       </Header>
       <Content className={styles.content}>
-        <div className={styles.content__wrapper}>
-          <Outlet />
-        </div>
+        <div className={styles.content__wrapper}>{children || <Outlet />}</div>
       </Content>
     </Layout>
   )

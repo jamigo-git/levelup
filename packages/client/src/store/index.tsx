@@ -3,6 +3,7 @@ import authReducer from './slices/auth/authSlice'
 import forumTopicReducer from './slices/forumTopic/forumTopicSlice'
 import forumMessageReducer from './slices/forumMessage/forumMessageSlice'
 import gameReducer from './slices/game/gameSlice'
+import leaderboardReducer from './slices/leaderboard/leaderboardSlice'
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     forumTopic: forumTopicReducer,
     forumMessage: forumMessageReducer,
     game: gameReducer,
+    leaderboard: leaderboardReducer,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
 })
