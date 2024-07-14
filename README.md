@@ -2,7 +2,15 @@
 1. Ссылка на репозиторий https://github.com/jamigo-git/LevelUp
 2. Ссылка на борд https://linear.app/levelup-team/team/LVL/all 
 3. Ссылка на работающий проект в vercel https://levelup-tower-defense.vercel.app
-4. Ссылка на видео с работой проекта
+4. Ссылка на видео с работой проекта https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2?sid=ce871578-ec9c-4e17-8ade-c1fd4831b36c 
+<div>
+    <a href="https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2">
+      <p>LVL UP! - 13 July 2024 - Watch Video</p>
+    </a>
+    <a href="https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/db09e09d4048438e969ec7f7e4f635e2-with-play.gif">
+    </a>
+  </div>
 
 ### Как запускать?
 
