@@ -138,9 +138,9 @@ export class GameConfig {
         const distance = Math.hypot(xDifference, yDifference)
 
         if (distance < projectile.enemy.getRadius + projectile.getRadius) {
-          projectile.enemy.subtractHealth(20)
+          projectile.enemy.subtractHealth(building.damage)
           if (projectile.enemy.health <= 0) {
-            this.coins += 25
+            this.coins += projectile.enemy.goldCost
             this.killCount++
             const enemyIndex = this.enemies.findIndex(enemy => {
               return projectile.enemy === enemy

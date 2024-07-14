@@ -31,6 +31,8 @@ export class Building {
 
   static cost: number = 50
 
+  damage: number = 20
+
   constructor({ ctx, position, sizes }: BuildingConstructor) {
     this.ctx = ctx
     this.position = position

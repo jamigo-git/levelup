@@ -28,6 +28,8 @@ export class Enemy {
 
   baseSpeedMultiplier: number = 1
 
+  goldCost = 25
+
   constructor({ ctx, position, waypoints, sizes }: EnemyConstructor) {
     this.position = position
     this.sizes = sizes
