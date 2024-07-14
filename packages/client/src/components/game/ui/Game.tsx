@@ -20,12 +20,13 @@ export const Game: FC = () => {
   const dispatch = useAppDispatch()
   const gameStatistic = useAppSelector(getGameStatistic)
   const [mapName] = useState('DesertOrks')
+  const { isFullscreen, toggleFullscreen } = useFullscreen()
+
   const mousePosition = useRef({ x: 0, y: 0 })
   const canvasRef = useRef<HTMLCanvasElement | null>()
   const animationRef = useRef<number | null>(null)
   const gameRef = useRef<GameConfig>()
-  const { isFullscreen, toggleFullscreen } = useFullscreen()
-  const fullScreenContent = useRef<HTMLDivElement | null>(null)
+  const fullScreenContent = useRef<HTMLDivElement>()
 
   const mapConfig = useMemo(() => {
     const index = maps.findIndex((map: MapConfig) => map.name === mapName)
@@ -115,7 +116,7 @@ export const Game: FC = () => {
       justify='center'
       align='center'
       gap={10}
-      ref={fullScreenContent as LegacyRef<HTMLDivElement>}>
+      ref={fullScreenContent as LegacyRef<HTMLElement>}>
       <Overlay>
         {!gameStatistic.isRunning && !gameStatistic.isEnding && <StartScreen />}
         {!gameStatistic.isRunning && gameStatistic.isEnding && <EndScreen />}
