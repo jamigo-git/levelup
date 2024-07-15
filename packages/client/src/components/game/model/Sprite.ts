@@ -6,6 +6,7 @@ export interface SpriteConstructor {
   imageSrc: string
   maxFrames?: number
   offset?: Offset
+  speedAnimation?: number
 }
 
 export class Sprite {
@@ -14,8 +15,6 @@ export class Sprite {
   image: HTMLImageElement
 
   position: Position
-
-  baseSpeedMultiplier: number = 5
 
   frames: Frames
 
@@ -26,6 +25,7 @@ export class Sprite {
     position,
     imageSrc,
     maxFrames = 1,
+    speedAnimation = 2,
     offset = {
       x: 0,
       y: 0,
@@ -40,7 +40,7 @@ export class Sprite {
     this.frames = {
       max: maxFrames,
       current: 0,
-      hold: 2,
+      hold: speedAnimation,
       elapsed: 0,
     }
 

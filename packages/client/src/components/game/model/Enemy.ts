@@ -23,7 +23,7 @@ export class Enemy extends Sprite {
 
   private waypointsIndex = 0
 
-  radius: number
+  private radius: number
 
   ctx: CanvasRenderingContext2D
 
@@ -31,7 +31,7 @@ export class Enemy extends Sprite {
 
   velocity: Velocity
 
-  baseSpeedMultiplier: number = 3
+  baseSpeedMultiplier: number = 1
 
   goldCost = 25
 
@@ -41,6 +41,7 @@ export class Enemy extends Sprite {
       position,
       imageSrc: orcRightMovementSprite,
       maxFrames: 7,
+      speedAnimation: 5,
     })
     this.position = position
     this.sizes = sizes

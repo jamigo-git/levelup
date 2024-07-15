@@ -37,6 +37,7 @@ export class Building extends Sprite {
       position,
       imageSrc: towerSprite,
       maxFrames: 19,
+      speedAnimation: 3,
     })
     this.ctx = ctx
     this.sizes = sizes
