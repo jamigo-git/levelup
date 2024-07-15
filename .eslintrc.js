@@ -14,7 +14,16 @@ module.exports = {
     ecmaVersion: 11,
   },
   plugins: ['@typescript-eslint'],
+  ignorePatterns: ["dist/", "node_modules/"],
   rules: {
     '@typescript-eslint/ban-ts-comment': 1,
   },
+  overrides: [
+    {
+      files: ['packages/*/src/**/*.ts', 'packages/*/src/**/*.tsx'],
+      parserOptions: {
+        project: ['packages/*/tsconfig.json'],
+      },
+    },
+  ]
 }
