@@ -26,6 +26,8 @@ export class GameConfig {
 
   waveCount: number = 1
 
+  waveComplete: number = 0
+
   killCount: number = 0
 
   placementsTileData2d: number[][] = []
@@ -49,11 +51,25 @@ export class GameConfig {
     this.placementsTiles = []
     this.activeTile = null
     this.setStatistic = setStatistic
+    if (!this.ctx) {
+      throw new Error('Canvas context is not available')
+    }
   }
 
   gameSetup() {
     if (!this.ctx) return
+    this.clearCanvas()
+    this.loadMap()
+    this.preparePlacementsData()
+    this.preparePlacementsTiles()
+  }
+
+  private clearCanvas() {
+    if (!this.ctx) return
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+  }
+
+  private loadMap() {
     const map = new Image()
     map.src = this.map.src
     map.onload = () => {
@@ -61,17 +77,15 @@ export class GameConfig {
       this.ctx.drawImage(map, 0, 0)
     }
     this.image = map
-    this.preparePlacementsData()
-    this.preparePlacementsTiles()
   }
 
-  preparePlacementsData = () => {
+  private preparePlacementsData = () => {
     for (let i = 0; i < this.map.placementsTileData.length; i += this.map.mapTileWidth) {
       this.placementsTileData2d.push(this.map.placementsTileData.slice(i, i + this.map.mapTileWidth))
     }
   }
 
-  preparePlacementsTiles = () => {
+  private preparePlacementsTiles = () => {
     this.placementsTileData2d.forEach((row, y) => {
       row.forEach((symbol, x) => {
         if (symbol === this.map.placementsSymbol) {
@@ -88,7 +102,7 @@ export class GameConfig {
     })
   }
 
-  spawnEnemies = (waveCount: number) => {
+  private spawnEnemies = (waveCount: number) => {
     const spaceBetweenEnemy = 150
     const baseEnemyCount = 3
     for (let i = 1; i <= baseEnemyCount * waveCount; i++) {
@@ -101,6 +115,70 @@ export class GameConfig {
           sizes: { width: this.map.tileWidth, height: this.map.tileHeight },
         })
       )
+    }
+  }
+
+  private buildingShootLoop = () => {
+    this.buildings.forEach(building => {
+      building.update()
+      building.setTarget(null)
+      const validEnemies = this.enemies.filter(enemy => {
+        const xDifference = enemy.getCenter.x - building.center.x
+        const yDifference = enemy.getCenter.y - building.center.y
+        const distance = Math.hypot(xDifference, yDifference)
+        return distance < enemy.getRadius + building.radius
+      })
+      building.setTarget(validEnemies.length < 1 ? null : validEnemies[0])
+
+      for (let i = building.projectiles.length - 1; i >= 0; i--) {
+        const projectile = building.projectiles[i]
+        projectile.update()
+        const xDifference = projectile.enemy.getCenter.x - projectile.position.x
+        const yDifference = projectile.enemy.getCenter.y - projectile.position.y
+        const distance = Math.hypot(xDifference, yDifference)
+
+        if (distance < projectile.enemy.getRadius + projectile.getRadius) {
+          projectile.enemy.subtractHealth(building.damage)
+          if (projectile.enemy.health <= 0) {
+            this.coins += projectile.enemy.goldCost
+            this.killCount++
+            const enemyIndex = this.enemies.findIndex(enemy => {
+              return projectile.enemy === enemy
+            })
+            if (enemyIndex > -1) {
+              this.enemies.splice(enemyIndex, 1)
+            }
+          }
+
+          building.projectiles.splice(i, 1)
+        }
+      }
+    })
+  }
+
+  private setActiveTile = (mousePosition: { x: number; y: number }) => {
+    this.activeTile = null
+    for (let i = 0; i < this.placementsTiles.length; i++) {
+      const tile = this.placementsTiles[i]
+      if (
+        mousePosition.x >= tile.getPosition.x &&
+        mousePosition.x <= tile.getPosition.x + tile.getSize.width &&
+        mousePosition.y >= tile.getPosition.y &&
+        mousePosition.y <= tile.getPosition.y + tile.getSize.height
+      ) {
+        this.activeTile = tile
+        break
+      }
+    }
+  }
+
+  private enemySpawnLoop = () => {
+    if (this.enemies.length === 0) {
+      this.spawnEnemies(this.waveCount)
+      if (this.waveCount > 1) {
+        this.waveComplete++
+      }
+      this.waveCount++
     }
   }
 
@@ -121,67 +199,6 @@ export class GameConfig {
     }
   }
 
-  buildingShootLoop = () => {
-    this.buildings.forEach(building => {
-      building.update()
-      building.setTarget(null)
-      const validEnemies = this.enemies.filter(enemy => {
-        const xDifference = enemy.getCenter.x - building.center.x
-        const yDifference = enemy.getCenter.y - building.center.y
-        const distance = Math.hypot(xDifference, yDifference)
-        return distance < enemy.getRadius + building.radius
-      })
-      building.setTarget(validEnemies.length < 1 ? null : validEnemies[0])
-
-      for (let i = building.projectiles.length - 1; i >= 0; i--) {
-        const projectile = building.projectiles[i]
-        projectile.update()
-        const xDifference = projectile.enemy.getCenter.x - projectile.position.x
-        const yDifference = projectile.enemy.getCenter.y - projectile.position.y
-        const distance = Math.hypot(xDifference, yDifference)
-
-        if (distance < projectile.enemy.getRadius + projectile.getRadius) {
-          projectile.enemy.subtractHealth(20)
-          if (projectile.enemy.health <= 0) {
-            this.coins += 25
-            this.killCount++
-            const enemyIndex = this.enemies.findIndex(enemy => {
-              return projectile.enemy === enemy
-            })
-            if (enemyIndex > -1) {
-              this.enemies.splice(enemyIndex, 1)
-            }
-          }
-
-          building.projectiles.splice(i, 1)
-        }
-      }
-    })
-  }
-
-  setActiveTile = (mousePosition: { x: number; y: number }) => {
-    this.activeTile = null
-    for (let i = 0; i < this.placementsTiles.length; i++) {
-      const tile = this.placementsTiles[i]
-      if (
-        mousePosition.x >= tile.getPosition.x &&
-        mousePosition.x <= tile.getPosition.x + tile.getSize.width &&
-        mousePosition.y >= tile.getPosition.y &&
-        mousePosition.y <= tile.getPosition.y + tile.getSize.height
-      ) {
-        this.activeTile = tile
-        break
-      }
-    }
-  }
-
-  enemySpawnLoop = () => {
-    if (this.enemies.length === 0) {
-      this.spawnEnemies(this.waveCount)
-      this.waveCount++
-    }
-  }
-
   loseCondition = (requestId: number, setGameIsRunning: (gameState: boolean) => void) => {
     for (let i = this.enemies.length - 1; i >= 0; i--) {
       const enemy = this.enemies[i]
@@ -194,7 +211,7 @@ export class GameConfig {
     }
   }
 
-  animate(mousePosition: { x: number; y: number }) {
+  animate = (mousePosition: { x: number; y: number }) => {
     if (!this.ctx) return
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     if (this.image) {
@@ -204,6 +221,6 @@ export class GameConfig {
     this.enemySpawnLoop()
     this.buildingShootLoop()
     this.setActiveTile(mousePosition)
-    this.setStatistic({ coins: this.coins, kill: this.killCount, waves: this.waveCount })
+    this.setStatistic({ coins: this.coins, kill: this.killCount, waves: this.waveComplete })
   }
 }
