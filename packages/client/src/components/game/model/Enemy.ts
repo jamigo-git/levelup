@@ -1,4 +1,7 @@
 import { Position, Sizes, Velocity } from '../commonTypes'
+import { Sprite } from './Sprite'
+import orcRightMovementSprite from '../assets/orcRightMovement.png'
+import orcLeftMovementSprite from '../assets/orcLeftMovement.png'
 
 export interface EnemyConstructor {
   ctx: CanvasRenderingContext2D
@@ -7,8 +10,8 @@ export interface EnemyConstructor {
   sizes: Sizes
 }
 
-export class Enemy {
-  private readonly position: Position
+export class Enemy extends Sprite {
+  readonly position: Position
 
   private readonly waypoints: Position[]
 
@@ -16,21 +19,29 @@ export class Enemy {
 
   private sizes: Sizes
 
+  private isMovingLeft = false
+
   private waypointsIndex = 0
 
-  private radius: number
+  radius: number
 
-  private ctx: CanvasRenderingContext2D
+  ctx: CanvasRenderingContext2D
 
   health: number
 
   velocity: Velocity
 
-  baseSpeedMultiplier: number = 1
+  baseSpeedMultiplier: number = 3
 
   goldCost = 25
 
   constructor({ ctx, position, waypoints, sizes }: EnemyConstructor) {
+    super({
+      ctx,
+      position,
+      imageSrc: orcRightMovementSprite,
+      maxFrames: 7,
+    })
     this.position = position
     this.sizes = sizes
     this.center = {
@@ -62,11 +73,7 @@ export class Enemy {
 
   draw() {
     if (!this.ctx) return
-    this.ctx.fillStyle = 'red'
-
-    this.ctx.beginPath()
-    this.ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2)
-    this.ctx.fill()
+    super.draw()
 
     this.ctx.fillStyle = 'red'
     this.ctx.fillRect(this.position.x, this.position.y - 12, this.sizes.width, 10)
@@ -84,6 +91,15 @@ export class Enemy {
 
     this.velocity.x = Math.cos(angle) * this.baseSpeedMultiplier
     this.velocity.y = Math.sin(angle) * this.baseSpeedMultiplier
+
+    if (this.velocity.x < 0 && this.isMovingLeft === false) {
+      super.updateSprite(orcLeftMovementSprite)
+      this.isMovingLeft = true
+    }
+    if (this.velocity.x > 0 && this.isMovingLeft === true) {
+      super.updateSprite(orcRightMovementSprite)
+      this.isMovingLeft = false
+    }
 
     this.position.x += this.velocity.x
     this.position.y += this.velocity.y
@@ -104,6 +120,7 @@ export class Enemy {
 
   update() {
     this.draw()
+    super.update()
     this.walk()
   }
 }

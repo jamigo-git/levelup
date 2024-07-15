@@ -1,5 +1,7 @@
 import { Enemy } from './Enemy'
 import { Position, Velocity } from '../commonTypes'
+import projectileSprite from '../assets/projectile.png'
+import { Sprite } from './Sprite'
 
 export interface ProjectileConstructor {
   ctx: CanvasRenderingContext2D
@@ -7,7 +9,7 @@ export interface ProjectileConstructor {
   enemy: Enemy
 }
 
-export class Projectile {
+export class Projectile extends Sprite {
   ctx: CanvasRenderingContext2D
 
   position: Position
@@ -21,6 +23,7 @@ export class Projectile {
   baseSpeedMultiplier: number = 5
 
   constructor({ ctx, position, enemy }: ProjectileConstructor) {
+    super({ ctx, position, imageSrc: projectileSprite })
     this.ctx = ctx
     this.position = position
     this.velocity = {
@@ -33,13 +36,6 @@ export class Projectile {
 
   get getRadius() {
     return this.radius
-  }
-
-  draw() {
-    this.ctx.beginPath()
-    this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2)
-    this.ctx.fillStyle = 'orange'
-    this.ctx.fill()
   }
 
   fly() {
