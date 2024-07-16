@@ -17,3 +17,10 @@ export type MapConfig = {
   placementsTileData: number[]
   waypoints: { x: number; y: number }[]
 }
+export type Frames = {
+  max: number
+  current: number
+  hold: number
+  elapsed: number
+}
+export type Offset = { x: number; y: number }

@@ -2,6 +2,8 @@ import { MapConfig } from '../commonTypes'
 import { Enemy } from './Enemy'
 import { PlacementTile } from './PlacementTile'
 import { Building } from './Building'
+import { Sprite } from './Sprite'
+import explosionSprite from '../assets/explosion.png'
 
 export type SetStatistic = ({ coins, kill, waves }: { coins: number; kill: number; waves: number }) => void
 
@@ -21,6 +23,8 @@ export class GameConfig {
   enemies: Enemy[] = []
 
   buildings: Building[] = []
+
+  explosions: Sprite[] = []
 
   coins: number = 100
 
@@ -118,6 +122,17 @@ export class GameConfig {
     }
   }
 
+  private updateExplosions = () => {
+    for (let i = this.explosions.length - 1; i >= 0; i--) {
+      const explosion = this.explosions[i]
+      explosion.draw()
+      explosion.update()
+      if (explosion.frames.current >= explosion.frames.max - 1) {
+        this.explosions.splice(i, 1)
+      }
+    }
+  }
+
   private buildingShootLoop = () => {
     this.buildings.forEach(building => {
       building.update()
@@ -150,6 +165,15 @@ export class GameConfig {
             }
           }
 
+          this.explosions.push(
+            new Sprite({
+              ctx: this.ctx as CanvasRenderingContext2D,
+              position: { x: projectile.position.x, y: projectile.position.y },
+              imageSrc: explosionSprite,
+              maxFrames: 4,
+              offset: { x: -15, y: -15 },
+            })
+          )
           building.projectiles.splice(i, 1)
         }
       }
@@ -195,6 +219,7 @@ export class GameConfig {
           })
         )
         this.activeTile.isOccupied = true
+        this.buildings.sort((a, b) => a.position.y - b.position.y)
       }
     }
   }
@@ -222,5 +247,6 @@ export class GameConfig {
     this.buildingShootLoop()
     this.setActiveTile(mousePosition)
     this.setStatistic({ coins: this.coins, kill: this.killCount, waves: this.waveComplete })
+    this.updateExplosions()
   }
 }
