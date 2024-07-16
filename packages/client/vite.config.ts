@@ -55,6 +55,7 @@ export default defineConfig({
       '@/utils': '/src/utils',
       '@/types': '/src/types',
       '@/constants': '/src/constants',
+      '@/__mocks__': '/src/__mocks__',
     },
   },
 })

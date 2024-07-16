@@ -6,8 +6,8 @@ import { NavLink } from 'react-router-dom'
 import { routes } from '@/routing/routes'
 import { passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch } from '@/hooks/reduxHooks'
-import styles from './LoginPage.module.scss'
 import { LoginRequestData } from '@/types/AuthTypes'
+import styles from './LoginPage.module.scss'
 
 const { Title } = Typography
 
@@ -36,6 +36,7 @@ export const Login: React.FC = () => {
         <title>LVL UP | {routes.login.title}</title>
       </Helmet>
       <Form
+        data-testid='login-form'
         className={styles.loginForm}
         name='basic'
         onFinish={onFinish}

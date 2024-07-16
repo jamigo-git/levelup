@@ -10,7 +10,7 @@ export const userMock: User = {
   second_name: 'Лето',
   display_name: 'Джаред Лето',
   phone: '+1234567890',
-  avatar: 'https://avatars.githubusercontent.com/u/5',
+  avatar: '/a52e28aa-920b-4acb-a8de-f8d96e13302c/de8a38f7-b848-4786-adb8-2010d74c5cce_cat_at_work2.jpeg',
 }
 
 export const topicListMock: Topic[] = [

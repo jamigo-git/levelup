@@ -4,7 +4,7 @@ import { nanoid } from '@reduxjs/toolkit'
 import { getUser } from '@/store/slices/auth/authSelector'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { addMessage } from '@/store/slices/forumMessage/forumMessageSlice'
-import { addTopickMessage } from '@/store/slices/forumTopic/forumTopicSlice'
+import { addTopicMessage } from '@/store/slices/forumTopic/forumTopicSlice'
 import { Message } from '@/types/forum'
 import { ForumLoginSuggest } from '../ForumLoginSuggest'
 import styles from './ForumMessageForm.module.scss'
@@ -36,13 +36,10 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId }) => {
       author: user,
     }
 
-    // mock api call
-    setTimeout(() => {
-      dispatch(addMessage({ message: newMessage }))
-      dispatch(addTopickMessage({ topicId, messageId }))
-      form.resetFields()
-      setConfirmLoading(false)
-    }, 1000)
+    dispatch(addMessage({ message: newMessage }))
+    dispatch(addTopicMessage({ topicId, messageId }))
+    form.resetFields()
+    setConfirmLoading(false)
   }
 
   return (
