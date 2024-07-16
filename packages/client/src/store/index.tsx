@@ -1,20 +1,31 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authReducer from './slices/auth/authSlice'
 import forumTopicReducer from './slices/forumTopic/forumTopicSlice'
 import forumMessageReducer from './slices/forumMessage/forumMessageSlice'
 import gameReducer from './slices/game/gameSlice'
 import leaderboardReducer from './slices/leaderboard/leaderboardSlice'
 
+// Create the root reducer independently to obtain the RootState type
+const rootReducer = combineReducers({
+  auth: authReducer,
+  forumTopic: forumTopicReducer,
+  forumMessage: forumMessageReducer,
+  game: gameReducer,
+  leaderboard: leaderboardReducer,
+})
+
 export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    forumTopic: forumTopicReducer,
-    forumMessage: forumMessageReducer,
-    game: gameReducer,
-    leaderboard: leaderboardReducer,
-  },
+  reducer: rootReducer,
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
 })
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export function setupStore(preloadedState?: Partial<RootState>) {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  })
+}
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']

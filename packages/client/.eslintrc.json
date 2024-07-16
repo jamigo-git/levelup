@@ -92,6 +92,7 @@
         "props": true,
         "ignorePropertyModificationsForRegex": ["^draft", "acc", "state"]
       }
-    ]
+    ],
+    "import/no-extraneous-dependencies": [0]
   }
 }
