@@ -1,17 +1,24 @@
 import { FC } from 'react'
-import { Button, Typography } from 'antd'
+import { Button, Flex, Typography } from 'antd'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '@/routing/routes'
 
 export const ForumLoginSuggest: FC = () => {
   const navigate = useNavigate()
 
+  const handleNavigateButtonCLick = () => {
+    navigate(routes.login.path)
+  }
+
   return (
-    <Typography.Text>
-      <Button type='primary' onClick={() => navigate(routes.login.path)}>
+    <Flex gap={4} align='baseline'>
+      <Button
+        type='primary'
+        onClick={handleNavigateButtonCLick}
+        aria-label='Авторизируйтесь, чтобы создавать топики и отвечать на сообщения'>
         Авторизируйтесь
-      </Button>{' '}
-      , чтобы создавать топики и отвечать на сообщения
-    </Typography.Text>
+      </Button>
+      <Typography.Text>, чтобы создавать топики и отвечать на сообщения</Typography.Text>
+    </Flex>
   )
 }
