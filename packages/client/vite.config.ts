@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -55,6 +56,7 @@ export default defineConfig({
       '@/utils': '/src/utils',
       '@/types': '/src/types',
       '@/constants': '/src/constants',
+      '@/__mocks__': '/src/__mocks__',
     },
   },
 })

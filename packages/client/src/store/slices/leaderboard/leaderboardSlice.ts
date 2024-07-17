@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { leaderboardMock } from '@/utils/mocks'
+import { leaderboardMock } from '@/__mocks__/mocks'
 import type { TableData } from '@/types/leaderboard'
 
 const initialStateMock: TableData[] = leaderboardMock

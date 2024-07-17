@@ -2,6 +2,8 @@ import { MapConfig } from '../commonTypes'
 import { Enemy } from './Enemy'
 import { PlacementTile } from './PlacementTile'
 import { Building } from './Building'
+import { Sprite } from './Sprite'
+import explosionSprite from '../assets/explosion.png'
 
 export type SetStatistic = ({ coins, kill, waves }: { coins: number; kill: number; waves: number }) => void
 
@@ -22,9 +24,13 @@ export class GameConfig {
 
   buildings: Building[] = []
 
+  explosions: Sprite[] = []
+
   coins: number = 100
 
   waveCount: number = 1
+
+  waveComplete: number = 0
 
   killCount: number = 0
 
@@ -49,11 +55,25 @@ export class GameConfig {
     this.placementsTiles = []
     this.activeTile = null
     this.setStatistic = setStatistic
+    if (!this.ctx) {
+      throw new Error('Canvas context is not available')
+    }
   }
 
   gameSetup() {
     if (!this.ctx) return
+    this.clearCanvas()
+    this.loadMap()
+    this.preparePlacementsData()
+    this.preparePlacementsTiles()
+  }
+
+  private clearCanvas() {
+    if (!this.ctx) return
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+  }
+
+  private loadMap() {
     const map = new Image()
     map.src = this.map.src
     map.onload = () => {
@@ -61,17 +81,15 @@ export class GameConfig {
       this.ctx.drawImage(map, 0, 0)
     }
     this.image = map
-    this.preparePlacementsData()
-    this.preparePlacementsTiles()
   }
 
-  preparePlacementsData = () => {
+  private preparePlacementsData = () => {
     for (let i = 0; i < this.map.placementsTileData.length; i += this.map.mapTileWidth) {
       this.placementsTileData2d.push(this.map.placementsTileData.slice(i, i + this.map.mapTileWidth))
     }
   }
 
-  preparePlacementsTiles = () => {
+  private preparePlacementsTiles = () => {
     this.placementsTileData2d.forEach((row, y) => {
       row.forEach((symbol, x) => {
         if (symbol === this.map.placementsSymbol) {
@@ -88,7 +106,7 @@ export class GameConfig {
     })
   }
 
-  spawnEnemies = (waveCount: number) => {
+  private spawnEnemies = (waveCount: number) => {
     const spaceBetweenEnemy = 150
     const baseEnemyCount = 3
     for (let i = 1; i <= baseEnemyCount * waveCount; i++) {
@@ -104,24 +122,18 @@ export class GameConfig {
     }
   }
 
-  buildTower = () => {
-    if (this.activeTile && !this.activeTile.isOccupied) {
-      if (this.coins >= Building.cost) {
-        this.coins -= Building.cost
-        if (!this.ctx) return
-        this.buildings.push(
-          new Building({
-            ctx: this.ctx,
-            sizes: { width: this.map.tileWidth, height: this.map.tileHeight },
-            position: this.activeTile.getPosition,
-          })
-        )
-        this.activeTile.isOccupied = true
+  private updateExplosions = () => {
+    for (let i = this.explosions.length - 1; i >= 0; i--) {
+      const explosion = this.explosions[i]
+      explosion.draw()
+      explosion.update()
+      if (explosion.frames.current >= explosion.frames.max - 1) {
+        this.explosions.splice(i, 1)
       }
     }
   }
 
-  buildingShootLoop = () => {
+  private buildingShootLoop = () => {
     this.buildings.forEach(building => {
       building.update()
       building.setTarget(null)
@@ -141,9 +153,9 @@ export class GameConfig {
         const distance = Math.hypot(xDifference, yDifference)
 
         if (distance < projectile.enemy.getRadius + projectile.getRadius) {
-          projectile.enemy.subtractHealth(20)
+          projectile.enemy.subtractHealth(building.damage)
           if (projectile.enemy.health <= 0) {
-            this.coins += 25
+            this.coins += projectile.enemy.goldCost
             this.killCount++
             const enemyIndex = this.enemies.findIndex(enemy => {
               return projectile.enemy === enemy
@@ -153,13 +165,22 @@ export class GameConfig {
             }
           }
 
+          this.explosions.push(
+            new Sprite({
+              ctx: this.ctx as CanvasRenderingContext2D,
+              position: { x: projectile.position.x, y: projectile.position.y },
+              imageSrc: explosionSprite,
+              maxFrames: 4,
+              offset: { x: -15, y: -15 },
+            })
+          )
           building.projectiles.splice(i, 1)
         }
       }
     })
   }
 
-  setActiveTile = (mousePosition: { x: number; y: number }) => {
+  private setActiveTile = (mousePosition: { x: number; y: number }) => {
     this.activeTile = null
     for (let i = 0; i < this.placementsTiles.length; i++) {
       const tile = this.placementsTiles[i]
@@ -175,10 +196,31 @@ export class GameConfig {
     }
   }
 
-  enemySpawnLoop = () => {
+  private enemySpawnLoop = () => {
     if (this.enemies.length === 0) {
       this.spawnEnemies(this.waveCount)
+      if (this.waveCount > 1) {
+        this.waveComplete++
+      }
       this.waveCount++
+    }
+  }
+
+  buildTower = () => {
+    if (this.activeTile && !this.activeTile.isOccupied) {
+      if (this.coins >= Building.cost) {
+        this.coins -= Building.cost
+        if (!this.ctx) return
+        this.buildings.push(
+          new Building({
+            ctx: this.ctx,
+            sizes: { width: this.map.tileWidth, height: this.map.tileHeight },
+            position: this.activeTile.getPosition,
+          })
+        )
+        this.activeTile.isOccupied = true
+        this.buildings.sort((a, b) => a.position.y - b.position.y)
+      }
     }
   }
 
@@ -194,7 +236,7 @@ export class GameConfig {
     }
   }
 
-  animate(mousePosition: { x: number; y: number }) {
+  animate = (mousePosition: { x: number; y: number }) => {
     if (!this.ctx) return
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     if (this.image) {
@@ -204,6 +246,7 @@ export class GameConfig {
     this.enemySpawnLoop()
     this.buildingShootLoop()
     this.setActiveTile(mousePosition)
-    this.setStatistic({ coins: this.coins, kill: this.killCount, waves: this.waveCount })
+    this.setStatistic({ coins: this.coins, kill: this.killCount, waves: this.waveComplete })
+    this.updateExplosions()
   }
 }
