@@ -6,6 +6,7 @@ import { getGameStatistic } from '@/slices/game/gameSelector'
 import { setIsEnding, setIsRunning, setStatistic } from '@/slices/game/gameSlice'
 import { useFullscreen } from '@/hooks/useFullScreen'
 
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { GameConfig } from '../model/Game'
 import { StartScreen } from './StartScreen/StartScreen'
 import { EndScreen } from './EndScreen/EndScreen'
@@ -143,15 +144,17 @@ export const Game: FC = () => {
             </>
           )}
         </div>
-        <Button
-          style={{ justifySelf: 'flex-end' }}
-          onClick={() => {
-            if (fullScreenContent.current) {
-              toggleFullscreen(fullScreenContent.current)
-            }
-          }}>
-          {isFullscreen ? 'Свернуть' : 'Развернуть на полный экран'}
-        </Button>
+        <ErrorBoundary>
+          <Button
+            style={{ justifySelf: 'flex-end' }}
+            onClick={() => {
+              if (fullScreenContent.current) {
+                toggleFullscreen(fullScreenContent.current)
+              }
+            }}>
+            {isFullscreen ? 'Свернуть' : 'Развернуть на полный экран'}
+          </Button>
+        </ErrorBoundary>
       </div>
     </Flex>
   )

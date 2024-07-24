@@ -6,6 +6,7 @@ import { getUser } from '@/store/slices/auth/authSelector'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { addTopic } from '@/store/slices/forumTopic/forumTopicSlice'
 import { addMessage } from '@/store/slices/forumMessage/forumMessageSlice'
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { Message, Topic } from '@/types/forum'
 import { ForumLoginSuggest } from '../ForumLoginSuggest'
 
@@ -70,7 +71,7 @@ export const ForumAddTopic: FC = () => {
   }
 
   return (
-    <>
+    <ErrorBoundary>
       <Button icon={<PlusSquareOutlined />} iconPosition='end' onClick={showModal} size='large'>
         Добавить топик
       </Button>
@@ -98,6 +99,6 @@ export const ForumAddTopic: FC = () => {
           </Flex>
         </Form>
       </Modal>
-    </>
+    </ErrorBoundary>
   )
 }

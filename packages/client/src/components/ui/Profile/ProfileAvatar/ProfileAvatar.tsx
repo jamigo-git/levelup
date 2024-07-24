@@ -10,9 +10,10 @@ import styles from './ProfileAvatar.module.scss'
 type Props = {
   avatar: UserAvatar
   isEdit: boolean
+  disabled?: boolean
 }
 
-export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit }) => {
+export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit, disabled }) => {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(avatar)
   const dispatch = useAppDispatch()
 
@@ -34,7 +35,7 @@ export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit }) => {
       })
   }
 
-  return isEdit ? (
+  return isEdit && !disabled ? (
     <Upload name='avatar' showUploadList={false} customRequest={changeAvatar}>
       <Avatar
         size={150}
@@ -44,6 +45,7 @@ export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit }) => {
     </Upload>
   ) : (
     <Avatar
+      onClick={() => disabled && message.error('Извините, в данный момент невозможно изменить аватар.')}
       size={150}
       icon={avatarUrl ? <img src={`${host}/resources${avatarUrl}`} alt='avatar' /> : <UserOutlined />}
       className={styles.avatar}
