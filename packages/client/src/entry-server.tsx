@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
+import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import { hydrateRoot } from 'react-dom/client'
 import dayjs from 'dayjs'
 import App from './App'
 import 'antd/dist/reset.css'
@@ -10,11 +10,11 @@ import { store } from './store'
 
 dayjs.locale('ru')
 
-hydrateRoot(
-  document.getElementById('root') as HTMLElement,
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>
-)
+export const render = () =>
+  renderToString(
+    <StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </StrictMode>
+  )
