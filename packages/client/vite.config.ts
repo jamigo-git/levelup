@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
+
 dotenv.config()
 
 // https://vitejs.dev/config/
@@ -11,6 +12,12 @@ export default defineConfig({
   },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
+  },
+  optimizeDeps: {
+    include: ['react-helmet-async', '@ant-design/icons', '@ant-design/icons-svg', 'rc-util'],
+  },
+  ssr: {
+    noExternal: ['react-helmet-async', '@ant-design/icons', '@ant-design/icons-svg', 'rc-util'],
   },
   plugins: [
     react(),
