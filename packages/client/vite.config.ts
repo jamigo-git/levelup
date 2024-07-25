@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
+import path from 'path'
 
 dotenv.config()
 
@@ -15,6 +16,9 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react-helmet-async', '@ant-design/icons', '@ant-design/icons-svg', 'rc-util'],
+  },
+  build: {
+    outDir: path.join(__dirname, 'dist/client'),
   },
   ssr: {
     noExternal: ['react-helmet-async', '@ant-design/icons', '@ant-design/icons-svg', 'rc-util'],
