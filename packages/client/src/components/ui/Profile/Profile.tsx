@@ -8,6 +8,7 @@ import { getUser } from '@/store/slices/auth/authSelector'
 import { useState } from 'react'
 import { editProfile } from '@/store/slices/user/userSlice'
 import { emailRules, phoneRules, firstNameRules, secondNameRules, loginRules } from '@/utils/validation'
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import styles from './Profile.module.scss'
 import { UserDTO } from '@/types/AuthTypes'
 import { ProfileChangePassword } from './ProfileChangePassword/ProfileChangePassword'
@@ -60,7 +61,11 @@ export const Profile: React.FC = () => {
         autoComplete='off'
         layout='horizontal'>
         <Title level={2}>Профиль</Title>
-        <ProfileAvatar avatar={avatar} isEdit={isEdit} />
+        <ErrorBoundary
+          errorMessage='Извините, в данный момент невозможно изменить аватар.'
+          fallback={<ProfileAvatar avatar={avatar} disabled isEdit={isEdit} />}>
+          <ProfileAvatar avatar={avatar} isEdit={isEdit} />
+        </ErrorBoundary>
         <Form.Item<UserDTO>
           label='Почта'
           name='email'
@@ -122,7 +127,15 @@ export const Profile: React.FC = () => {
                   Редактировать профиль
                 </Button>
               </Form.Item>
-              <ProfileChangePassword />
+              <ErrorBoundary
+                errorMessage='Извините, в данный момент невозможно изменить пароль.'
+                fallback={
+                  <Button block type='primary' disabled>
+                    Поменять пароль
+                  </Button>
+                }>
+                <ProfileChangePassword />
+              </ErrorBoundary>
             </>
           ) : (
             <Form.Item>
