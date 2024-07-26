@@ -1,4 +1,4 @@
-import { hydrateRoot } from 'react-dom/client'
+import { renderToString } from 'react-dom/server'
 import dayjs from 'dayjs'
 import 'antd/dist/reset.css'
 import './styles/index.scss'
@@ -7,6 +7,7 @@ import { TestComponent } from './TestComponent'
 
 dayjs.locale('ru')
 
+//
 // const app = () => {
 //   return (
 //     <StrictMode>
@@ -17,4 +18,4 @@ dayjs.locale('ru')
 //   )
 // }
 
-hydrateRoot(document.getElementById('root') as HTMLElement, <TestComponent />)
+export const render = () => renderToString(<TestComponent />)

@@ -28,7 +28,8 @@
     "vite.config.ts",
     "**/*.js",
     "**/*.d.ts",
-    "service-worker.ts"
+    "service-worker.ts",
+    "server/index.ts"
   ],
   "settings": {
     "react": {
@@ -48,12 +49,22 @@
           "@/constants": "./src/constants",
           "@/utils": "./src/utils"
         },
-        "extensions": [".ts", ".tsx"],
-        "packages": ["packages/*"]
+        "extensions": [
+          ".ts",
+          ".tsx"
+        ],
+        "packages": [
+          "packages/*"
+        ]
       }
     }
   },
-  "plugins": ["react", "react-refresh", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "react-refresh",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
     "no-tabs": 0,
     "no-continue": 0,
@@ -83,16 +94,26 @@
     "react/no-unknown-property": [
       2,
       {
-        "ignore": ["jsx", "global", "init.js"]
+        "ignore": [
+          "jsx",
+          "global",
+          "init.js"
+        ]
       }
     ],
     "no-param-reassign": [
       1,
       {
         "props": true,
-        "ignorePropertyModificationsForRegex": ["^draft", "acc", "state"]
+        "ignorePropertyModificationsForRegex": [
+          "^draft",
+          "acc",
+          "state"
+        ]
       }
     ],
-    "import/no-extraneous-dependencies": [0]
+    "import/no-extraneous-dependencies": [
+      0
+    ]
   }
 }
