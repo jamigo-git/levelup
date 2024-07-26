@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -20,52 +16,23 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "types": [
-      "@testing-library/jest-dom"
-    ],
+    "types": ["@testing-library/jest-dom"],
     "paths": {
-      "@/api/*": [
-        "api/*"
-      ],
-      "@/hooks/*": [
-        "hooks/*"
-      ],
-      "@/pages/*": [
-        "pages/*"
-      ],
-      "@/assets/*": [
-        "assets/*"
-      ],
-      "@/store/*": [
-        "store/*"
-      ],
-      "@/slices/*": [
-        "store/slices/*"
-      ],
-      "@/routing/*": [
-        "routing/*"
-      ],
-      "@/components/*": [
-        "components/*"
-      ],
-      "@/utils/*": [
-        "utils/*"
-      ],
-      "@/types/*": [
-        "types/*"
-      ],
-      "@/constants/*": [
-        "constants/*"
-      ],
-      "@/__mocks__/*": [
-        "__mocks__/*"
-      ]
+      "@/api/*": ["api/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/pages/*": ["pages/*"],
+      "@/assets/*": ["assets/*"],
+      "@/store/*": ["store/*"],
+      "@/slices/*": ["store/slices/*"],
+      "@/routing/*": ["routing/*"],
+      "@/components/*": ["components/*"],
+      "@/utils/*": ["utils/*"],
+      "@/types/*": ["types/*"],
+      "@/constants/*": ["constants/*"],
+      "@/__mocks__/*": ["__mocks__/*"]
     }
   },
-  "include": [
-    "src",
-    "jest.setup.ts"
-  ],
+  "include": ["src", "jest.setup.ts"],
   "references": [
     {
       "path": "./tsconfig.node.json"
