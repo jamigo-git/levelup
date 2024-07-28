@@ -17,7 +17,6 @@ import { staticHandler } from './routing/staticHandler'
 dayjs.locale('ru')
 
 export const render = async (req: ExpressRequest) => {
-  // Создаёт вспомогательные данные.
   const { query, dataRoutes } = staticHandler
 
   // Создаёт node Request из ExpressRequest.
@@ -40,16 +39,19 @@ export const render = async (req: ExpressRequest) => {
   // Создёт статический роутер, чтобы на сервере можно было отрендерить HTML-разметку.
   const router = createStaticRouter(dataRoutes, context)
 
+  const helmetContext = {}
+
   return {
     html: renderToString(
       <Provider store={store}>
-        <HelmetProvider>
+        <HelmetProvider context={helmetContext}>
           <ConfigProvider theme={customTheme}>
             <StaticRouterProvider router={router} context={context} />
           </ConfigProvider>
         </HelmetProvider>
       </Provider>
     ),
+    helmetContext,
     initialState: store.getState(),
   }
 }
