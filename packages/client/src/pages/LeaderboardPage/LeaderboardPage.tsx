@@ -10,7 +10,8 @@ export const LeaderboardPage: FC = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP | {routes.leaderboard.title}</title>
+        <title>{routes.leaderboard.title}</title>
+        <meta name='description' content={routes.leaderboard.description} />
       </Helmet>
       <Title level={1}>Лучшие игроки</Title>
       <Leaderboard />

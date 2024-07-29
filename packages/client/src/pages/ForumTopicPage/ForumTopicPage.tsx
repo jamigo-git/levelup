@@ -6,6 +6,7 @@ import { selectTopicById } from '@/store/slices/forumTopic/forumTopicSelector'
 import { ForumMessageList } from '@/components/ui/Forum/ForumMessageList'
 import { ForumMessageForm } from '@/components/ui/Forum/ForumMessageForm'
 import CustomError from '@/utils/customError'
+import { routes } from '@/routing/routes'
 import styles from './ForumTopicPage.module.scss'
 
 const { Title } = Typography
@@ -21,7 +22,10 @@ export const ForumTopicPage = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP | {id}</title>
+        <title>
+          {routes.forumTopic.title} {id}
+        </title>
+        <meta name='description' content={routes.forumTopic.description} />
       </Helmet>
       <Flex vertical className={styles.forumTopicPageContent}>
         <Title level={1}>Топик: {topic.title}</Title>

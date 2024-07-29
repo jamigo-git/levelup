@@ -5,8 +5,14 @@ import forumMessageReducer from './slices/forumMessage/forumMessageSlice'
 import gameReducer from './slices/game/gameSlice'
 import leaderboardReducer from './slices/leaderboard/leaderboardSlice'
 
+declare global {
+  interface Window {
+    APP_INITIAL_STATE: RootState
+  }
+}
+
 // Create the root reducer independently to obtain the RootState type
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   auth: authReducer,
   forumTopic: forumTopicReducer,
   forumMessage: forumMessageReducer,
@@ -17,6 +23,7 @@ const rootReducer = combineReducers({
 export const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
+  preloadedState: typeof window === 'undefined' ? undefined : window.APP_INITIAL_STATE,
 })
 
 export function setupStore(preloadedState?: Partial<RootState>) {

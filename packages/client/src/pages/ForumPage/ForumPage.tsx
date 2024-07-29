@@ -10,7 +10,8 @@ export const ForumPage = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP | {routes.forum.title}</title>
+        <title>{routes.forum.title}</title>
+        <meta name='description' content={routes.forum.description} />
       </Helmet>
       <Title level={1}>Форум</Title>
       <Flex vertical gap={24}>
