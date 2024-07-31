@@ -6,8 +6,8 @@ import { NavLink } from 'react-router-dom'
 import { routes } from '@/routing/routes'
 import { emailRules, phoneRules, firstNameRules, secondNameRules, passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch } from '@/hooks/reduxHooks'
-import styles from './RegistrationPage.module.scss'
 import { CreateUser } from '@/types/AuthTypes'
+import styles from './RegistrationPage.module.scss'
 
 const { Title } = Typography
 
@@ -23,7 +23,7 @@ export const Registration: React.FC = () => {
     dispatch(register(values))
       .unwrap()
       .then(() => {
-        message.success('You have successfully registered')
+        message.success('Вы успешно зарегистрировались')
         dispatch(fetchCurrentUser())
       })
       .catch(error => {
@@ -109,16 +109,16 @@ export const Registration: React.FC = () => {
         </Form.Item>
 
         <div className={styles.modalFooter}>
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-            <Button type='primary' htmlType='submit' className={styles.formBotton}>
-              Registration
+          <Form.Item>
+            <Button type='primary' htmlType='submit' className={styles.formButton}>
+              Зарегистрироваться
             </Button>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+          <Form.Item>
             <NavLink to={routes.login.path}>
-              <Button type='default' className={styles.formBotton}>
-                Login
+              <Button type='link' className={styles.formButton}>
+                Войти
               </Button>
             </NavLink>
           </Form.Item>
