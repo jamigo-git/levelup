@@ -12,7 +12,13 @@ export const OAuthButton = () => {
   }
 
   return (
-    <Button type='primary' size='large' htmlType='button' onClick={handleOAuthLogin} className={styles.button}>
+    <Button
+      type='primary'
+      size='large'
+      htmlType='button'
+      onClick={handleOAuthLogin}
+      className={styles.button}
+      aria-label='Войти с Яндекс ID'>
       <img src={yandexOauthLogo} alt='Логотип Яндекс' className={styles.yandexLogo} />
     </Button>
   )
