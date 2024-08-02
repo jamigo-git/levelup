@@ -15,6 +15,13 @@ jest.mock('antd', () => {
   }
 })
 
+jest.mock('@/components/ui/common/OAuthButton', () => {
+  return {
+    __esModule: true,
+    OAuthButton: () => <button type='button'>Mock OAuthButton</button>,
+  }
+})
+
 beforeEach(() => {
   jest.clearAllMocks()
 })
@@ -22,7 +29,7 @@ beforeEach(() => {
 describe('Login Component', () => {
   test('displays error messages with empty fields', async () => {
     renderWithProviders(<Login />)
-    const submitButton = screen.getByRole('button', { name: 'Login' })
+    const submitButton = screen.getByRole('button', { name: 'Войти' })
 
     await userEvent.click(submitButton)
 
@@ -37,7 +44,7 @@ describe('Login Component', () => {
     renderWithProviders(<Login />)
     const emailInput = screen.getByLabelText('Login')
     const passwordInput = screen.getByLabelText('Password')
-    const submitButton = screen.getByRole('button', { name: 'Login' })
+    const submitButton = screen.getByRole('button', { name: 'Войти' })
 
     // Enter invalid email and password
     await userEvent.type(emailInput, 'invalid@email.com')
@@ -51,7 +58,7 @@ describe('Login Component', () => {
     renderWithProviders(<Login />)
     const emailInput = screen.getByLabelText('Login')
     const passwordInput = screen.getByLabelText('Password')
-    const submitButton = screen.getByRole('button', { name: 'Login' })
+    const submitButton = screen.getByRole('button', { name: 'Войти' })
 
     // Enter valid email and password
     await userEvent.type(emailInput, 'valid@email.com')

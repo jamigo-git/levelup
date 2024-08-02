@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, message } from 'antd'
 import { RouterProvider } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
+import oAuthService from '@/utils/oAuthService'
 import { router } from '@/routing/router'
 import { customTheme } from './styles/antdConfig'
 import { fetchCurrentUser } from './store/slices/auth/authSlice'
@@ -11,8 +12,19 @@ import { useInternetConnectionMessage } from './hooks/useInternetConnectionMessa
 const App = () => {
   useInternetConnectionMessage()
   const dispatch = useAppDispatch()
+
   useEffect(() => {
-    dispatch(fetchCurrentUser())
+    const oAuthLoginAttempt = async () => {
+      const result = await oAuthService.loginOAuth()
+      if (result?.error) {
+        message.error(`OAuth Login error: ${result.error}`)
+        return
+      }
+
+      dispatch(fetchCurrentUser())
+    }
+
+    oAuthLoginAttempt()
   }, [dispatch])
 
   return (

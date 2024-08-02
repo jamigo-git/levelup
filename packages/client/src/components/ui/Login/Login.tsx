@@ -1,4 +1,4 @@
-import { Button, Typography, Form, Input, message } from 'antd'
+import { Button, Typography, Form, Input, message, Divider } from 'antd'
 import type { FormProps } from 'antd'
 import { Helmet } from 'react-helmet-async'
 import { fetchCurrentUser, login } from '@/store/slices/auth/authSlice'
@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom'
 import { routes } from '@/routing/routes'
 import { passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch } from '@/hooks/reduxHooks'
+import { OAuthButton } from '@/components/ui/common/OAuthButton'
 import { LoginRequestData } from '@/types/AuthTypes'
 import styles from './LoginPage.module.scss'
 
@@ -22,7 +23,7 @@ export const Login: React.FC = () => {
     dispatch(login(values))
       .unwrap()
       .then(() => {
-        message.success('You have successfully logged in')
+        message.success('Вы успешно авторизовались')
         dispatch(fetchCurrentUser())
       })
       .catch(error => {
@@ -68,16 +69,22 @@ export const Login: React.FC = () => {
         </Form.Item>
 
         <div className={styles.modalFooter}>
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-            <Button type='primary' htmlType='submit' className={styles.formBotton}>
-              Login
+          <Form.Item>
+            <Button type='primary' htmlType='submit' className={styles.formButton}>
+              Войти
             </Button>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+          <Divider plain>или</Divider>
+
+          <Form.Item>
+            <OAuthButton />
+          </Form.Item>
+
+          <Form.Item>
             <NavLink to={routes.registration.path}>
-              <Button type='default' className={styles.formBotton}>
-                Registration
+              <Button type='link' className={styles.formButton}>
+                Зарегистрироваться
               </Button>
             </NavLink>
           </Form.Item>
