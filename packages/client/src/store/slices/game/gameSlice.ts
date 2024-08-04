@@ -1,6 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-const initialState = {
+type GameSliceState = {
+  isRunning: boolean
+  isEnding: boolean
+  currentWaves: number
+  currenKillCount: number
+  bestKillCount: number
+  bestWavesCount: number
+  currentCoins: number
+}
+
+const initialState: GameSliceState = {
   isRunning: false,
   isEnding: false,
   currentWaves: 0,

@@ -7,7 +7,8 @@ export const LoginPage: FC = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP | {routes.login.title}</title>
+        <title>{routes.login.title}</title>
+        <meta name='description' content={routes.login.description} />
       </Helmet>
       <Login />
     </>

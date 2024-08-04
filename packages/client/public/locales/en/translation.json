@@ -13,7 +13,8 @@
   "MainLayout": {
     "profileLink": "Profile",
     "gameLink": "Game",
-    "forumLink": "Forum"
+    "forumLink": "Forum",
+    "leaderboardLink": "Leaderboard"
   },
   "Profile": {
     "title": "Profile",

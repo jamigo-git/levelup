@@ -111,15 +111,15 @@ export const Registration: React.FC = () => {
         </Form.Item>
 
         <div className={styles.modalFooter}>
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+          <Form.Item>
             <Button type='primary' htmlType='submit' className={styles.formBotton}>
               {t('Registration.registrationButtonText')}
             </Button>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+          <Form.Item>
             <NavLink to={routes.login.path}>
-              <Button type='default' className={styles.formBotton}>
+              <Button type='link' className={styles.formBotton}>
                 {t('Registration.loginButtonText')}
               </Button>
             </NavLink>

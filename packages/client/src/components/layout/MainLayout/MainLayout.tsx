@@ -42,6 +42,7 @@ export const MainLayout: FC<{ children?: React.ReactElement }> = ({ children }) 
           <NavLink to={routes.profile.path}>{t('MainLayout.profileLink')}</NavLink>
           <NavLink to={routes.game.path}>{t('MainLayout.gameLink')}</NavLink>
           <NavLink to={routes.forum.path}>{t('MainLayout.forumLink')}</NavLink>
+          <NavLink to={routes.leaderboard.path}>{t('MainLayout.leaderboardLink')}</NavLink>
           <Button onClick={() => changeLanguage()}>{languageToggle(i18n.language)}</Button>
           {isAuth && <Button icon={<LogoutOutlined />} onClick={handleLogout} style={{ marginLeft: 'auto' }} />}
         </Flex>

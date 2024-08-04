@@ -21,7 +21,16 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["dist", "node_modules", ".eslintrc.json", "vite.config.ts", "**/*.js", "**/*.d.ts"],
+  "ignorePatterns": [
+    "dist",
+    "node_modules",
+    ".eslintrc.json",
+    "vite.config.ts",
+    "**/*.js",
+    "**/*.d.ts",
+    "service-worker.ts",
+    "server/index.ts"
+  ],
   "settings": {
     "react": {
       "version": "detect"
@@ -84,6 +93,7 @@
         "props": true,
         "ignorePropertyModificationsForRegex": ["^draft", "acc", "state"]
       }
-    ]
+    ],
+    "import/no-extraneous-dependencies": [0]
   }
 }

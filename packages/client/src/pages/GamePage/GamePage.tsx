@@ -6,7 +6,8 @@ export const GamePage = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP | {routes.game.title}</title>
+        <title>{routes.game.title}</title>
+        <meta name='description' content={routes.game.description} />
       </Helmet>
 
       <Game />

@@ -4,9 +4,10 @@ import { Button, Flex, Form, Input, Modal } from 'antd'
 import { PlusSquareOutlined } from '@ant-design/icons'
 import { getUser } from '@/store/slices/auth/authSelector'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
-import { addTopick } from '@/store/slices/forumTopic/forumTopicSlice'
+import { addTopic } from '@/store/slices/forumTopic/forumTopicSlice'
 import { addMessage } from '@/store/slices/forumMessage/forumMessageSlice'
 import { useTranslation } from 'react-i18next'
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { Message, Topic } from '@/types/forum'
 import { ForumLoginSuggest } from '../ForumLoginSuggest'
 
@@ -64,16 +65,15 @@ export const ForumAddTopic: FC = () => {
       newTopic.messageIds.push(messageId)
     }
 
-    // mock api call
-    setTimeout(() => {
-      if (newMessage) dispatch(addMessage({ message: newMessage }))
-      dispatch(addTopick({ topic: newTopic }))
-      handleCancel()
-    }, 2000)
+    if (newMessage) {
+      dispatch(addMessage({ message: newMessage }))
+    }
+    dispatch(addTopic({ topic: newTopic }))
+    handleCancel()
   }
 
   return (
-    <>
+    <ErrorBoundary>
       <Button icon={<PlusSquareOutlined />} iconPosition='end' onClick={showModal} size='large'>
         {t('ForumAddTopic.addTopicButtonText')}
       </Button>
@@ -107,6 +107,6 @@ export const ForumAddTopic: FC = () => {
           </Flex>
         </Form>
       </Modal>
-    </>
+    </ErrorBoundary>
   )
 }

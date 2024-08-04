@@ -7,7 +7,8 @@ export const RegistrationPage: FC = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP | {routes.registration.title}</title>
+        <title>{routes.registration.title}</title>
+        <meta name='description' content={routes.registration.description} />
       </Helmet>
       <Registration />
     </>

@@ -16,6 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
+    "types": ["@testing-library/jest-dom"],
     "paths": {
       "@/api/*": ["api/*"],
       "@/hooks/*": ["hooks/*"],
@@ -27,9 +28,20 @@
       "@/components/*": ["components/*"],
       "@/utils/*": ["utils/*"],
       "@/types/*": ["types/*"],
-      "@/constants/*": ["constants/*"]
+      "@/constants/*": ["constants/*"],
+      "@/__mocks__/*": ["__mocks__/*"]
     }
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "jest.setup.ts"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.sw.json"
+    },
+    {
+      "path": "./tsconfig.server.json"
+    }
+  ]
 }

@@ -1,4 +1,4 @@
-import { Button, Typography, Form, Input, message } from 'antd'
+import { Button, Typography, Form, Input, message, Divider } from 'antd'
 import type { FormProps } from 'antd'
 import { Helmet } from 'react-helmet-async'
 import { fetchCurrentUser, login } from '@/store/slices/auth/authSlice'
@@ -7,8 +7,9 @@ import { routes } from '@/routing/routes'
 import { passwordRules, loginRules } from '@/utils/validation'
 import { useAppDispatch } from '@/hooks/reduxHooks'
 import { useTranslation } from 'react-i18next'
-import styles from './LoginPage.module.scss'
+import { OAuthButton } from '@/components/ui/common/OAuthButton'
 import { LoginRequestData } from '@/types/AuthTypes'
+import styles from './LoginPage.module.scss'
 
 const { Title } = Typography
 
@@ -38,6 +39,7 @@ export const Login: React.FC = () => {
         <title>LVL UP | {routes.login.title}</title>
       </Helmet>
       <Form
+        data-testid='login-form'
         className={styles.loginForm}
         name='basic'
         onFinish={onFinish}
@@ -69,15 +71,21 @@ export const Login: React.FC = () => {
         </Form.Item>
 
         <div className={styles.modalFooter}>
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
-            <Button type='primary' htmlType='submit' className={styles.formBotton}>
+          <Form.Item>
+            <Button type='primary' htmlType='submit' className={styles.formButton}>
               {t('Login.loginButtonText')}
             </Button>
           </Form.Item>
 
-          <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
+          <Divider plain>или</Divider>
+
+          <Form.Item>
+            <OAuthButton />
+          </Form.Item>
+
+          <Form.Item>
             <NavLink to={routes.registration.path}>
-              <Button type='default' className={styles.formBotton}>
+              <Button type='link' className={styles.formButton}>
                 {t('Login.registrationButtonText')}
               </Button>
             </NavLink>

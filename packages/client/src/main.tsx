@@ -1,7 +1,6 @@
-import React from 'react'
+import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
-// eslint-disable-next-line
-import ReactDOM from 'react-dom/client'
+import { hydrateRoot } from 'react-dom/client'
 import dayjs from 'dayjs'
 import App from './App'
 import 'antd/dist/reset.css'
@@ -12,10 +11,11 @@ import './i18n'
 
 dayjs.locale('ru')
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+hydrateRoot(
+  document.getElementById('root') as HTMLElement,
+  <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>
+  </StrictMode>
 )

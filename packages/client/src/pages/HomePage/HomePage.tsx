@@ -17,7 +17,8 @@ export const HomePage = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP!</title>
+        <title>{routes.root.title}</title>
+        <meta name='description' content={routes.root.description} />
       </Helmet>
       <Flex align='center' className={styles.homePage} data-testid='HomePage'>
         <Space direction='vertical' align='center' size={80}>
