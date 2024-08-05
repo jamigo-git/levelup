@@ -8,6 +8,8 @@ import { customTheme } from './styles/antdConfig'
 import { fetchCurrentUser } from './store/slices/auth/authSlice'
 import { useAppDispatch } from './hooks/reduxHooks'
 import { useInternetConnectionMessage } from './hooks/useInternetConnectionMessage'
+import { leaderboardTeamReq } from './store/slices/leaderboard/leaderboardSlice'
+import { CURSOR, LIMIT, RATING_FIELD_NAME } from './constants/leaderboard'
 
 const App = () => {
   useInternetConnectionMessage()
@@ -22,6 +24,7 @@ const App = () => {
       }
 
       dispatch(fetchCurrentUser())
+      dispatch(leaderboardTeamReq({ ratingFieldName: RATING_FIELD_NAME, cursor: CURSOR, limit: LIMIT }))
     }
 
     oAuthLoginAttempt()

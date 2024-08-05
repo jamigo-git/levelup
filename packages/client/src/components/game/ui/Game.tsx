@@ -7,6 +7,7 @@ import { setIsEnding, setIsRunning, setStatistic } from '@/slices/game/gameSlice
 import { useFullscreen } from '@/hooks/useFullScreen'
 
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
+import sendStatistic from '@/utils/sendStatistic'
 import { GameConfig } from '../model/Game'
 import { StartScreen } from './StartScreen/StartScreen'
 import { EndScreen } from './EndScreen/EndScreen'
@@ -137,6 +138,7 @@ export const Game: FC = () => {
                 onClick={() => {
                   dispatch(setIsRunning(false))
                   dispatch(setIsEnding(true))
+                  sendStatistic.send()
                 }}>
                 Остановить игру
               </Button>
