@@ -58,7 +58,7 @@ export const leaderboardSlice = createSlice({
         state.leaderboard = action.payload.map((f, i) => {
           return {
             key: i,
-            position: i,
+            position: i + 1,
             avatar: f.data.avatar,
             name: f.data.name,
             kills: f.data.kills_orcs_td,

@@ -42,3 +42,16 @@ export interface LeaderboardTeamResponse {
 }
 
 export type Rang = 'Kid' | 'Bro' | 'Master' | 'Pro' | 'God'
+
+/** Интерфейс данных статистики для отправки */
+export interface StatisticData {
+  bestWavesCount: number
+  bestKillCount: number
+  currentCoins: number
+}
+
+/** Интерфейс данных пользователя для отправки статистики */
+export interface UserStatisticData {
+  login: string
+  avatar: string
+}

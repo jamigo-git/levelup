@@ -1,8 +1,7 @@
 import axios from 'axios'
 import host from '@/constants/host'
 import { RANG_KILLS_MAP, RATING_FIELD_NAME, TEAM_NAME } from '@/constants/leaderboard'
-import { LeaderboardUpdateReq, Rang } from '@/types/leaderboard'
-import { store } from '../store'
+import { LeaderboardUpdateReq, Rang, StatisticData, UserStatisticData } from '@/types/leaderboard'
 
 class Statistic {
   private url = `${host}`
@@ -20,51 +19,21 @@ class Statistic {
     return result
   }
 
-  private static async getUser(): Promise<{ login: string; avatar: string }> {
-    return store.dispatch(async () => {
-      const { user } = store.getState().auth
-      return {
-        login: user?.login || '',
-        avatar: user?.avatar || '',
-      }
-    })
-  }
-
-  private static async getStatistic(): Promise<{
-    bestWavesCount: number
-    bestKillCount: number
-    currentCoins: number
-  }> {
-    return store.dispatch(async () => {
-      const { game } = store.getState()
-      return {
-        bestWavesCount: game.bestWavesCount,
-        bestKillCount: game.bestKillCount,
-        currentCoins: game.currentCoins,
-      }
-    })
-  }
-
-  private static async getData(): Promise<LeaderboardUpdateReq> {
-    const user = await Statistic.getUser()
-    const statistic = await Statistic.getStatistic()
-    return {
-      data: {
-        waves: statistic.bestWavesCount,
-        kills_orcs_td: statistic.bestKillCount,
-        rang: Statistic.getRang(statistic.bestKillCount),
-        name: String(user?.login),
-        avatar: String(user?.avatar),
-        money: statistic.currentCoins,
-      },
-      ratingFieldName: RATING_FIELD_NAME,
-      teamName: TEAM_NAME,
-    }
-  }
-
-  public async send() {
+  public async send(userData: UserStatisticData, statistic: StatisticData) {
     try {
-      const statisticData: LeaderboardUpdateReq = await Statistic.getData()
+      const statisticData: LeaderboardUpdateReq = {
+        data: {
+          waves: statistic.bestWavesCount,
+          kills_orcs_td: statistic.bestKillCount,
+          rang: Statistic.getRang(statistic.bestKillCount),
+          name: userData.login,
+          avatar: userData.avatar,
+          money: statistic.currentCoins,
+        },
+        ratingFieldName: RATING_FIELD_NAME,
+        teamName: TEAM_NAME,
+      }
+
       await this.client.post('/leaderboard', statisticData)
       return { success: true }
     } catch (error) {
