@@ -1,6 +1,6 @@
 import { User } from '@/types/UserTypes'
 import { Message, Topic } from '@/types/forum'
-import { TableData } from '@/types/leaderboard'
+import { LeaderboardData } from '@/types/leaderboard'
 
 export const userMock: User = {
   id: 1,
@@ -152,9 +152,9 @@ export const messageListMock: Message[] = [
   },
 ]
 
-export const leaderboardMock: TableData[] = [
+export const leaderboardMock: LeaderboardData[] = [
   {
-    key: '1',
+    key: 1,
     position: 1,
     avatar: 'https://avatars.githubusercontent.com/u/55561',
     name: 'Andre',
@@ -163,7 +163,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'God',
   },
   {
-    key: '2',
+    key: 2,
     position: 2,
     avatar: 'https://avatars.githubusercontent.com/u/55562',
     name: 'Vyacheslav',
@@ -172,7 +172,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Pro',
   },
   {
-    key: '3',
+    key: 3,
     position: 3,
     avatar: 'https://avatars.githubusercontent.com/u/5553',
     name: 'Dr. Evil',
@@ -181,7 +181,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Pro',
   },
   {
-    key: '4',
+    key: 4,
     position: 4,
     avatar: 'https://avatars.githubusercontent.com/u/5522',
     name: 'Valter',
@@ -190,7 +190,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Pro',
   },
   {
-    key: '5',
+    key: 5,
     position: 5,
     avatar: 'https://avatars.githubusercontent.com/u/5513',
     name: 'MaXim',
@@ -199,7 +199,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Pro',
   },
   {
-    key: '6',
+    key: 6,
     position: 6,
     avatar: 'https://avatars.githubusercontent.com/u/5514',
     name: 'Anderson Wick',
@@ -208,7 +208,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Master',
   },
   {
-    key: '7',
+    key: 7,
     position: 7,
     avatar: 'https://avatars.githubusercontent.com/u/5524',
     name: 'Raptor Dead 7',
@@ -217,7 +217,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Master',
   },
   {
-    key: '8',
+    key: 8,
     position: 8,
     avatar: 'https://avatars.githubusercontent.com/u/5556',
     name: 'Tank Jr',
@@ -226,7 +226,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Bro',
   },
   {
-    key: '9',
+    key: 9,
     position: 9,
     avatar: 'https://avatars.githubusercontent.com/u/5511',
     name: 'Wake D Jr',
@@ -235,7 +235,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Kid',
   },
   {
-    key: '10',
+    key: 10,
     position: 10,
     avatar: 'https://avatars.githubusercontent.com/u/5587',
     name: 'Tom Walker',
@@ -244,7 +244,7 @@ export const leaderboardMock: TableData[] = [
     rang: 'Kid',
   },
   {
-    key: '11',
+    key: 11,
     position: 11,
     avatar: 'https://avatars.githubusercontent.com/u/5111',
     name: 'Robert De Niro',
