@@ -1,24 +1,16 @@
-import { Table, Tag, Avatar } from 'antd'
+import { Table, Tag, Avatar, Spin } from 'antd'
 import type { TableProps } from 'antd'
 import { routes } from '@/routing/routes'
 import { FC, useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { getLeaderboardData } from '@/store/slices/leaderboard/leaderboardSelector'
-import { Rang, TableData } from '@/types/leaderboard'
+import { PAGE_SIZE, RANG_COLOR_MAP } from '@/constants/leaderboard'
+import host from '@/constants/host'
+import { LeaderboardData } from '@/types/leaderboard'
 import styles from './Leaderboard.module.scss'
 
-const rangColorMap: Map<Rang, string> = new Map([
-  ['Kid', 'red'],
-  ['Bro', 'green'],
-  ['Master', 'geekblue'],
-  ['Pro', 'vocano'],
-  ['God', 'orange'],
-])
-
-const PAGE_SIZE = 10
-
-const columns: TableProps<TableData>['columns'] = [
+const columns: TableProps<LeaderboardData>['columns'] = [
   {
     title: 'Позиция',
     dataIndex: 'position',
@@ -33,7 +25,7 @@ const columns: TableProps<TableData>['columns'] = [
     dataIndex: 'avatar',
     key: 'avatar',
     width: 100,
-    render: (_, { avatar }) => <Avatar src={avatar} />,
+    render: (_, { avatar }) => <Avatar src={`${host}/resources${avatar}`} />,
   },
   {
     title: 'Имя',
@@ -64,7 +56,7 @@ const columns: TableProps<TableData>['columns'] = [
     sorter: (a, b) => (a.rang > b.rang ? 1 : -1),
     showSorterTooltip: false,
     render: (_, { rang }) => (
-      <Tag color={rangColorMap.get(rang)} key={rang}>
+      <Tag color={RANG_COLOR_MAP.get(rang)} key={rang}>
         {rang.toUpperCase()}
       </Tag>
     ),
@@ -72,15 +64,19 @@ const columns: TableProps<TableData>['columns'] = [
 ]
 
 export const Leaderboard: FC = () => {
+  const leaderboardRows = useAppSelector(state => getLeaderboardData(state))
+
   const [page, setPage] = useState(1)
-  const leaderboard = useAppSelector(state => getLeaderboardData(state))
 
   useEffect(() => {
-    if (leaderboard?.length && page * PAGE_SIZE < leaderboard.length) {
+    if (page * PAGE_SIZE < (leaderboardRows?.length || 0)) {
       setPage(page)
     }
-  }, [leaderboard?.length, page])
+  }, [leaderboardRows, page])
 
+  if (!leaderboardRows) {
+    return <Spin fullscreen size='large' />
+  }
   return (
     <>
       <Helmet>
@@ -88,7 +84,7 @@ export const Leaderboard: FC = () => {
       </Helmet>
       <Table
         className={styles.leaderboard}
-        dataSource={leaderboard}
+        dataSource={leaderboardRows}
         columns={columns}
         pagination={{
           pageSize: PAGE_SIZE,

@@ -8,6 +8,8 @@ import { useFullscreen } from '@/hooks/useFullScreen'
 
 import { useTranslation } from 'react-i18next'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
+import sendStatistic from '@/utils/sendStatistic'
+import { getUser } from '@/store/slices/auth/authSelector'
 import { GameConfig } from '../model/Game'
 import { StartScreen } from './StartScreen/StartScreen'
 import { EndScreen } from './EndScreen/EndScreen'
@@ -16,12 +18,14 @@ import { MapConfig } from '../commonTypes'
 import { maps } from '../maps'
 import { Overlay } from './Overlay/Overlay'
 import style from './game.module.scss'
+import { StatisticData } from '@/types/leaderboard'
 
 export const Game: FC = () => {
   const { Text } = Typography
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const gameStatistic = useAppSelector(getGameStatistic)
+  const user = useAppSelector(getUser)
   const [mapName] = useState('DesertOrks')
   const { isFullscreen, toggleFullscreen } = useFullscreen()
 
@@ -110,6 +114,18 @@ export const Game: FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (!user) return
+    if (gameStatistic.isEnding) {
+      const statistic: StatisticData = {
+        bestWavesCount: gameStatistic.bestWavesCount,
+        bestKillCount: gameStatistic.bestKillCount,
+        currentCoins: gameStatistic.currentCoins,
+      }
+      sendStatistic.send(user, statistic)
+    }
+  }, [gameStatistic, user])
 
   if (!mapConfig) return <>ERROR</>
   return (
