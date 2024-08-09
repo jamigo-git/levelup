@@ -6,6 +6,7 @@ import { selectTopicById } from '@/store/slices/forumTopic/forumTopicSelector'
 import { ForumMessageList } from '@/components/ui/Forum/ForumMessageList'
 import { ForumMessageForm } from '@/components/ui/Forum/ForumMessageForm'
 import CustomError from '@/utils/customError'
+import { useTranslation } from 'react-i18next'
 import { routes } from '@/routing/routes'
 import styles from './ForumTopicPage.module.scss'
 
@@ -14,9 +15,10 @@ const { Title } = Typography
 export const ForumTopicPage = () => {
   const { id } = useParams()
   const topic = useAppSelector(state => selectTopicById(state, id))
+  const { t } = useTranslation()
 
   if (!id || !topic) {
-    throw new CustomError('Топик не обнаружен :(', 404)
+    throw new CustomError(`${t('ForumTopicPage.error')}`, 404)
   }
 
   return (
@@ -28,7 +30,9 @@ export const ForumTopicPage = () => {
         <meta name='description' content={routes.forumTopic.description} />
       </Helmet>
       <Flex vertical className={styles.forumTopicPageContent}>
-        <Title level={1}>Топик: {topic.title}</Title>
+        <Title level={1}>
+          {t('ForumTopicPage.topicTitle')}: {topic.title}
+        </Title>
         <ForumMessageList topicId={id} />
         <div className={styles.forumTopicPageContent__formWrapper}>
           <ForumMessageForm topicId={id} />

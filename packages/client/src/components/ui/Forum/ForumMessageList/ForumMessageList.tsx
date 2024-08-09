@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react'
 import { Avatar, Flex, List, Typography } from 'antd'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { selectMessagesByIdList } from '@/store/slices/forumMessage/forumMessageSelector'
+import { useTranslation } from 'react-i18next'
 import { Message } from '@/types/forum'
 import styles from './ForumMessageList.module.scss'
 
@@ -14,6 +15,8 @@ interface ForumMessageListProps {
 export const ForumMessageList: FC<ForumMessageListProps> = ({ topicId }) => {
   const [page, setPage] = useState(1)
   const messageList = useAppSelector(state => selectMessagesByIdList(state, topicId))
+  const { t, i18n } = useTranslation()
+  dayjs.locale(i18n.language)
 
   useEffect(() => {
     if (messageList?.length && page * PAGE_SIZE < messageList.length) {
@@ -31,7 +34,7 @@ export const ForumMessageList: FC<ForumMessageListProps> = ({ topicId }) => {
         current: page,
         onChange: setPage,
       }}
-      locale={{ emptyText: 'Напишите первое сообщение?' }}
+      locale={{ emptyText: `${t('ForumMessageList.emptyText')}` }}
       renderItem={(message: Message) => (
         <List.Item>
           <div className={styles.message}>

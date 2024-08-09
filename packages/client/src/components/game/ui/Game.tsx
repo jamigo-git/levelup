@@ -6,6 +6,7 @@ import { getGameStatistic } from '@/slices/game/gameSelector'
 import { setIsEnding, setIsRunning, setStatistic } from '@/slices/game/gameSlice'
 import { useFullscreen } from '@/hooks/useFullScreen'
 
+import { useTranslation } from 'react-i18next'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import sendStatistic from '@/utils/sendStatistic'
 import { getUser } from '@/store/slices/auth/authSelector'
@@ -22,6 +23,7 @@ import { StatisticData } from '@/types/leaderboard'
 export const Game: FC = () => {
   const { Text } = Typography
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
   const gameStatistic = useAppSelector(getGameStatistic)
   const user = useAppSelector(getUser)
   const [mapName] = useState('DesertOrks')
@@ -148,15 +150,19 @@ export const Game: FC = () => {
         <div className={style.statistic}>
           {gameStatistic.isRunning && (
             <>
-              <Text className={`${style.text} ${style.coins}`}>Количество монет: {gameStatistic.currentCoins}</Text>
+              <Text className={`${style.text} ${style.coins}`}>
+                {t('Game.coinsCount')}: {gameStatistic.currentCoins}
+              </Text>
               <Button
                 onClick={() => {
                   dispatch(setIsRunning(false))
                   dispatch(setIsEnding(true))
                 }}>
-                Остановить игру
+                {t('Game.stopButtonText')}
               </Button>
-              <Text className={style.text}>Башня стоит {Building.cost} монет!</Text>
+              <Text className={style.text}>
+                {t('Game.towerCost')} {Building.cost} {t('Game.currency')}
+              </Text>
             </>
           )}
         </div>
@@ -168,7 +174,7 @@ export const Game: FC = () => {
                 toggleFullscreen(fullScreenContent.current)
               }
             }}>
-            {isFullscreen ? 'Свернуть' : 'Развернуть на полный экран'}
+            {isFullscreen ? `${t('Game.collapseButtonText')}` : `${t('Game.expandButtonText')}`}
           </Button>
         </ErrorBoundary>
       </div>

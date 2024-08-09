@@ -15,6 +15,22 @@ jest.mock('antd', () => {
   }
 })
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (str: string) => {
+      const translations: Record<string, string> = {
+        'Login.loginButtonText': 'Авторизоваться',
+        'Login.loginLabel': 'Логин',
+        'Login.passwordLabel': 'Пароль',
+      }
+      return translations[str] || str
+    },
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+  }),
+}))
+
 jest.mock('@/components/ui/common/OAuthButton', () => {
   return {
     __esModule: true,
@@ -29,7 +45,7 @@ beforeEach(() => {
 describe('Login Component', () => {
   test('displays error messages with empty fields', async () => {
     renderWithProviders(<Login />)
-    const submitButton = screen.getByRole('button', { name: 'Войти' })
+    const submitButton = screen.getByRole('button', { name: 'Авторизоваться' })
 
     await userEvent.click(submitButton)
 
@@ -42,9 +58,9 @@ describe('Login Component', () => {
 
   test('displays error message when login fails', async () => {
     renderWithProviders(<Login />)
-    const emailInput = screen.getByLabelText('Login')
-    const passwordInput = screen.getByLabelText('Password')
-    const submitButton = screen.getByRole('button', { name: 'Войти' })
+    const emailInput = screen.getByLabelText('Логин')
+    const passwordInput = screen.getByLabelText('Пароль')
+    const submitButton = screen.getByRole('button', { name: 'Авторизоваться' })
 
     // Enter invalid email and password
     await userEvent.type(emailInput, 'invalid@email.com')
@@ -56,9 +72,9 @@ describe('Login Component', () => {
 
   test('displays success message when login is successful', async () => {
     renderWithProviders(<Login />)
-    const emailInput = screen.getByLabelText('Login')
-    const passwordInput = screen.getByLabelText('Password')
-    const submitButton = screen.getByRole('button', { name: 'Войти' })
+    const emailInput = screen.getByLabelText('Логин')
+    const passwordInput = screen.getByLabelText('Пароль')
+    const submitButton = screen.getByRole('button', { name: 'Авторизоваться' })
 
     // Enter valid email and password
     await userEvent.type(emailInput, 'valid@email.com')
