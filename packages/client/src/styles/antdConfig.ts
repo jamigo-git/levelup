@@ -2,6 +2,7 @@ import { ThemeConfig, theme } from 'antd'
 
 export const customTheme: ThemeConfig = {
   cssVar: true,
+  hashed: false,
   token: {
     colorPrimary: '#fa8c16',
     colorInfo: '#fa8c16',
