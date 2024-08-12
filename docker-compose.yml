@@ -17,6 +17,9 @@ services:
           - SERVER_PORT=${SERVER_PORT}
           - EXTERNAL_SERVER_URL=${EXTERNAL_SERVER_URL}
           - INTERNAL_SERVER_URL=${INTERNAL_SERVER_URL}
+        networks:
+          - prakticum-network
+
     server:
         container_name: prakticum-server
         image: prackicum-server
@@ -30,6 +33,8 @@ services:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
           SERVER_PORT: ${SERVER_PORT}
+        networks:
+        - prakticum-network
 
     postgres:
       image: postgres:14     
@@ -41,4 +46,28 @@ services:
         POSTGRES_DB: ${POSTGRES_DB}
       volumes:
         - ./tmp/pgdata:/var/lib/postgresql/data
+      networks:
+        - prakticum-network
+
+    pgadmin:
+      container_name: pgadmin
+      image: dpage/pgadmin4:4.18
+      restart: always
+      environment:
+        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+        PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
+      ports:
+        - "${PGADMIN_MAIN_PORT}:${PGADMIN_LISTEN_PORT}"
+      volumes:
+        - ./tmp/pgadmin-data:/var/lib/pgadmin
+      depends_on:
+        - postgres
+      networks:
+        - prakticum-network
+
+networks:
+  prakticum-network:
+    driver: bridge
+
 
