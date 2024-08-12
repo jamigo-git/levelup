@@ -5,11 +5,16 @@ import express, { Request as ExpressRequest } from 'express'
 import path from 'path'
 import serialize from 'serialize-javascript'
 import { HelmetServerState } from 'react-helmet-async'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+const clientPath = path.join(__dirname, '..')
 
 dotenv.config()
 
-const port = process.env.CLIENT_PORT || 3000
-const clientPath = path.join(__dirname, '..')
+const port = process.env.CLIENT_PORT || 80
 const isDev = process.env.NODE_ENV === 'development'
 
 async function createServer() {
@@ -75,8 +80,9 @@ async function createServer() {
       // Завершаем запрос и отдаём HTML-страницу
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
-      vite.ssrFixStacktrace(e as Error)
-      next(e)
+      vite?.ssrFixStacktrace(e)
+      console.log(e.stack)
+      res.status(500).end(e.stack)
     }
   })
 

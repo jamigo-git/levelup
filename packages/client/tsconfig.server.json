@@ -1,12 +1,16 @@
 {
   "compilerOptions": {
     "composite": true,
-    "target": "es2019",
-    "module": "commonjs",
+    "target": "ESNext",
+    "module": "ESNext",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "lib": ["es2019", "DOM"]
+    "moduleResolution": "Node",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "rootDir": "./server",
+    "declaration": true,
+    "sourceMap": true
   },
   "include": ["server/index.ts"]
 }
