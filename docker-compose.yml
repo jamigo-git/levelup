@@ -3,33 +3,29 @@ version: "3.9"
 services:
     postgres:
       image: postgres:14     
+      env_file:
+        ./.env 
       ports:
         - "${POSTGRES_PORT}:${POSTGRES_PORT}"
       volumes:
         - ./tmp/pgdata:/var/lib/postgresql/data
-      env_file:
-        ./.env 
       networks:
-        - awesome
+        - prakticum-network
 
     pgadmin:
       container_name: pgadmin
       image: dpage/pgadmin4:4.18
       restart: always
-      environment:
-        PGADMIN_DEFAULT_EMAIL: admin@admin.com
-        PGADMIN_DEFAULT_PASSWORD: secret
-        PGADMIN_LISTEN_PORT: 80
       env_file:
         ./.env
       ports:
-        - "8080:80"
+        - "${PGADMIN_MAIN_PORT}:${PGADMIN_LISTEN_PORT}"
       volumes:
         - ./tmp/pgadmin-data:/var/lib/pgadmin
       depends_on:
         - postgres
       networks:
-        - awesome
+        - prakticum-network
 
     server:
         container_name: prakticum-server
@@ -50,7 +46,7 @@ services:
         depends_on:
           - postgres
         networks:
-          - awesome
+          - prakticum-network
 
     client:
         container_name: prakticum-client
@@ -71,10 +67,10 @@ services:
         env_file:
           ./.env 
         networks:
-          - awesome
+          - prakticum-network
 
 networks:
-  awesome:
+  prakticum-network:
       driver: bridge 
 
 
