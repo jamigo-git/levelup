@@ -4,6 +4,7 @@ import forumTopicReducer from './slices/forumTopic/forumTopicSlice'
 import forumMessageReducer from './slices/forumMessage/forumMessageSlice'
 import gameReducer from './slices/game/gameSlice'
 import leaderboardReducer from './slices/leaderboard/leaderboardSlice'
+import emojiPickerReducer from './slices/emojiPicker/emojiPickerSlice'
 
 declare global {
   interface Window {
@@ -18,6 +19,7 @@ export const rootReducer = combineReducers({
   forumMessage: forumMessageReducer,
   game: gameReducer,
   leaderboard: leaderboardReducer,
+  emojiPicker: emojiPickerReducer,
 })
 
 export const store = configureStore({
