@@ -1,3 +1,4 @@
+import { Op } from 'sequelize'
 import { User } from '../models/userModel'
 import { ForumTopic } from '../models/forumTopicModel'
 import { ForumComment } from '../models/forumCommentModel'
@@ -28,24 +29,45 @@ class ForumCommentService {
       throw new NotFoundError('Topic not found')
     }
 
-    console.log('Creating comment with parentId:', parentId)
+    let parentComment: ForumComment | null = null
+    if (parentId !== undefined) {
+      parentComment = await ForumComment.findByPk(parentId)
+      if (!parentComment) {
+        throw new NotFoundError('Parent comment not found')
+      }
+    }
 
-    return await ForumComment.create({
+    const comment = await ForumComment.create({
       text,
       userId,
       topicId,
       parentId,
     })
+
+    if (parentComment) {
+      parentComment.replies = [...(parentComment.replies || []), comment]
+      await parentComment.save()
+    }
+
+    return comment
   }
 
   public getCommentList = async ({ limit, offset, topicId }: GetListRequest) => {
     return await ForumComment.findAll({
       limit,
       offset,
-      where: {
-        topicId,
-      },
+      where: [{ topicId }, { parentId: { [Op.is]: null } }],
       include: [
+        {
+          model: ForumComment,
+          as: 'replies',
+          include: [
+            {
+              model: ForumComment,
+              as: 'replies',
+            },
+          ],
+        },
         {
           model: User,
           attributes: ['id', 'first_name', 'second_name', 'display_name'],

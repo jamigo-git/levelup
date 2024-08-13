@@ -1,4 +1,4 @@
-import { Table, Column, Model, ForeignKey, BelongsTo, DataType } from 'sequelize-typescript'
+import { Table, Column, Model, ForeignKey, BelongsTo, DataType, HasMany } from 'sequelize-typescript'
 import { User } from './userModel'
 import { ForumTopic } from './forumTopicModel'
 import { InferAttributes, InferCreationAttributes } from 'sequelize'
@@ -6,7 +6,7 @@ import { InferAttributes, InferCreationAttributes } from 'sequelize'
 @Table({ tableName: 'forum_comments' })
 export class ForumComment extends Model<
   InferAttributes<ForumComment>,
-  InferCreationAttributes<ForumComment, { omit: 'id' | 'user' | 'topic' }>
+  InferCreationAttributes<ForumComment, { omit: 'id' | 'user' | 'topic' | 'replies' }>
 > {
   @Column({
     primaryKey: true,
@@ -21,8 +21,15 @@ export class ForumComment extends Model<
   declare text: string
 
   @ForeignKey(() => ForumComment)
-  @Column
-  declare parentId?: number
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: true,
+    defaultValue: null,
+  })
+  declare parentId: number | null
+
+  @BelongsTo(() => ForumComment, 'parentId')
+  declare parentComment?: ForumComment
 
   @ForeignKey(() => User)
   @Column
@@ -32,9 +39,12 @@ export class ForumComment extends Model<
   @Column
   declare topicId: number
 
+  @BelongsTo(() => ForumTopic)
+  declare topic: ForumTopic
+
   @BelongsTo(() => User)
   declare user: User
 
-  @BelongsTo(() => ForumTopic)
-  declare topic: ForumTopic
+  @HasMany(() => ForumComment)
+  declare replies: ForumComment[]
 }
