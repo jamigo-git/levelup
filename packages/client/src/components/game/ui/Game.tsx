@@ -10,6 +10,9 @@ import { useTranslation } from 'react-i18next'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import sendStatistic from '@/utils/sendStatistic'
 import { getUser } from '@/store/slices/auth/authSelector'
+import { CURSOR, LIMIT, RANG_KILLS_MAP, RANG_REMAINING_MAP, RATING_FIELD_NAME } from '@/constants/leaderboard'
+import { getLeaderboardData } from '@/slices/leaderboard/leaderboardSelector'
+import { leaderboardTeamReq } from '@/slices/leaderboard/leaderboardSlice'
 import { GameConfig } from '../model/Game'
 import { StartScreen } from './StartScreen/StartScreen'
 import { EndScreen } from './EndScreen/EndScreen'
@@ -26,6 +29,7 @@ export const Game: FC = () => {
   const { t } = useTranslation()
   const gameStatistic = useAppSelector(getGameStatistic)
   const user = useAppSelector(getUser)
+  const leaderboardRows = useAppSelector(state => getLeaderboardData(state))
   const [mapName] = useState('DesertOrks')
   const { isFullscreen, toggleFullscreen } = useFullscreen()
 
@@ -40,6 +44,8 @@ export const Game: FC = () => {
     if (index < 0) return undefined
     return maps[index]
   }, [mapName])
+
+  Notification.requestPermission()
 
   useEffect(() => {
     if (!canvasRef.current || !mapConfig) return
@@ -93,6 +99,7 @@ export const Game: FC = () => {
   }, [gameStatistic.isRunning, mapConfig, dispatch])
 
   useEffect(() => {
+    dispatch(leaderboardTeamReq({ ratingFieldName: RATING_FIELD_NAME, cursor: CURSOR, limit: LIMIT }))
     const canvas = canvasRef.current
     const handleMouseMove = (event: MouseEvent) => {
       if (!canvas) return
@@ -126,6 +133,46 @@ export const Game: FC = () => {
       sendStatistic.send(user, statistic)
     }
   }, [gameStatistic, user])
+
+  useEffect(() => {
+    const handleStatistic = async () => {
+      const tasks = RANG_KILLS_MAP.entries()
+        .filter(([key]) => gameStatistic.currenKillCount === key && gameStatistic.isRunning)
+        .map(async ([, value]) => {
+          const statistic: StatisticData = {
+            bestWavesCount: gameStatistic.bestWavesCount,
+            bestKillCount: gameStatistic.bestKillCount,
+            currentCoins: gameStatistic.currentCoins,
+          }
+
+          // Ждем завершения отправки статистики
+          await sendStatistic.send(user, statistic)
+
+          // Ждем завершения запроса к leaderboard
+          await dispatch(leaderboardTeamReq({ ratingFieldName: RATING_FIELD_NAME, cursor: CURSOR, limit: LIMIT }))
+
+          // Получаем информацию о позиции пользователя в лидерборде
+          const stat = leaderboardRows.find(row => row.name === user.login)
+          const target = RANG_REMAINING_MAP[value]
+            ? `Уничтожьте еще ${RANG_REMAINING_MAP[value].remainingCount} орков и получите ранг "${RANG_REMAINING_MAP[value].rang}"`
+            : ''
+          const rate = stat?.position ? `Ваше текущее место в рейтинге - ${stat.position}` : 'Статистики нет'
+
+          // Отправляем уведомление пользователю
+          // eslint-disable-next-line no-new
+          new Notification(`Поздравляем!`, {
+            body: `Вы получили ранг "${value}"! ${target}. ${rate}`,
+          })
+        })
+
+      await Promise.all(tasks)
+    }
+
+    handleStatistic().catch(error => {
+      console.error('Ошибка при обработке статистики:', error)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameStatistic.currenKillCount])
 
   if (!mapConfig) return <>ERROR</>
   return (
