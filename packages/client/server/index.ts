@@ -5,11 +5,16 @@ import express, { Request as ExpressRequest } from 'express'
 import path from 'path'
 import serialize from 'serialize-javascript'
 import { HelmetServerState } from 'react-helmet-async'
+import { fileURLToPath } from 'url'
 
-dotenv.config()
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
-const port = process.env.CLIENT_PORT || 3000
 const clientPath = path.join(__dirname, '..')
+
+dotenv.config({ path: path.resolve(__dirname, '../../../.env') })
+
+const port = process.env.CLIENT_PORT || 80
 const isDev = process.env.NODE_ENV === 'development'
 
 async function createServer() {
@@ -75,13 +80,20 @@ async function createServer() {
       // Завершаем запрос и отдаём HTML-страницу
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html)
     } catch (e) {
-      vite.ssrFixStacktrace(e as Error)
-      next(e)
+      vite?.ssrFixStacktrace(e)
+      console.log(e.stack)
+      res.status(500).end(e.stack)
     }
   })
 
   app.listen(port, () => {
-    console.log(`Client is listening on port: ${port}`)
+    const lightBlueUnderline = '\x1b[36;4m'
+    const reset = '\x1b[0m'
+
+    console.log(`  ➜ 🚀 Client is listening on port: ${port}`)
+    console.log(
+      `  ➜ 🚀 Click on the following link to open the app: ${lightBlueUnderline}http://localhost:${port}${reset}`
+    )
   })
 }
 

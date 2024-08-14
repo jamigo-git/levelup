@@ -1,4 +1,4 @@
-const dotenv = require('dotenv')
+import dotenv from 'dotenv'
 
 dotenv.config()
 
@@ -37,4 +37,4 @@ const config = {
   testTimeout: 200000,
 }
 
-module.exports = config
+export default config
