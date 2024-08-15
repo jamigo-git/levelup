@@ -118,6 +118,12 @@
     "towerCost": "Башня стоит",
   "currency": "монет!",
     "expandButtonText": "Развернуть на полный экран",
-    "collapseButtonText": "Свернуть"
+    "collapseButtonText": "Свернуть",
+    "notification": "Поздравляем!",
+    "notification.one": "Вы получили ранг",
+    "notification.two": "Уничтожьте еще",
+    "notification.three": "орков и получите ранг",
+    "notification.four": "Ваше текущее место в рейтинге",
+    "notification.five": "Статистики нет"
 }
 }

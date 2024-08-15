@@ -26,14 +26,14 @@ export const RANG_COLOR_MAP: Map<Rang, string> = new Map([
 
 /** Мапа рангов-смертей */
 export const RANG_KILLS_MAP: Map<number, Rang> = new Map([
-  [0, 'Kid'],
-  [20, 'Bro'],
-  [130, 'Master'],
-  [170, 'Pro'],
-  [250, 'God'],
+  [1, 'Kid'],
+  [100, 'Bro'],
+  [1000, 'Master'],
+  [2000, 'Pro'],
+  [10000, 'God'],
 ])
 
-/** Мапа рангов-смертей */
+/** Мапа уведомлений */
 export const RANG_REMAINING_MAP = {
   Kid: {
     remainingCount: 100,

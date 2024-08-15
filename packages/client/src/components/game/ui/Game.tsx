@@ -139,29 +139,20 @@ export const Game: FC = () => {
       const tasks = RANG_KILLS_MAP.entries()
         .filter(([key]) => gameStatistic.currenKillCount === key && gameStatistic.isRunning)
         .map(async ([, value]) => {
-          const statistic: StatisticData = {
-            bestWavesCount: gameStatistic.bestWavesCount,
-            bestKillCount: gameStatistic.bestKillCount,
-            currentCoins: gameStatistic.currentCoins,
-          }
-
-          // Ждем завершения отправки статистики
-          await sendStatistic.send(user, statistic)
-
-          // Ждем завершения запроса к leaderboard
-          await dispatch(leaderboardTeamReq({ ratingFieldName: RATING_FIELD_NAME, cursor: CURSOR, limit: LIMIT }))
-
           // Получаем информацию о позиции пользователя в лидерборде
           const stat = leaderboardRows.find(row => row.name === user.login)
           const target = RANG_REMAINING_MAP[value]
-            ? `Уничтожьте еще ${RANG_REMAINING_MAP[value].remainingCount} орков и получите ранг "${RANG_REMAINING_MAP[value].rang}"`
+            ? `${t('Game.notification.two')} ${RANG_REMAINING_MAP[value].remainingCount} ${t(
+                'Game.notification.three'
+              )} "${RANG_REMAINING_MAP[value].rang}"`
             : ''
-          const rate = stat?.position ? `Ваше текущее место в рейтинге - ${stat.position}` : 'Статистики нет'
+          const rate = stat?.position
+            ? `${t('Game.notification.four')} - ${stat.position}`
+            : `${t('Game.notification.five')}`
 
-          // Отправляем уведомление пользователю
           // eslint-disable-next-line no-new
-          new Notification(`Поздравляем!`, {
-            body: `Вы получили ранг "${value}"! ${target}. ${rate}`,
+          new Notification(`${t('Game.notification')}`, {
+            body: `${t('Game.notification.one')} "${value}"! ${target}. ${rate}`,
           })
         })
 
@@ -172,7 +163,7 @@ export const Game: FC = () => {
       console.error('Ошибка при обработке статистики:', error)
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameStatistic.currenKillCount])
+  }, [gameStatistic, user])
 
   if (!mapConfig) return <>ERROR</>
   return (
