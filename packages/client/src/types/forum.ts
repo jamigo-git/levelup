@@ -1,16 +1,18 @@
 import { User } from './UserTypes'
 
 export interface Topic {
-  id: string
+  id: number
   title: string
   createdAt: string
-  author: Pick<User, 'display_name' | 'avatar'>
-  messageIds: string[]
+  user: Pick<User, 'display_name' | 'first_name' | 'avatar'>
+  commentCount: string[]
 }
 
-export interface Message {
-  id: string
+export interface Comment {
+  id: number
   text: string
   createdAt: string
-  author: Pick<User, 'display_name' | 'avatar'>
+  user: Pick<User, 'display_name' | 'first_name' | 'avatar'>
+  parentId?: string
+  replies?: Comment[]
 }

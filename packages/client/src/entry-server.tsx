@@ -13,6 +13,7 @@ import { rootReducer } from './store'
 import { customTheme } from './styles/antdConfig'
 import { createFetchRequest } from './entry-server.utils'
 import { staticHandler } from './routing/staticHandler'
+import forumApiService from './store/slices/forumApi/forumApiService'
 
 dayjs.locale('ru')
 
@@ -34,6 +35,7 @@ export const render = async (req: ExpressRequest) => {
 
   const store = configureStore({
     reducer: rootReducer,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(forumApiService.middleware),
   })
 
   // Создёт статический роутер, чтобы на сервере можно было отрендерить HTML-разметку.

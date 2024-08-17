@@ -1,24 +1,33 @@
+import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
+dotenv.config()
+import helmet from 'helmet'
 
-import express from 'express'
-import { createClientAndConnect } from './db'
+import { dbConnect } from './src/config/db'
+import { errorLogger, requestLogger } from './src/middlewares/logger'
+import { handleError } from './src/middlewares/handleError'
+import router from './src/routes'
 
-const app = express()
-app.use(cors())
+dotenv.config({ path: path.resolve(__dirname, '../../.env') })
+
 const port = Number(process.env.SERVER_PORT) || 3001
 
-createClientAndConnect()
+const app = express()
 
-app.get('/test', async (req, res) => {
-  console.log(req)
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
-  res.end('Hello World')
-})
+app.use(cors())
+app.use(express.json())
+app.use(helmet())
 
-app.listen(port, () => {
-  console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
-})
+app.use(requestLogger)
+app.use('/api', router)
+app.use(errorLogger)
+app.use(handleError)
+;(async function () {
+  await dbConnect()
+  app.listen(port, () => {
+    console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
+  })
+})()

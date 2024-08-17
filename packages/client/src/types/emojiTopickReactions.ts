@@ -2,7 +2,7 @@ import { Theme } from 'emoji-picker-react'
 
 export interface TopicReactionsData {
   id: string
-  topicId: string
+  topicId: number
   userId: number
   emoji: string
   unified: string
@@ -18,7 +18,7 @@ export interface GrpTopicReactionsData {
 
 /** Конфигурация каждого отдельного пикера */
 export interface EmojiPickerConfig {
-  id: string
+  id: number
   reactionsDefaultOpen: boolean
   theme: Theme
   open: boolean

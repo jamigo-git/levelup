@@ -13,7 +13,7 @@ import { TopicReactionsData } from '@/types/emojiTopickReactions'
 import styles from './ForumTopicReactions.module.scss'
 
 interface TopicReactionsProps {
-  topicId: string
+  topicId: number
 }
 
 export const ForumTopicReactions: FC<TopicReactionsProps> = ({ topicId }) => {

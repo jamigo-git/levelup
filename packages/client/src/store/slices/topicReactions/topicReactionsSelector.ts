@@ -3,7 +3,7 @@ import { RootState } from '../..'
 
 export const getAllTopicReactions = (state: RootState) => state.topicReactions
 
-export const getTopicReactions = (state: RootState, topicId: string): GrpTopicReactionsData[] | null => {
+export const getTopicReactions = (state: RootState, topicId: number): GrpTopicReactionsData[] | null => {
   if (!topicId) return []
   const allTopicReactions = getAllTopicReactions(state).data?.filter(f => f?.topicId === topicId)
   const reactionsByEmoji: { [key: string]: GrpTopicReactionsData } = {}

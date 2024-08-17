@@ -1,11 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authReducer from './slices/auth/authSlice'
-import forumTopicReducer from './slices/forumTopic/forumTopicSlice'
-import forumMessageReducer from './slices/forumMessage/forumMessageSlice'
 import gameReducer from './slices/game/gameSlice'
 import leaderboardReducer from './slices/leaderboard/leaderboardSlice'
 import emojiPickerReducer from './slices/emojiPicker/emojiPickerSlice'
 import topicReactionsReducer from './slices/topicReactions/topicReactionsSlice'
+import forumApiService from './slices/forumApi/forumApiService'
 
 declare global {
   interface Window {
@@ -16,17 +15,16 @@ declare global {
 // Create the root reducer independently to obtain the RootState type
 export const rootReducer = combineReducers({
   auth: authReducer,
-  forumTopic: forumTopicReducer,
-  forumMessage: forumMessageReducer,
   game: gameReducer,
   leaderboard: leaderboardReducer,
   emojiPicker: emojiPickerReducer,
   topicReactions: topicReactionsReducer,
+  [forumApiService.reducerPath]: forumApiService.reducer,
 })
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware(),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(forumApiService.middleware),
   preloadedState: typeof window === 'undefined' ? undefined : window.APP_INITIAL_STATE,
 })
 
