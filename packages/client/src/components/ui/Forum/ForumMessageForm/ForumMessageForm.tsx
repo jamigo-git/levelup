@@ -8,8 +8,8 @@ import { addMessage } from '@/store/slices/forumMessage/forumMessageSlice'
 import { addTopicMessage } from '@/store/slices/forumTopic/forumTopicSlice'
 import { useTranslation } from 'react-i18next'
 import EmojiPicker, { Theme } from 'emoji-picker-react'
-import { getEmojiPicker } from '@/store/slices/emojiPicker/emojiPickerSelector'
-import { setIsShowPicker } from '@/store/slices/emojiPicker/emojiPickerSlice'
+import { getEmojiPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSelector'
+import { setPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSlice'
 import { Message } from '@/types/forum'
 import { ForumLoginSuggest } from '../ForumLoginSuggest'
 import styles from './ForumMessageForm.module.scss'
@@ -23,19 +23,27 @@ interface ForumMessageFormProps {
 interface EmojiClickData {
   unified: string
   unifiedWithoutSkinTone: string
-  emoji: string // the emoji character, for example: '😀'. Emoji ID in custom emojis
-  isCustom: boolean // whether the emoji is a custom emoji or not
+  emoji: string
+  isCustom: boolean
   names: string[]
-  imageUrl: string // the url of the emoji image with the current emoji style applied
+  imageUrl: string
 }
 
 export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId }) => {
   const [form] = Form.useForm<FormValues>()
   const [confirmLoading, setConfirmLoading] = useState(false)
   const user = useAppSelector(getUser)
-  const emojiPicker = useAppSelector(getEmojiPicker)
   const dispatch = useAppDispatch()
-  const { isShowEmojiPicker } = emojiPicker
+
+  const defaultEmojiPickerConfig = {
+    id: topicId,
+    reactionsDefaultOpen: false,
+    theme: Theme.DARK,
+    open: false,
+  }
+
+  const { open, theme } = useAppSelector(state => getEmojiPickerConfig(state, topicId)) || defaultEmojiPickerConfig
+
   const { t } = useTranslation()
 
   if (!user) {
@@ -89,9 +97,9 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId }) => {
             shape='circle'
             icon={<SmileOutlined />}
             loading={confirmLoading}
-            onClick={() => dispatch(setIsShowPicker())}
+            onClick={() => dispatch(setPickerConfig({ id: topicId, reactionsDefaultOpen: false, theme, open: !open }))}
           />
-          {isShowEmojiPicker && <EmojiPicker theme={Theme.DARK} onEmojiClick={onEmojiClick} />}
+          <EmojiPicker open={open} theme={theme} reactionsDefaultOpen={false} onEmojiClick={onEmojiClick} />
         </Form.Item>
       </Form>
     </div>

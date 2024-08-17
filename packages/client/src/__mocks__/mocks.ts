@@ -1,4 +1,5 @@
 import { User } from '@/types/UserTypes'
+import { TopicReactionsData } from '@/types/emojiTopickReactions'
 import { Message, Topic } from '@/types/forum'
 import { LeaderboardData } from '@/types/leaderboard'
 
@@ -251,5 +252,36 @@ export const leaderboardMock: LeaderboardData[] = [
     kills: 222,
     waves: 21,
     rang: 'Kid',
+  },
+]
+
+export const emojiTopicReactionsDataMock: TopicReactionsData[] = [
+  {
+    id: '1',
+    topicId: '1',
+    userId: 1,
+    emoji: '123',
+    unified: '1f423',
+  },
+  {
+    id: '2',
+    topicId: '1',
+    userId: 2,
+    emoji: '123',
+    unified: '1f423',
+  },
+  {
+    id: '3',
+    topicId: '1',
+    userId: 3,
+    emoji: '123',
+    unified: '1f423',
+  },
+  {
+    id: '4',
+    topicId: '1',
+    userId: 4,
+    emoji: '123',
+    unified: '1f423',
   },
 ]

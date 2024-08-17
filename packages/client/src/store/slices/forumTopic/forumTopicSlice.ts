@@ -1,13 +1,20 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Topic } from '@/types/forum'
+import { topicListMock } from '@/__mocks__/mocks'
 
 interface ForumTopicSliceState {
   idList: string[]
   byId: Record<string, Topic>
 }
 const initialStateMock: ForumTopicSliceState = {
-  idList: [],
-  byId: {},
+  idList: topicListMock.map(f => f.id),
+  byId: topicListMock.reduce(
+    (sum, cur) => {
+      sum[cur.id] = cur
+      return sum
+    },
+    {} as Record<string, Topic>
+  ),
 }
 
 export const forumTopicSlice = createSlice({
