@@ -6,14 +6,21 @@ interface CreateUserRequest {
   first_name: string
   second_name: string
   display_name?: string
+  avatar?: string
 }
 
 class UserService implements BaseRESTService {
   public create = async (user: CreateUserRequest) => {
-    return await User.findOrCreate({
+    const [foundUser, created] = await User.findOrCreate({
       where: { id: user.id },
       defaults: { ...user },
     })
+
+    if (!created) {
+      await foundUser.update(user)
+    }
+
+    return foundUser
   }
 }
 

@@ -4,8 +4,8 @@ import forumTopicService from '../services/forumTopicService'
 import BadRequestError from '../errors/BadRequestError'
 
 interface TopicListOptions {
-  offset: string
-  limit: string
+  offset?: string
+  limit?: string
 }
 
 const forumTopicSchema = z.object({
@@ -49,8 +49,8 @@ class ForumTopicAPI {
     next: NextFunction
   ) => {
     try {
-      const limit = parseInt(request.query.limit, 10) || defaultLimit
-      const offset = parseInt(request.query.offset, 10) || defaultOffset
+      const limit = request.query.limit ? parseInt(request.query.limit, 10) : defaultLimit
+      const offset = request.query.offset ? parseInt(request.query.offset, 10) : defaultOffset
 
       const data = await forumTopicService.getTopicList({ limit, offset })
       return response.status(200).json(data)

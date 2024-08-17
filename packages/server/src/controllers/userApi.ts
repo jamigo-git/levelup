@@ -8,6 +8,7 @@ const userSchema = z.object({
   first_name: z.string(),
   second_name: z.string(),
   display_name: z.string().optional(),
+  avatar: z.string().optional(),
 })
 
 class UserAPI {

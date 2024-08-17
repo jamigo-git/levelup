@@ -29,4 +29,9 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
     type: DataType.STRING,
   })
   declare display_name?: string
+
+  @Column({
+    type: DataType.STRING,
+  })
+  declare avatar?: string
 }

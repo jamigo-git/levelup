@@ -4,9 +4,9 @@ import forumCommentService from '../services/forumCommentService'
 import BadRequestError from '../errors/BadRequestError'
 
 interface CommentListOptions {
-  topicId: string
-  offset: string
-  limit: string
+  topicId?: string
+  offset?: string
+  limit?: string
 }
 
 const forumCommentSchema = z.object({
@@ -26,11 +26,11 @@ class ForumCommentAPI {
     next: NextFunction
   ) => {
     try {
-      const topicId = parseInt(request.query.topicId, 10)
-      const limit = parseInt(request.query.limit, 10) || defaultLimit
-      const offset = parseInt(request.query.offset, 10) || defaultOffset
+      const topicId = request.query.topicId ? parseInt(request.query.topicId, 10) : undefined
+      const limit = request.query.limit ? parseInt(request.query.limit, 10) : defaultLimit
+      const offset = request.query.offset ? parseInt(request.query.offset, 10) : defaultOffset
 
-      if (isNaN(topicId)) {
+      if (topicId === undefined) {
         throw new BadRequestError('Invalid topicId')
       }
 
@@ -46,7 +46,7 @@ class ForumCommentAPI {
     try {
       const comment = forumCommentSchema.parse(request.body)
       const result = await forumCommentService.createComment(comment)
-      return response.json(result)
+      return response.status(201).json(result)
     } catch (error) {
       if (error instanceof z.ZodError) {
         next(new BadRequestError(JSON.stringify({ error: error.errors })))
