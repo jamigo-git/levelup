@@ -1,9 +1,9 @@
 import axios from 'axios'
-import host from '@/constants/host'
 import oAuthRedirectUri from '@/constants/oAuthRedirectUri'
+import { SERVER_HOST } from '@/constants/serverHost'
 
 class OAuthService {
-  private url = `${host}/oauth/yandex`
+  private url = `${SERVER_HOST}/yandex/oauth/yandex`
 
   private redirectUri = import.meta.env.DEV ? 'http://localhost:3000/login' : oAuthRedirectUri
 

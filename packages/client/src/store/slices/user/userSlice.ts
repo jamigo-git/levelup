@@ -1,10 +1,11 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import host from '@/constants/host'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { SERVER_HOST } from '@/constants/serverHost'
+import { syncUserWithDb } from '@/utils/syncUserWithDb'
 import { ChangePassword, UserProfile } from '@/types/UserTypes'
 
 const apiClient = axios.create({
-  baseURL: `${host}/user`,
+  baseURL: `${SERVER_HOST}/yandex/user`,
   withCredentials: true,
 })
 
@@ -26,6 +27,7 @@ export const changePassword = createAsyncThunk<{ id: number }, ChangePassword>(
 export const editProfile = createAsyncThunk<void, UserProfile>('profile', async (userData, { rejectWithValue }) => {
   try {
     const response = await apiClient.put('/profile', userData)
+    syncUserWithDb(response.data)
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -40,6 +42,7 @@ export const editProfileAvatar = createAsyncThunk<void, FormData>(
   async (avatar, { rejectWithValue }) => {
     try {
       const response = await apiClient.put('/profile/avatar', avatar)
+      syncUserWithDb(response.data)
       return response.data
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {

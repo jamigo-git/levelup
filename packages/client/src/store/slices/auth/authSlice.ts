@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import host from '@/constants/host'
+import { SERVER_HOST } from '@/constants/serverHost'
+import { syncUserWithDb } from '@/utils/syncUserWithDb'
 import { CreateUser, LoginRequestData, UserDTO } from '@/types/AuthTypes'
 
 const apiClient = axios.create({
-  baseURL: `${host}/auth`,
+  baseURL: `${SERVER_HOST}/yandex/auth`,
   withCredentials: true,
 })
 
@@ -38,6 +39,7 @@ export const login = createAsyncThunk<void, LoginRequestData>('login', async (lo
 export const fetchCurrentUser = createAsyncThunk('me', async (_, { rejectWithValue }) => {
   try {
     const response = await apiClient.get('/user')
+    syncUserWithDb(response.data)
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {

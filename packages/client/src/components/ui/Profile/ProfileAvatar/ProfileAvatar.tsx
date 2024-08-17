@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Upload, Avatar, message } from 'antd'
 import { UserOutlined } from '@ant-design/icons'
-import { useAppDispatch } from '@/hooks/reduxHooks'
 import { editProfileAvatar } from '@/store/slices/user/userSlice'
-import host from '@/constants/host'
 import { useTranslation } from 'react-i18next'
+
+import { SERVER_HOST } from '@/constants/serverHost'
+import { useAppDispatch } from '@/hooks/reduxHooks'
 import { UserAvatar } from '@/types/UserTypes'
 import styles from './ProfileAvatar.module.scss'
 
@@ -41,7 +42,7 @@ export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit, disabled }) => 
     <Upload name='avatar' showUploadList={false} customRequest={changeAvatar}>
       <Avatar
         size={150}
-        icon={avatarUrl ? <img src={`${host}/resources${avatarUrl}`} alt='avatar' /> : <UserOutlined />}
+        icon={avatarUrl ? <img src={`${SERVER_HOST}/yandex/resources${avatarUrl}`} alt='avatar' /> : <UserOutlined />}
         className={styles.avatarEdit}
       />
     </Upload>
@@ -49,7 +50,7 @@ export const ProfileAvatar: React.FC<Props> = ({ avatar, isEdit, disabled }) => 
     <Avatar
       onClick={() => disabled && message.error('Извините, в данный момент невозможно изменить аватар.')}
       size={150}
-      icon={avatarUrl ? <img src={`${host}/resources${avatarUrl}`} alt='avatar' /> : <UserOutlined />}
+      icon={avatarUrl ? <img src={`${SERVER_HOST}/yandex/resources${avatarUrl}`} alt='avatar' /> : <UserOutlined />}
       className={styles.avatar}
     />
   )

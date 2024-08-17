@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async'
 import { useAppSelector } from '@/hooks/reduxHooks'
 import { getLeaderboardData } from '@/store/slices/leaderboard/leaderboardSelector'
 import { PAGE_SIZE, RANG_COLOR_MAP } from '@/constants/leaderboard'
-import host from '@/constants/host'
+import { SERVER_HOST } from '@/constants/serverHost'
 import { LeaderboardData } from '@/types/leaderboard'
 import styles from './Leaderboard.module.scss'
 
@@ -25,7 +25,7 @@ const columns: TableProps<LeaderboardData>['columns'] = [
     dataIndex: 'avatar',
     key: 'avatar',
     width: 100,
-    render: (_, { avatar }) => <Avatar src={`${host}/resources${avatar}`} />,
+    render: (_, { avatar }) => <Avatar src={`${SERVER_HOST}/yandex/resources${avatar}`} />,
   },
   {
     title: 'Имя',
