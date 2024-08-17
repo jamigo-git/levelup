@@ -98,6 +98,11 @@
     "buttonText": "Авторизируйтесь",
     "explanation": ", чтобы создавать топики и отвечать на сообщения"
   },
+  "CommentComponent": {
+    "replyButtonText": "Ответить",
+    "hideRepliesButtonText": "Скрыть ответы",
+    "showRepliesButtonText": "Показать ответы"
+  },
   "StartScreen": {
     "title": "Лучший результат!",
     "maxWaves": "Максимальное количество пройденных волн",
