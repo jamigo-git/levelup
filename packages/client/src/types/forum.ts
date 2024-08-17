@@ -5,7 +5,7 @@ export interface Topic {
   title: string
   createdAt: string
   user: Pick<User, 'display_name' | 'first_name' | 'avatar'>
-  commentCount: string[]
+  commentCount?: number
 }
 
 export interface Comment {

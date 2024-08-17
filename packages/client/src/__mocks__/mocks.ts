@@ -1,5 +1,5 @@
 import { User } from '@/types/UserTypes'
-import { Comment, Topic } from '@/types/forum'
+import { Comment } from '@/types/forum'
 import { LeaderboardData } from '@/types/leaderboard'
 
 export const userMock: User = {
@@ -13,30 +13,67 @@ export const userMock: User = {
   avatar: '/a52e28aa-920b-4acb-a8de-f8d96e13302c/de8a38f7-b848-4786-adb8-2010d74c5cce_cat_at_work2.jpeg',
 }
 
-export const topicListMock: Topic[] = [
-  {
-    id: 1,
-    title: 'Очень интересная тема',
-    createdAt: '1719336294820',
-    user: {
-      first_name: 'Том',
-      display_name: 'Том Круз',
-      avatar: 'https://avatars.githubusercontent.com/u/1',
+export const testTopicMock = {
+  id: 2,
+  title: 'Test title',
+  createdAt: '2024-08-17T18:42:39.075Z',
+  updatedAt: '2024-08-17T18:42:39.075Z',
+  commentCount: '1',
+  user: userMock,
+}
+
+export const getTopicListMock = {
+  total: 1,
+  list: [
+    {
+      id: 1,
+      title: 'topic',
+      createdAt: '2024-08-17T18:42:39.075Z',
+      updatedAt: '2024-08-17T18:42:39.075Z',
+      commentCount: '7',
+      user: userMock,
     },
-    commentCount: ['1', '2', '3'],
-  },
-  {
-    id: 2,
-    title: 'Не интересная тема',
-    createdAt: '1719336294820',
-    user: {
-      first_name: 'Антонио',
-      display_name: 'Антонио Бандерас',
-      avatar: 'https://avatars.githubusercontent.com/u/2',
+  ],
+}
+
+export const testTopicCommentMock = {
+  id: 22,
+  text: 'Test message',
+  parentId: null,
+  userId: 505,
+  topicId: 1,
+  createdAt: '2024-08-17T18:42:39.092Z',
+  updatedAt: '2024-08-17T18:42:39.092Z',
+  user: userMock,
+}
+
+export const getTopicCommentsListMock = {
+  total: 1,
+  list: [
+    {
+      id: 1,
+      text: 'qq',
+      parentId: null,
+      userId: 505,
+      topicId: 1,
+      createdAt: '2024-08-17T18:42:39.092Z',
+      updatedAt: '2024-08-17T18:42:39.092Z',
+      replies: [
+        {
+          id: 2,
+          text: 'Aasd, asdf',
+          parentId: 1,
+          userId: 505,
+          topicId: 1,
+          createdAt: '2024-08-17T19:12:00.272Z',
+          updatedAt: '2024-08-17T19:12:00.272Z',
+          user: userMock,
+        },
+      ],
+      user: userMock,
     },
-    commentCount: ['4', '5', '6'],
-  },
-]
+  ],
+}
 
 export const messageListMock: Comment[] = [
   {
