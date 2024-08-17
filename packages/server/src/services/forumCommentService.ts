@@ -53,18 +53,33 @@ class ForumCommentService {
   }
 
   public getCommentList = async ({ limit, offset, topicId }: GetListRequest) => {
-    return await ForumComment.findAll({
+    const total = await ForumComment.count({
+      where: { topicId, parentId: { [Op.is]: null } },
+    })
+
+    const list = await ForumComment.findAll({
       limit,
       offset,
-      where: [{ topicId }, { parentId: { [Op.is]: null } }],
+      order: [['createdAt', 'ASC']],
+      where: { topicId, parentId: { [Op.is]: null } },
       include: [
         {
           model: ForumComment,
           as: 'replies',
           include: [
             {
+              model: User,
+              attributes: ['id', 'first_name', 'second_name', 'display_name'],
+            },
+            {
               model: ForumComment,
               as: 'replies',
+              include: [
+                {
+                  model: User,
+                  attributes: ['id', 'first_name', 'second_name', 'display_name'],
+                },
+              ],
             },
           ],
         },
@@ -74,6 +89,8 @@ class ForumCommentService {
         },
       ],
     })
+
+    return { total, list }
   }
 }
 

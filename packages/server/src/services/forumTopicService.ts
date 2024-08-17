@@ -15,13 +15,6 @@ interface CreateTopicRequest {
   message?: string
 }
 
-interface CreateCommentRequest {
-  topicId: number
-  userId: number
-  text: string
-  parentId?: number
-}
-
 class ForumTopicService {
   public createTopic = async ({ title, userId, message }: CreateTopicRequest) => {
     const user = await User.findByPk(userId)
@@ -29,7 +22,7 @@ class ForumTopicService {
       throw new NotFoundError('User not found')
     }
 
-    const topic = await ForumTopic.create({ title, userId: userId })
+    const topic = await ForumTopic.create({ title, userId })
 
     if (message) {
       await ForumComment.create({
@@ -42,10 +35,40 @@ class ForumTopicService {
     return topic
   }
 
+  public getTopicById = async (id: number) => {
+    const topic = await ForumTopic.findByPk(id, {
+      attributes: {
+        exclude: ['userId'],
+        include: [
+          [
+            Sequelize.literal(`(
+              SELECT COUNT(*)
+              FROM forum_comments AS comments
+              WHERE comments."topicId" = "ForumTopic"."id"
+            )`),
+            'commentCount',
+          ],
+        ],
+      },
+      include: {
+        model: User,
+        attributes: ['id', 'first_name', 'second_name', 'display_name'],
+      },
+    })
+
+    if (!topic) {
+      throw new NotFoundError('Topic not found')
+    }
+
+    return topic
+  }
+
   public getTopicList = async ({ limit, offset }: GetListRequest) => {
-    return await ForumTopic.findAll({
+    const total = await ForumTopic.count()
+    const list = await ForumTopic.findAll({
       limit,
       offset,
+      order: [['createdAt', 'ASC']],
       attributes: {
         exclude: ['userId'],
         include: [
@@ -67,40 +90,8 @@ class ForumTopicService {
       ],
       group: ['ForumTopic.id', 'user.id'],
     })
-  }
 
-  public createComment = async ({ topicId, userId, text }: CreateCommentRequest) => {
-    const user = await User.findByPk(userId)
-    if (!user) {
-      throw new NotFoundError('User not found')
-    }
-
-    const topic = await ForumTopic.findByPk(topicId)
-    if (!topic) {
-      throw new NotFoundError('Topic not found')
-    }
-
-    return await ForumComment.create({
-      text,
-      userId,
-      topicId,
-    })
-  }
-
-  public getCommentList = async ({ limit, offset, topicId }: GetListRequest & { topicId: number }) => {
-    return await ForumComment.findAll({
-      limit,
-      offset,
-      where: {
-        topicId,
-      },
-      include: [
-        {
-          model: User,
-          attributes: ['id', 'first_name', 'second_name', 'display_name'],
-        },
-      ],
-    })
+    return { total, list }
   }
 }
 
