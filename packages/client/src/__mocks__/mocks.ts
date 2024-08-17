@@ -1,4 +1,65 @@
+import { User } from '@/types/UserTypes'
+import { Comment, Topic } from '@/types/forum'
 import { LeaderboardData } from '@/types/leaderboard'
+
+export const userMock: User = {
+  id: 1,
+  email: 'example@example.com',
+  login: 'example',
+  first_name: 'Джаред',
+  second_name: 'Лето',
+  display_name: 'Джаред Лето',
+  phone: '+1234567890',
+  avatar: '/a52e28aa-920b-4acb-a8de-f8d96e13302c/de8a38f7-b848-4786-adb8-2010d74c5cce_cat_at_work2.jpeg',
+}
+
+export const topicListMock: Topic[] = [
+  {
+    id: 1,
+    title: 'Очень интересная тема',
+    createdAt: '1719336294820',
+    user: {
+      first_name: 'Том',
+      display_name: 'Том Круз',
+      avatar: 'https://avatars.githubusercontent.com/u/1',
+    },
+    commentCount: ['1', '2', '3'],
+  },
+  {
+    id: 2,
+    title: 'Не интересная тема',
+    createdAt: '1719336294820',
+    user: {
+      first_name: 'Антонио',
+      display_name: 'Антонио Бандерас',
+      avatar: 'https://avatars.githubusercontent.com/u/2',
+    },
+    commentCount: ['4', '5', '6'],
+  },
+]
+
+export const messageListMock: Comment[] = [
+  {
+    id: 1,
+    text: 'Согласен с автором',
+    createdAt: '1719336294820',
+    user: {
+      first_name: 'Том',
+      display_name: 'Том Круз',
+      avatar: 'https://avatars.githubusercontent.com/u/1',
+    },
+  },
+  {
+    id: 2,
+    text: 'Не согласен с автором',
+    createdAt: '1719336294820',
+    user: {
+      first_name: 'Антонио',
+      display_name: 'Антонио Бандерас',
+      avatar: 'https://avatars.githubusercontent.com/u/2',
+    },
+  },
+]
 
 export const leaderboardMock: LeaderboardData[] = [
   {
