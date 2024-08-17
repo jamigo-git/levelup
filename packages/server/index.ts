@@ -10,12 +10,16 @@ import { handleError } from './src/middlewares/handleError'
 import router from './src/routes'
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
-
+const clientPort = Number(process.env.CLIENT_PORT) || 3000
 const port = Number(process.env.SERVER_PORT) || 3001
+const corsOptions = {
+  credentials: true,
+  origin: [`http://localhost:${clientPort}`],
+}
 
 const app = express()
 
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(helmet())
 
