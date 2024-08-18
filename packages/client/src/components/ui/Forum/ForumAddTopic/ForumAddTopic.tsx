@@ -6,6 +6,7 @@ import { getUser } from '@/store/slices/auth/authSelector'
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { addTopic } from '@/store/slices/forumTopic/forumTopicSlice'
 import { addMessage } from '@/store/slices/forumMessage/forumMessageSlice'
+import { useTranslation } from 'react-i18next'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { Message, Topic } from '@/types/forum'
 import { ForumLoginSuggest } from '../ForumLoginSuggest'
@@ -21,6 +22,7 @@ export const ForumAddTopic: FC = () => {
   const [confirmLoading, setConfirmLoading] = useState(false)
   const user = useAppSelector(getUser)
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
 
   if (!user) {
     return <ForumLoginSuggest />
@@ -73,10 +75,10 @@ export const ForumAddTopic: FC = () => {
   return (
     <ErrorBoundary>
       <Button icon={<PlusSquareOutlined />} iconPosition='end' onClick={showModal} size='large'>
-        Добавить топик
+        {t('ForumAddTopic.addTopicButtonText')}
       </Button>
       <Modal
-        title='О чем поговорим?'
+        title={t('ForumAddTopic.ForumAddTopicModal.forumAddTopicModalTitle')}
         width={400}
         open={isModalOpen}
         centered
@@ -85,16 +87,22 @@ export const ForumAddTopic: FC = () => {
         onCancel={handleCancel}
         confirmLoading={confirmLoading}>
         <Form form={form} onFinish={handleSubmit}>
-          <Form.Item name='title' rules={[{ required: true, message: 'Без темы никак' }]}>
-            <Input placeholder='Введите название темы' autoComplete='off' />
+          <Form.Item
+            name='title'
+            rules={[{ required: true, message: `${t('ForumAddTopic.ForumAddTopicModal.requireRule')}` }]}>
+            <Input placeholder={t('ForumAddTopic.ForumAddTopicModal.topicTitlePlaceholder')} autoComplete='off' />
           </Form.Item>
           <Form.Item name='message'>
-            <Input.TextArea rows={4} autoSize={{ minRows: 4, maxRows: 6 }} placeholder='Добавите первое сообщение?' />
+            <Input.TextArea
+              rows={4}
+              autoSize={{ minRows: 4, maxRows: 6 }}
+              placeholder={t('ForumAddTopic.ForumAddTopicModal.topicSubTitlePlaceholder')}
+            />
           </Form.Item>
           <Flex justify='flex-end' gap={8}>
-            <Button onClick={handleCancel}>Отмена</Button>
+            <Button onClick={handleCancel}>{t('ForumAddTopic.ForumAddTopicModal.cancelButtonText')}</Button>
             <Button type='primary' htmlType='submit' loading={confirmLoading}>
-              Создать
+              {t('ForumAddTopic.ForumAddTopicModal.createButtonText')}
             </Button>
           </Flex>
         </Form>

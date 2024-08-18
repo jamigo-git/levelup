@@ -26,6 +26,24 @@ const preloadedState: Partial<RootState> = {
   },
 }
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (str: string) => {
+      const translations: Record<string, string> = {
+        'ForumAddTopic.addTopicButtonText': 'Добавить топик',
+        'ForumAddTopic.ForumAddTopicModal.forumAddTopicModalTitle': 'О чем поговорим?',
+        'ForumAddTopic.ForumAddTopicModal.topicTitlePlaceholder': 'Введите название темы',
+        'ForumAddTopic.ForumAddTopicModal.cancelButtonText': 'Отмена',
+        'ForumAddTopic.ForumAddTopicModal.createButtonText': 'Создать',
+      }
+      return translations[str] || str
+    },
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+  }),
+}))
+
 describe('ForumAddTopic', () => {
   test('does not render if no user is logged in', () => {
     renderWithProviders(<ForumAddTopic />)
@@ -36,12 +54,11 @@ describe('ForumAddTopic', () => {
 
   test('opens modal when button is clicked', async () => {
     renderWithProviders(<ForumAddTopic />, { preloadedState })
-    const addButton = screen.getByText(/Добавить топик/i)
-
+    const addButton = screen.getByRole('button', { name: /Добавить топик/i })
     await userEvent.click(addButton)
 
-    const modal = screen.getByRole('dialog', { name: /О чем поговорим\?/i })
-    expect(modal).toBeInTheDocument()
+    const modalTitle = screen.getByText(/О чем поговорим\?/i)
+    expect(modalTitle).toBeInTheDocument()
   })
 
   test('closes modal when cancel button is clicked', async () => {

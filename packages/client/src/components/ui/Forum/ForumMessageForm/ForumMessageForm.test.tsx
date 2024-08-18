@@ -26,6 +26,21 @@ const preloadedState: Partial<RootState> = {
   },
 }
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (str: string) => {
+      const translations: Record<string, string> = {
+        'ForumMessageForm.topicMessageTextPlaceholder': 'Введите сообщение',
+        'ForumMessageForm.sendButtonText': 'Отправить',
+      }
+      return translations[str] || str
+    },
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+  }),
+}))
+
 describe('ForumMessageForm', () => {
   test('renders the message form', () => {
     renderWithProviders(<ForumMessageForm topicId={topicListMock[0].id} />, { preloadedState })

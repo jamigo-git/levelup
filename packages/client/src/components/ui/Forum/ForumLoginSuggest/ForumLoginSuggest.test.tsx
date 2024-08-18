@@ -8,6 +8,20 @@ jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),
 }))
 
+jest.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (str: string) => {
+      const translations: Record<string, string> = {
+        'ForumLoginSuggest.buttonText': 'Авторизируйтесь',
+      }
+      return translations[str] || str
+    },
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+    },
+  }),
+}))
+
 describe('ForumLoginSuggest', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -15,8 +29,8 @@ describe('ForumLoginSuggest', () => {
 
   test('renders the login suggestion text', () => {
     render(<ForumLoginSuggest />)
-    const loginText = screen.getByText(/Авторизируйтесь/i)
-    expect(loginText).toBeInTheDocument()
+    const loginButton = screen.getByRole('button', { name: /Авторизируйтесь/i })
+    expect(loginButton).toBeInTheDocument()
   })
 
   test('navigates to the login page when the button is clicked', async () => {

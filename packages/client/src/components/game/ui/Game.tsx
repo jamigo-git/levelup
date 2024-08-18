@@ -6,7 +6,13 @@ import { getGameStatistic } from '@/slices/game/gameSelector'
 import { setIsEnding, setIsRunning, setStatistic } from '@/slices/game/gameSlice'
 import { useFullscreen } from '@/hooks/useFullScreen'
 
+import { useTranslation } from 'react-i18next'
 import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
+import sendStatistic from '@/utils/sendStatistic'
+import { getUser } from '@/store/slices/auth/authSelector'
+import { CURSOR, LIMIT, RANG_KILLS_MAP, RANG_REMAINING_MAP, RATING_FIELD_NAME } from '@/constants/leaderboard'
+import { getLeaderboardData } from '@/slices/leaderboard/leaderboardSelector'
+import { leaderboardTeamReq } from '@/slices/leaderboard/leaderboardSlice'
 import { GameConfig } from '../model/Game'
 import { StartScreen } from './StartScreen/StartScreen'
 import { EndScreen } from './EndScreen/EndScreen'
@@ -15,11 +21,15 @@ import { MapConfig } from '../commonTypes'
 import { maps } from '../maps'
 import { Overlay } from './Overlay/Overlay'
 import style from './game.module.scss'
+import { StatisticData } from '@/types/leaderboard'
 
 export const Game: FC = () => {
   const { Text } = Typography
   const dispatch = useAppDispatch()
+  const { t } = useTranslation()
   const gameStatistic = useAppSelector(getGameStatistic)
+  const user = useAppSelector(getUser)
+  const leaderboardRows = useAppSelector(state => getLeaderboardData(state))
   const [mapName] = useState('DesertOrks')
   const { isFullscreen, toggleFullscreen } = useFullscreen()
 
@@ -34,6 +44,8 @@ export const Game: FC = () => {
     if (index < 0) return undefined
     return maps[index]
   }, [mapName])
+
+  Notification.requestPermission()
 
   useEffect(() => {
     if (!canvasRef.current || !mapConfig) return
@@ -87,6 +99,7 @@ export const Game: FC = () => {
   }, [gameStatistic.isRunning, mapConfig, dispatch])
 
   useEffect(() => {
+    dispatch(leaderboardTeamReq({ ratingFieldName: RATING_FIELD_NAME, cursor: CURSOR, limit: LIMIT }))
     const canvas = canvasRef.current
     const handleMouseMove = (event: MouseEvent) => {
       if (!canvas) return
@@ -108,6 +121,49 @@ export const Game: FC = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (!user) return
+    if (gameStatistic.isEnding) {
+      const statistic: StatisticData = {
+        bestWavesCount: gameStatistic.bestWavesCount,
+        bestKillCount: gameStatistic.bestKillCount,
+        currentCoins: gameStatistic.currentCoins,
+      }
+      sendStatistic.send(user, statistic)
+    }
+  }, [gameStatistic, user])
+
+  useEffect(() => {
+    const handleStatistic = async () => {
+      const tasks = RANG_KILLS_MAP.entries()
+        .filter(([key]) => gameStatistic.currenKillCount === key && gameStatistic.isRunning)
+        .map(async ([, value]) => {
+          // Получаем информацию о позиции пользователя в лидерборде
+          const stat = leaderboardRows.find(row => row.name === user.login)
+          const target = RANG_REMAINING_MAP[value]
+            ? `${t('Game.notification.two')} ${RANG_REMAINING_MAP[value].remainingCount} ${t(
+                'Game.notification.three'
+              )} "${RANG_REMAINING_MAP[value].rang}"`
+            : ''
+          const rate = stat?.position
+            ? `${t('Game.notification.four')} - ${stat.position}`
+            : `${t('Game.notification.five')}`
+
+          // eslint-disable-next-line no-new
+          new Notification(`${t('Game.notification')}`, {
+            body: `${t('Game.notification.one')} "${value}"! ${target}. ${rate}`,
+          })
+        })
+
+      await Promise.all(tasks)
+    }
+
+    handleStatistic().catch(error => {
+      console.error('Ошибка при обработке статистики:', error)
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameStatistic, user])
 
   if (!mapConfig) return <>ERROR</>
   return (
@@ -132,15 +188,19 @@ export const Game: FC = () => {
         <div className={style.statistic}>
           {gameStatistic.isRunning && (
             <>
-              <Text className={`${style.text} ${style.coins}`}>Количество монет: {gameStatistic.currentCoins}</Text>
+              <Text className={`${style.text} ${style.coins}`}>
+                {t('Game.coinsCount')}: {gameStatistic.currentCoins}
+              </Text>
               <Button
                 onClick={() => {
                   dispatch(setIsRunning(false))
                   dispatch(setIsEnding(true))
                 }}>
-                Остановить игру
+                {t('Game.stopButtonText')}
               </Button>
-              <Text className={style.text}>Башня стоит {Building.cost} монет!</Text>
+              <Text className={style.text}>
+                {t('Game.towerCost')} {Building.cost} {t('Game.currency')}
+              </Text>
             </>
           )}
         </div>
@@ -152,7 +212,7 @@ export const Game: FC = () => {
                 toggleFullscreen(fullScreenContent.current)
               }
             }}>
-            {isFullscreen ? 'Свернуть' : 'Развернуть на полный экран'}
+            {isFullscreen ? `${t('Game.collapseButtonText')}` : `${t('Game.expandButtonText')}`}
           </Button>
         </ErrorBoundary>
       </div>

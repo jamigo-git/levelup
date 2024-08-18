@@ -3,17 +3,19 @@ import { Helmet } from 'react-helmet-async'
 import { routes } from '@/routing/routes'
 import { ForumTopicList } from '@/components/ui/Forum/ForumTopicList'
 import { ForumAddTopic } from '@/components/ui/Forum/ForumAddTopic'
+import { useTranslation } from 'react-i18next'
 
 const { Title } = Typography
 
 export const ForumPage = () => {
+  const { t } = useTranslation()
   return (
     <>
       <Helmet>
         <title>{routes.forum.title}</title>
         <meta name='description' content={routes.forum.description} />
       </Helmet>
-      <Title level={1}>Форум</Title>
+      <Title level={1}>{t('ForumPage.Title')}</Title>
       <Flex vertical gap={24}>
         <ForumTopicList />
         <ForumAddTopic />

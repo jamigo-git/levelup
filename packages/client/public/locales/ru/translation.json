@@ -1,0 +1,129 @@
+{
+  "HomePage": {
+    "firstText": "LevelUp — это игра, в которой игрок строит и размещает различные защитные башни на карте с целью предотвратить прохождение врагов через определённый маршрут.",
+    "secondText": "Враги движутся по предопределённым путям, и башни автоматически атакуют их. Игрок может улучшать башни и стратегически размещать их для максимальной эффективности.",
+    "thirdText": "Основная цель — защитить базу от волн наступающих противников.",
+    "buttonText": "Игра"
+  },
+  "ErrorPage": {
+    "message404": "Вы заплутали :)",
+    "message500": "Что-то пошло не так :)",
+    "buttonText": "Вернуться"
+  },
+  "MainLayout": {
+    "profileLink": "Профиль",
+    "gameLink": "Игра",
+    "forumLink": "Форум",
+    "leaderboardLink": "Лидерборд"
+  },
+  "Profile": {
+    "title": "Профиль",
+    "emailLabel": "Почта",
+    "loginLabel": "Логин",
+    "firstNameLabel": "Имя",
+    "lastNameLabel": "Фамилия",
+    "nickNameLabel": "Псевдоним",
+    "phoneLabel": "Телефон",
+    "editProfileButtonText": "Редактировать профиль",
+    "saveButtonText": "Сохранить изменения",
+    "successMessage": "Данные успешно изменены!",
+    "errorMessage": "Ошибка"
+  },
+  "ProfileChangePassword": {
+    "changePasswordButtonText": "Поменять пароль",
+    "title": "Смена пароля",
+    "oldPassword": "Старый пароль",
+    "newPassword": "Новый пароль",
+    "cancelButtonText": "Отмена",
+    "changeButtonText": "Поменять",
+    "successMessage": "Смена пароля успешно завершена!",
+    "errorMessage": "Смена пароля произошла с ошибкой"
+  },
+  "Login": {
+    "title": "Вход",
+    "loginLabel": "Логин",
+    "passwordLabel": "Пароль",
+    "loginButtonText": "Авторизоваться",
+    "registrationButtonText": "Регистрация",
+    "successMessage": "Вы успешно авторизовались",
+    "errorMessage": "Ошибка авторизации"
+  },
+  "Registration": {
+    "title": "Регистрация",
+    "firstNameLabel": "Имя",
+    "lastNameLabel": "Фамилия",
+    "emailLabel": "Почта",
+    "phoneLabel": "Телефон",
+    "loginLabel": "Логин",
+    "passwordLabel": "Пароль",
+    "registrationButtonText": "Зарегистрироваться",
+    "loginButtonText": "Авторизация",
+    "successMessage": "Вы успешно зарегистрировались",
+    "errorMessage": "Ошибка регистрации"
+  },
+  "ProfileAvatar": {
+    "successMessage": "Аватар обновлен успешно!",
+    "errorMessage": "Ошибка обновления аватара"
+  },
+  "ForumPage" : {
+    "Title" : "Форум"
+  },
+  "GetTopicDescription" : {
+    "message" : "сообщений"
+  },
+  "ForumAddTopic": {
+    "addTopicButtonText" : "Добавить топик",
+    "ForumAddTopicModal": {
+      "forumAddTopicModalTitle": "О чем поговорим?",
+      "topicTitlePlaceholder" : "Введите название темы",
+      "topicSubTitlePlaceholder" : "Добавите первое сообщение?",
+      "cancelButtonText": "Отмена",
+      "createButtonText": "Создать",
+      "requireRule": "Без темы никак"
+    }
+  },
+  "ForumTopicPage" : {
+    "topicTitle": "Топик",
+    "error": "Топик не обнаружен :("
+  },
+  "ForumMessageList": {
+    "emptyText": "Напишите первое сообщение?"
+  },
+  "ForumMessageForm": {
+    "topicMessageTextPlaceholder" : "Введите сообщение",
+    "sendButtonText": "Отправить",
+    "requireRule": "Без сообщения никак"
+  },
+  "ForumLoginSuggest": {
+    "buttonText": "Авторизируйтесь",
+    "explanation": ", чтобы создавать топики и отвечать на сообщения"
+  },
+  "StartScreen": {
+    "title": "Лучший результат!",
+    "maxWaves": "Максимальное количество пройденных волн",
+    "maxEnemiesKilled": "Максимальное количество убитых противников",
+    "startGameButtonText": "Начать игру!"
+  },
+  "EndScreen": {
+    "title": "Игра окончена!",
+    "maxWaves": "Максимальное количество пройденных волн",
+    "maxEnemiesKilled": "Максимальное количество убитых противников",
+    "waves": "Количество пройденных волн",
+    "enemiesKilled": "Количество убитых противников",
+    "repeatButtonText": "Повторим?"
+  },
+  "Game": {
+  "coinsCount": "Количество монет",
+  "stopButtonText": "Остановить игру",
+    "towerCost": "Башня стоит",
+  "currency": "монет!",
+    "expandButtonText": "Развернуть на полный экран",
+    "collapseButtonText": "Свернуть",
+    "notification": "Поздравляем!",
+    "notification.one": "Вы получили ранг",
+    "notification.two": "Уничтожьте еще",
+    "notification.three": "орков и получите ранг",
+    "notification.four": "Ваше текущее место в рейтинге",
+    "notification.five": "Статистики нет"
+}
+}
