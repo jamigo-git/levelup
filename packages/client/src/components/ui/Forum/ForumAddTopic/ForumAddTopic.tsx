@@ -41,7 +41,7 @@ export const ForumAddTopic: FC = () => {
     const newTopic: AddTopicRequestBody = {
       title,
       message,
-      userId: user.id,
+      userId: 1 || user.id,
     }
 
     try {

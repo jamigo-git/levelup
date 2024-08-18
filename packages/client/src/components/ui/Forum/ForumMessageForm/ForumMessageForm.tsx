@@ -77,7 +77,7 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId, commentTo
     const newMessage: AddCommentRequestBody = {
       text: values.message,
       topicId,
-      userId: user.id,
+      userId: 1 || user.id,
       parentId: commentToReply?.id,
     }
 
