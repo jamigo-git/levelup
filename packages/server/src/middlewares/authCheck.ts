@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import axios from 'axios'
 
 import { EXTERNAL_API_URL } from '../utils/constants'
+import { UNAUTHORIZED_CODE } from '../errors/errorCodes'
 import AuthenticationError from '../errors/AuthenticationError'
 
 export const authCheck = async (req: Request, _: Response, next: NextFunction) => {
@@ -21,11 +22,11 @@ export const authCheck = async (req: Request, _: Response, next: NextFunction) =
     if (response.status === 200 || response.status === 304) {
       return next()
     } else {
-      next(new AuthenticationError('Unauthorized: No cookies found'))
+      next(new AuthenticationError('Unauthorized'))
     }
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      if (error.response.status === 401) {
+      if (error.response.status === UNAUTHORIZED_CODE) {
         next(new AuthenticationError('Unauthorized'))
       }
       next(new Error(error.response.data.message))

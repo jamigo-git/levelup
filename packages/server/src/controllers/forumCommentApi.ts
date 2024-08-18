@@ -16,8 +16,8 @@ const forumCommentSchema = z.object({
   parentId: z.number().optional(),
 })
 
-const defaultLimit = 10
-const defaultOffset = 0
+const DEFAULT_LIMIT = 10
+const DEFAULT_OFFSET = 0
 
 class ForumCommentAPI {
   public static getCommentList = async (
@@ -27,8 +27,8 @@ class ForumCommentAPI {
   ) => {
     try {
       const topicId = request.query.topicId ? parseInt(request.query.topicId, 10) : undefined
-      const limit = request.query.limit ? parseInt(request.query.limit, 10) : defaultLimit
-      const offset = request.query.offset ? parseInt(request.query.offset, 10) : defaultOffset
+      const limit = request.query.limit ? parseInt(request.query.limit, 10) : DEFAULT_LIMIT
+      const offset = request.query.offset ? parseInt(request.query.offset, 10) : DEFAULT_OFFSET
 
       if (topicId === undefined) {
         throw new BadRequestError('Invalid topicId')
