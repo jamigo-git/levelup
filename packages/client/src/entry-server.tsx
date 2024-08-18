@@ -7,10 +7,8 @@ import 'dayjs/locale/ru'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 import { Request as ExpressRequest } from 'express'
-import { ConfigProvider } from 'antd'
 import { HelmetProvider } from 'react-helmet-async'
 import { rootReducer } from './store'
-import { customTheme } from './styles/antdConfig'
 import { createFetchRequest } from './entry-server.utils'
 import { staticHandler } from './routing/staticHandler'
 
@@ -45,9 +43,7 @@ export const render = async (req: ExpressRequest) => {
     html: renderToString(
       <Provider store={store}>
         <HelmetProvider context={helmetContext}>
-          <ConfigProvider theme={customTheme}>
-            <StaticRouterProvider router={router} context={context} />
-          </ConfigProvider>
+          <StaticRouterProvider router={router} context={context} />
         </HelmetProvider>
       </Provider>
     ),
