@@ -1,13 +1,13 @@
 import { HttpResponse, http } from 'msw'
 import { setupServer } from 'msw/node'
-import { SERVER_HOST } from '@/constants/serverHost'
+import { API_HOST } from '@/constants/serverHost'
 import { getTopicCommentsListMock, getTopicListMock, testTopicCommentMock, testTopicMock, userMock } from './mocks'
 
 export const handlers = [
-  http.get(`${SERVER_HOST}/yandex/auth/user`, () => {
+  http.get(`${API_HOST}/yandex/auth/user`, () => {
     return HttpResponse.json(userMock)
   }),
-  http.post(`${SERVER_HOST}/yandex/auth/signin`, async ({ request }) => {
+  http.post(`${API_HOST}/yandex/auth/signin`, async ({ request }) => {
     const data = (await request.json()) as { login?: string; password?: string }
     const { login, password } = data
     if (login && password && !login.includes('invalid')) {
@@ -15,16 +15,16 @@ export const handlers = [
     }
     return HttpResponse.json({ reason: 'Login or password is incorrect' }, { status: 401 })
   }),
-  http.get(`${SERVER_HOST}/api/forum/topics`, () => {
+  http.get(`${API_HOST}/api/forum/topics`, () => {
     return HttpResponse.json(getTopicListMock)
   }),
-  http.post(`${SERVER_HOST}/api/forum/topics`, () => {
+  http.post(`${API_HOST}/api/forum/topics`, () => {
     return HttpResponse.json({ total: 2, list: [testTopicMock, ...getTopicListMock.list] }, { status: 200 })
   }),
-  http.get(`${SERVER_HOST}/api/forum/comments`, () => {
+  http.get(`${API_HOST}/api/forum/comments`, () => {
     return HttpResponse.json(getTopicCommentsListMock)
   }),
-  http.post(`${SERVER_HOST}/api/forum/comments`, () => {
+  http.post(`${API_HOST}/api/forum/comments`, () => {
     return HttpResponse.json(
       { total: 2, list: [testTopicCommentMock, ...getTopicCommentsListMock.list] },
       { status: 200 }
