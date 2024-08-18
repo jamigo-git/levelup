@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ConfigProvider, message } from 'antd'
+import { message } from 'antd'
 import { RouterProvider } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import oAuthService from '@/utils/oAuthService'
