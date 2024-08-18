@@ -1,7 +1,7 @@
 import { Theme } from 'emoji-picker-react'
 
 export interface TopicReactionsData {
-  id: string
+  id?: string
   topicId: number
   userId: number
   emoji: string

@@ -8,7 +8,6 @@ import { Button } from 'antd'
 import { SmileOutlined } from '@ant-design/icons'
 import { getEmojiPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSelector'
 import { setPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSlice'
-import { nanoid } from '@reduxjs/toolkit'
 import { TopicReactionsData } from '@/types/emojiTopicReactions'
 import styles from './ForumTopicReactions.module.scss'
 
@@ -33,7 +32,6 @@ export const ForumTopicReactions: FC<TopicReactionsProps> = ({ topicId }) => {
 
   const handleReaction = (emojiData: EmojiClickData) => {
     const topicReactionsSend: TopicReactionsData = {
-      id: nanoid(),
       topicId,
       userId: user?.id || 0,
       emoji: emojiData.emoji,

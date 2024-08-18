@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { TopicReactionsData } from '@/types/emojiTopicReactions'
 
 interface TopicReactionsState {
@@ -21,7 +21,6 @@ export const topicReactionsSlice = createSlice({
         state.data = state.data.filter(f => f.id !== sameUserReaction.id)
       } else {
         state.data.push({
-          id: nanoid(),
           topicId,
           userId,
           emoji,
