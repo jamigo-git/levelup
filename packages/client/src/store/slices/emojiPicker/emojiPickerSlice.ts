@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { Theme } from 'emoji-picker-react'
-import { EmojiPickerConfig } from '@/types/emojiTopickReactions'
+import { EmojiPickerConfig } from '@/types/emojiTopicReactions'
 
 interface EmojiPickerSliceState {
   data: EmojiPickerConfig[]

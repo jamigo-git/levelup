@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit'
-import { TopicReactionsData } from '@/types/emojiTopickReactions'
+import { TopicReactionsData } from '@/types/emojiTopicReactions'
 
 interface TopicReactionsState {
   data: TopicReactionsData[]

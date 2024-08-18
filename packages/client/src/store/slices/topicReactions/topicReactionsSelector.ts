@@ -1,4 +1,4 @@
-import { GrpTopicReactionsData } from '@/types/emojiTopickReactions'
+import { GrpTopicReactionsData } from '@/types/emojiTopicReactions'
 import { RootState } from '../..'
 
 export const getAllTopicReactions = (state: RootState) => state.topicReactions

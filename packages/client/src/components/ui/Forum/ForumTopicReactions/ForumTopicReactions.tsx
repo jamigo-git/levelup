@@ -9,7 +9,7 @@ import { SmileOutlined } from '@ant-design/icons'
 import { getEmojiPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSelector'
 import { setPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSlice'
 import { nanoid } from '@reduxjs/toolkit'
-import { TopicReactionsData } from '@/types/emojiTopickReactions'
+import { TopicReactionsData } from '@/types/emojiTopicReactions'
 import styles from './ForumTopicReactions.module.scss'
 
 interface TopicReactionsProps {

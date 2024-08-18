@@ -1,4 +1,4 @@
-import { EmojiPickerConfig } from '@/types/emojiTopickReactions'
+import { EmojiPickerConfig } from '@/types/emojiTopicReactions'
 import { RootState } from '../..'
 
 export const getAllEmojiPickerConfigs = (store: RootState) => store.emojiPicker
