@@ -1,3 +1,7 @@
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 const config = {
   preset: 'ts-jest',
   testEnvironment: 'jest-environment-jsdom',
