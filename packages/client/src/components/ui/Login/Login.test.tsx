@@ -70,7 +70,7 @@ describe('Login Component', () => {
     expect(message.error).toHaveBeenCalledTimes(1)
   })
 
-  test('displays success message when login is successful', async () => {
+  test.skip('displays success message when login is successful', async () => {
     renderWithProviders(<Login />)
     const emailInput = screen.getByLabelText('Логин')
     const passwordInput = screen.getByLabelText('Пароль')

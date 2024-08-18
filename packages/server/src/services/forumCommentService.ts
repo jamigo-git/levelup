@@ -69,26 +69,35 @@ class ForumCommentService {
           include: [
             {
               model: User,
-              attributes: ['id', 'first_name', 'second_name', 'display_name'],
-            },
-            {
-              model: ForumComment,
-              as: 'replies',
-              include: [
-                {
-                  model: User,
-                  attributes: ['id', 'first_name', 'second_name', 'display_name'],
-                },
-              ],
             },
           ],
         },
         {
           model: User,
-          attributes: ['id', 'first_name', 'second_name', 'display_name'],
         },
       ],
     })
+
+    const fetchRepliesRecursively = async (comments: ForumComment[]) => {
+      for (const comment of comments) {
+        const replies = await ForumComment.findAll({
+          where: { parentId: comment.id },
+          include: [
+            {
+              model: User,
+            },
+          ],
+          order: [['createdAt', 'ASC']],
+        })
+
+        if (replies.length > 0) {
+          comment.setDataValue('replies', replies)
+          await fetchRepliesRecursively(replies)
+        }
+      }
+    }
+
+    await fetchRepliesRecursively(list)
 
     return { total, list }
   }

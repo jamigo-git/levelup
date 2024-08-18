@@ -1,30 +1,44 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import path from 'path'
-dotenv.config({ path: path.resolve(__dirname, '../../.env') })
-dotenv.config()
 import helmet from 'helmet'
+import path from 'path'
+import cookieParser from 'cookie-parser'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 
+import { CORS_ORIGINS, EXTERNAL_API_URL } from './src/utils/constants'
 import { dbConnect } from './src/config/db'
 import { errorLogger, requestLogger } from './src/middlewares/logger'
 import { handleError } from './src/middlewares/handleError'
 import router from './src/routes'
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
-const clientPort = Number(process.env.CLIENT_PORT) || 3000
+
 const port = Number(process.env.SERVER_PORT) || 3001
 const corsOptions = {
   credentials: true,
-  origin: [`http://localhost:${clientPort}`],
+  origin: CORS_ORIGINS,
 }
 
 const app = express()
 
+app.use(
+  '/yandex',
+  createProxyMiddleware({
+    changeOrigin: true,
+    cookieDomainRewrite: {
+      '*': '',
+    },
+    target: EXTERNAL_API_URL,
+    pathRewrite: {
+      '^/yandex': '',
+    },
+  })
+)
 app.use(cors(corsOptions))
 app.use(express.json())
+app.use(cookieParser())
 app.use(helmet())
-
 app.use(requestLogger)
 app.use('/api', router)
 app.use(errorLogger)

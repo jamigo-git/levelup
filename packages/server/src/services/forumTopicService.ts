@@ -52,7 +52,6 @@ class ForumTopicService {
       },
       include: {
         model: User,
-        attributes: ['id', 'first_name', 'second_name', 'display_name'],
       },
     })
 
@@ -85,7 +84,6 @@ class ForumTopicService {
       include: [
         {
           model: User,
-          attributes: ['id', 'first_name', 'second_name', 'display_name'],
         },
       ],
       group: ['ForumTopic.id', 'user.id'],

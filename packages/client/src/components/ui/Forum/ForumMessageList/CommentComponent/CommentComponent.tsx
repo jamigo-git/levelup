@@ -4,6 +4,8 @@ import { useCollapse } from 'react-collapsed'
 import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { Avatar, Button, Flex, List, Typography } from 'antd'
 
+import { useTranslation } from 'react-i18next'
+import { API_HOST } from '@/constants/serverHost'
 import { Comment } from '@/types/forum'
 import styles from './CommentComponent.module.scss'
 
@@ -12,6 +14,7 @@ interface CommentComponentProps {
   onReplyClick: (comment: Comment) => void
 }
 export const CommentComponent: FC<CommentComponentProps> = ({ comment, onReplyClick }) => {
+  const { t } = useTranslation()
   const { text, user, createdAt, replies, parentId } = comment
   const userName = user.display_name || user.first_name
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse()
@@ -23,7 +26,7 @@ export const CommentComponent: FC<CommentComponentProps> = ({ comment, onReplyCl
     <li className={styles.comment}>
       <div className={styles.comment__message}>
         <Flex vertical gap={12} align='center' justify='center' className={styles.author}>
-          <Avatar src={user.avatar} alt={userName} size='large' />
+          <Avatar src={`${API_HOST}/yandex/resources${user.avatar}`} alt={userName} size='large' />
           <Typography.Paragraph className={styles.author__name} type='secondary' ellipsis={{ rows: 2 }}>
             {userName}
           </Typography.Paragraph>
@@ -31,7 +34,7 @@ export const CommentComponent: FC<CommentComponentProps> = ({ comment, onReplyCl
 
         <Flex gap={12} align='center' className={styles.actions}>
           <Button type='link' size='small' onClick={() => onReplyClick(comment)}>
-            Ответить
+            {t('CommentComponent.replyButtonText')}
           </Button>
           {showCollapseButton && (
             <Button
@@ -40,7 +43,9 @@ export const CommentComponent: FC<CommentComponentProps> = ({ comment, onReplyCl
               size='small'
               icon={isExpanded ? <UpOutlined /> : <DownOutlined />}
               iconPosition='end'>
-              {isExpanded ? 'Скрыть' : `Показать ответы`}
+              {isExpanded
+                ? `${t('CommentComponent.hideRepliesButtonText')}`
+                : `${t('CommentComponent.showRepliesButtonText')}`}
             </Button>
           )}
         </Flex>

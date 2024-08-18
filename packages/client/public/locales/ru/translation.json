@@ -98,6 +98,11 @@
     "buttonText": "Авторизируйтесь",
     "explanation": ", чтобы создавать топики и отвечать на сообщения"
   },
+  "CommentComponent": {
+    "replyButtonText": "Ответить",
+    "hideRepliesButtonText": "Скрыть ответы",
+    "showRepliesButtonText": "Показать ответы"
+  },
   "StartScreen": {
     "title": "Лучший результат!",
     "maxWaves": "Максимальное количество пройденных волн",
@@ -118,6 +123,12 @@
     "towerCost": "Башня стоит",
     "currency": "монет!",
     "expandButtonText": "Развернуть на полный экран",
-    "collapseButtonText": "Свернуть"
-  }
+    "collapseButtonText": "Свернуть",
+    "notification": "Поздравляем!",
+    "notification.one": "Вы получили ранг",
+    "notification.two": "Уничтожьте еще",
+    "notification.three": "орков и получите ранг",
+    "notification.four": "Ваше текущее место в рейтинге",
+    "notification.five": "Статистики нет"
+}
 }

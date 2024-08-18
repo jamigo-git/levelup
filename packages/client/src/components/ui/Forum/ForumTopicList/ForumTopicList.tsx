@@ -5,6 +5,7 @@ import { Topic } from 'types/forum'
 import { List, Avatar } from 'antd'
 
 import { useGetTopicListQuery } from '@/store/slices/forumApi'
+import { API_HOST } from '@/constants/serverHost'
 import { getTopicDescription } from './helpers'
 import styles from './ForumTopicList.module.scss'
 import { ForumTopicReactions } from '../ForumTopicReactions'
@@ -34,7 +35,7 @@ export const ForumTopicList = () => {
           <>
             <List.Item>
               <List.Item.Meta
-                avatar={<Avatar src={topic.user.avatar} />}
+                avatar={<Avatar src={`${API_HOST}/yandex/resources${topic.user.avatar}`} />}
                 title={<Link to={`/forum/topic/${topic.id}`}>{topic.title}</Link>}
                 description={getTopicDescription(topic, messagei18nString)}
               />
