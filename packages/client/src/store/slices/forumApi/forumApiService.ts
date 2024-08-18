@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { SERVER_HOST } from '@/constants/serverHost'
+import { API_HOST } from '@/constants/serverHost'
 import { Comment, Topic } from '@/types/forum'
 import { AddCommentRequestBody, AddTopicRequestBody, GetCommentListResponse, GetTopicListResponse } from './types'
 
 const forumApiService = createApi({
   reducerPath: 'forum',
   tagTypes: ['Topic', 'Comment'],
-  baseQuery: fetchBaseQuery({ baseUrl: `${SERVER_HOST}/api/forum` }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${API_HOST}/api/forum` }),
   endpoints: builder => ({
     getTopicById: builder.query<Topic, { topicId?: number | string }>({
       query: ({ topicId }) => ({

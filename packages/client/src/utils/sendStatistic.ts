@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { SERVER_HOST } from '@/constants/serverHost'
+import { API_HOST } from '@/constants/serverHost'
 import { RANG_KILLS_MAP, RATING_FIELD_NAME, TEAM_NAME } from '@/constants/leaderboard'
 import { LeaderboardUpdateReq, Rang, StatisticData, UserStatisticData } from '@/types/leaderboard'
 
 class Statistic {
-  private url = `${SERVER_HOST}/yandex`
+  private url = `${API_HOST}/yandex`
 
   private client = axios.create({
     baseURL: this.url,

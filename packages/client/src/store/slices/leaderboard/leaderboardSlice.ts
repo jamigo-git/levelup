@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { TEAM_NAME } from '@/constants/leaderboard'
-import { SERVER_HOST } from '@/constants/serverHost'
+import { API_HOST } from '@/constants/serverHost'
 import { LeaderboardData, LeaderboardTeamReq, LeaderboardTeamResponse, Rang } from '@/types/leaderboard'
 
 const apiClient = axios.create({
-  baseURL: `${SERVER_HOST}/yandex/leaderboard`,
+  baseURL: `${API_HOST}/yandex/leaderboard`,
   withCredentials: true,
 })
 

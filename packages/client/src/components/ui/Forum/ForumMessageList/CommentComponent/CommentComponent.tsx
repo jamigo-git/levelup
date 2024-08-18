@@ -5,7 +5,7 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons'
 import { Avatar, Button, Flex, List, Typography } from 'antd'
 
 import { useTranslation } from 'react-i18next'
-import { SERVER_HOST } from '@/constants/serverHost'
+import { API_HOST } from '@/constants/serverHost'
 import { Comment } from '@/types/forum'
 import styles from './CommentComponent.module.scss'
 
@@ -26,7 +26,7 @@ export const CommentComponent: FC<CommentComponentProps> = ({ comment, onReplyCl
     <li className={styles.comment}>
       <div className={styles.comment__message}>
         <Flex vertical gap={12} align='center' justify='center' className={styles.author}>
-          <Avatar src={`${SERVER_HOST}/yandex/resources${user.avatar}`} alt={userName} size='large' />
+          <Avatar src={`${API_HOST}/yandex/resources${user.avatar}`} alt={userName} size='large' />
           <Typography.Paragraph className={styles.author__name} type='secondary' ellipsis={{ rows: 2 }}>
             {userName}
           </Typography.Paragraph>

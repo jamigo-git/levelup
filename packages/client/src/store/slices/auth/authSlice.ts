@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { SERVER_HOST } from '@/constants/serverHost'
+import { API_HOST } from '@/constants/serverHost'
 import { syncUserWithDb } from '@/utils/syncUserWithDb'
 import { CreateUser, LoginRequestData, UserDTO } from '@/types/AuthTypes'
 
 const apiClient = axios.create({
-  baseURL: `${SERVER_HOST}/yandex/auth`,
+  baseURL: `${API_HOST}/yandex/auth`,
   withCredentials: true,
 })
 
