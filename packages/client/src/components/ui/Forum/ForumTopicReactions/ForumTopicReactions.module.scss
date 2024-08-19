@@ -12,3 +12,13 @@
     justify-content: flex-end;
 }
 
+.reactionContainer {
+    display: flex;
+    padding-right: .5rem;
+    border-radius: 12px;
+}
+
+.emojiPicker {
+    position: absolute;
+    z-index: 100;
+}

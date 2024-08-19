@@ -2,6 +2,8 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import authReducer from './slices/auth/authSlice'
 import gameReducer from './slices/game/gameSlice'
 import leaderboardReducer from './slices/leaderboard/leaderboardSlice'
+import emojiPickerReducer from './slices/emojiPicker/emojiPickerSlice'
+import topicReactionsReducer from './slices/topicReactions/topicReactionsSlice'
 import forumApiService from './slices/forumApi/forumApiService'
 
 declare global {
@@ -15,6 +17,8 @@ export const rootReducer = combineReducers({
   auth: authReducer,
   game: gameReducer,
   leaderboard: leaderboardReducer,
+  emojiPicker: emojiPickerReducer,
+  topicReactions: topicReactionsReducer,
   [forumApiService.reducerPath]: forumApiService.reducer,
 })
 
