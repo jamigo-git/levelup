@@ -7,7 +7,6 @@ export type GetTopicListResponse = {
 
 export type AddTopicRequestBody = {
   title: string
-  userId: number
   message?: string
 }
 
@@ -18,7 +17,6 @@ export type GetCommentListResponse = {
 
 export type AddCommentRequestBody = {
   topicId: number
-  userId: number
   text: string
   parentId?: number
 }
