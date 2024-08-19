@@ -1,56 +1,44 @@
-import dayjs from 'dayjs'
-import { FC, useEffect, useState } from 'react'
-import { Avatar, Flex, List, Typography } from 'antd'
-import { useAppSelector } from '@/hooks/reduxHooks'
-import { selectMessagesByIdList } from '@/store/slices/forumMessage/forumMessageSelector'
+import { FC, useState } from 'react'
+import { List } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Message } from '@/types/forum'
+import { useGetCommentListQuery } from '@/store/slices/forumApi'
+
+import { Comment } from '@/types/forum'
+import { CommentComponent } from './CommentComponent'
 import styles from './ForumMessageList.module.scss'
 
 const PAGE_SIZE = 10
-
 interface ForumMessageListProps {
-  topicId: string
+  topic: {
+    id: number
+    title: string
+  }
+  onCommentReply: (comment: Comment) => void
 }
-export const ForumMessageList: FC<ForumMessageListProps> = ({ topicId }) => {
+export const ForumMessageList: FC<ForumMessageListProps> = ({ topic, onCommentReply }) => {
+  const { t } = useTranslation()
   const [page, setPage] = useState(1)
-  const messageList = useAppSelector(state => selectMessagesByIdList(state, topicId))
-  const { t, i18n } = useTranslation()
-  dayjs.locale(i18n.language)
 
-  useEffect(() => {
-    if (messageList?.length && page * PAGE_SIZE < messageList.length) {
-      setPage(page + 1)
-    }
-  }, [messageList?.length, page])
+  const { data, isLoading } = useGetCommentListQuery({
+    topicId: topic.id,
+    limit: PAGE_SIZE,
+    offset: (page - 1) * PAGE_SIZE,
+  })
 
   return (
     <List
       className={styles.list}
-      dataSource={messageList}
+      dataSource={data?.list}
+      loading={isLoading}
       pagination={{
+        total: data?.total,
         pageSize: PAGE_SIZE,
         hideOnSinglePage: true,
         current: page,
         onChange: setPage,
       }}
       locale={{ emptyText: `${t('ForumMessageList.emptyText')}` }}
-      renderItem={(message: Message) => (
-        <List.Item>
-          <div className={styles.message}>
-            <Flex vertical gap={12} align='center' justify='center' className={styles.author}>
-              <Avatar src={message.author.avatar} alt={message.author.display_name} size='large' />
-              <Typography.Paragraph className={styles.author__name} type='secondary' ellipsis={{ rows: 2 }}>
-                {message.author.display_name}
-              </Typography.Paragraph>
-            </Flex>
-            <Typography.Text className={styles.text}>{message.text}</Typography.Text>
-            <Typography.Text type='secondary' className={styles.date}>
-              {dayjs(message.createdAt).format('DD MMMM HH:mm')}
-            </Typography.Text>
-          </div>
-        </List.Item>
-      )}
+      renderItem={(comment: Comment) => <CommentComponent comment={comment} onReplyClick={onCommentReply} />}
     />
   )
 }

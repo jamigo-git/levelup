@@ -65,24 +65,24 @@
     "successMessage": "Аватар обновлен успешно!",
     "errorMessage": "Ошибка обновления аватара"
   },
-  "ForumPage" : {
-    "Title" : "Форум"
+  "ForumPage": {
+    "Title": "Форум"
   },
-  "GetTopicDescription" : {
-    "message" : "сообщений"
+  "GetTopicDescription": {
+    "message": "сообщений"
   },
   "ForumAddTopic": {
-    "addTopicButtonText" : "Добавить топик",
+    "addTopicButtonText": "Добавить топик",
     "ForumAddTopicModal": {
       "forumAddTopicModalTitle": "О чем поговорим?",
-      "topicTitlePlaceholder" : "Введите название темы",
-      "topicSubTitlePlaceholder" : "Добавите первое сообщение?",
+      "topicTitlePlaceholder": "Введите название темы",
+      "topicSubTitlePlaceholder": "Добавите первое сообщение?",
       "cancelButtonText": "Отмена",
       "createButtonText": "Создать",
       "requireRule": "Без темы никак"
     }
   },
-  "ForumTopicPage" : {
+  "ForumTopicPage": {
     "topicTitle": "Топик",
     "error": "Топик не обнаружен :("
   },
@@ -90,13 +90,18 @@
     "emptyText": "Напишите первое сообщение?"
   },
   "ForumMessageForm": {
-    "topicMessageTextPlaceholder" : "Введите сообщение",
+    "topicMessageTextPlaceholder": "Введите сообщение",
     "sendButtonText": "Отправить",
     "requireRule": "Без сообщения никак"
   },
   "ForumLoginSuggest": {
     "buttonText": "Авторизируйтесь",
     "explanation": ", чтобы создавать топики и отвечать на сообщения"
+  },
+  "CommentComponent": {
+    "replyButtonText": "Ответить",
+    "hideRepliesButtonText": "Скрыть ответы",
+    "showRepliesButtonText": "Показать ответы"
   },
   "StartScreen": {
     "title": "Лучший результат!",
@@ -113,10 +118,10 @@
     "repeatButtonText": "Повторим?"
   },
   "Game": {
-  "coinsCount": "Количество монет",
-  "stopButtonText": "Остановить игру",
+    "coinsCount": "Количество монет",
+    "stopButtonText": "Остановить игру",
     "towerCost": "Башня стоит",
-  "currency": "монет!",
+    "currency": "монет!",
     "expandButtonText": "Развернуть на полный экран",
     "collapseButtonText": "Свернуть",
     "notification": "Поздравляем!",

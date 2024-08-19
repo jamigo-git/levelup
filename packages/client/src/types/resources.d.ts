@@ -98,6 +98,11 @@ interface Resources {
       buttonText: 'Login'
       explanation: ' to create topics and reply to messages'
     }
+    CommentComponent: {
+      replyButtonText: 'Reply'
+      hideRepliesButtonText: 'Hide replies'
+      showRepliesButtonText: 'Show replies'
+    }
     StartScreen: {
       title: 'Best result!'
       maxWaves: 'Maximum number of waves passed'

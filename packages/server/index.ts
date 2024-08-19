@@ -1,24 +1,51 @@
+import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import helmet from 'helmet'
 import path from 'path'
+import cookieParser from 'cookie-parser'
+import { createProxyMiddleware } from 'http-proxy-middleware'
+
+import { CORS_ORIGINS, EXTERNAL_API_URL } from './src/utils/constants'
+import { dbConnect } from './src/config/db'
+import { errorLogger, requestLogger } from './src/middlewares/logger'
+import { handleError } from './src/middlewares/handleError'
+import router from './src/routes'
+
 dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 
-import express from 'express'
-import { createClientAndConnect } from './db'
+const port = Number(process.env.SERVER_PORT) || 3001
+const corsOptions = {
+  credentials: true,
+  origin: CORS_ORIGINS,
+}
 
 const app = express()
-app.use(cors())
-const port = Number(process.env.SERVER_PORT) || 3001
 
-createClientAndConnect()
-
-app.get('/test', async (req, res) => {
-  console.log(req)
-  res.statusCode = 200
-  res.setHeader('Content-Type', 'text/plain')
-  res.end('Hello World')
-})
-
-app.listen(port, () => {
-  console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
-})
+app.use(
+  '/yandex',
+  createProxyMiddleware({
+    changeOrigin: true,
+    cookieDomainRewrite: {
+      '*': '',
+    },
+    target: EXTERNAL_API_URL,
+    pathRewrite: {
+      '^/yandex': '',
+    },
+  })
+)
+app.use(cors(corsOptions))
+app.use(express.json())
+app.use(cookieParser())
+app.use(helmet())
+app.use(requestLogger)
+app.use('/api', router)
+app.use(errorLogger)
+app.use(handleError)
+;(async function () {
+  await dbConnect()
+  app.listen(port, () => {
+    console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
+  })
+})()

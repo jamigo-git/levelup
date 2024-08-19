@@ -45,8 +45,6 @@ export const Game: FC = () => {
     return maps[index]
   }, [mapName])
 
-  Notification.requestPermission()
-
   useEffect(() => {
     if (!canvasRef.current || !mapConfig) return
     const canvas = canvasRef.current

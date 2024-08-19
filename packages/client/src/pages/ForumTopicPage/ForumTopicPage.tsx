@@ -1,23 +1,39 @@
+import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
-import { Flex, Typography } from 'antd'
-import { useAppSelector } from '@/hooks/reduxHooks'
-import { selectTopicById } from '@/store/slices/forumTopic/forumTopicSelector'
+import { Flex, Spin, Typography } from 'antd'
+import { useTranslation } from 'react-i18next'
+
+import CustomError from '@/utils/customError'
 import { ForumMessageList } from '@/components/ui/Forum/ForumMessageList'
 import { ForumMessageForm } from '@/components/ui/Forum/ForumMessageForm'
-import CustomError from '@/utils/customError'
-import { useTranslation } from 'react-i18next'
 import { routes } from '@/routing/routes'
+import { useGetTopicByIdQuery } from '@/store/slices/forumApi'
+import { Comment } from '@/types/forum'
 import styles from './ForumTopicPage.module.scss'
 
 const { Title } = Typography
 
 export const ForumTopicPage = () => {
   const { id } = useParams()
-  const topic = useAppSelector(state => selectTopicById(state, id))
   const { t } = useTranslation()
 
-  if (!id || !topic) {
+  const [commentToReply, setCommentToReply] = useState<Comment>()
+  const { data: topic, isLoading } = useGetTopicByIdQuery({ topicId: id })
+
+  const handleCommentReplyClick = (comment: Comment) => {
+    setCommentToReply(comment)
+  }
+
+  const onSuccessfulComment = () => {
+    setCommentToReply(undefined)
+  }
+
+  if (isLoading) {
+    return <Spin />
+  }
+
+  if (!topic) {
     throw new CustomError(`${t('ForumTopicPage.error')}`, 404)
   }
 
@@ -33,9 +49,9 @@ export const ForumTopicPage = () => {
         <Title level={1}>
           {t('ForumTopicPage.topicTitle')}: {topic.title}
         </Title>
-        <ForumMessageList topicId={id} />
+        <ForumMessageList topic={topic} onCommentReply={handleCommentReplyClick} />
         <div className={styles.forumTopicPageContent__formWrapper}>
-          <ForumMessageForm topicId={id} />
+          <ForumMessageForm topicId={topic.id} commentToReply={commentToReply} onReply={onSuccessfulComment} />
         </div>
       </Flex>
     </>

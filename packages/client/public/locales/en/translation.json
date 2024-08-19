@@ -65,24 +65,24 @@
     "successMessage": "Avatar updated successfully!",
     "errorMessage": "Error updating avatar"
   },
-  "ForumPage" : {
-    "Title" : "Forum"
+  "ForumPage": {
+    "Title": "Forum"
   },
-  "GetTopicDescription" : {
-    "message" : "messages"
+  "GetTopicDescription": {
+    "message": "messages"
   },
   "ForumAddTopic": {
-    "addTopicButtonText" : "Add topic",
+    "addTopicButtonText": "Add topic",
     "ForumAddTopicModal": {
       "forumAddTopicModalTitle": "What shall we talk about?",
-      "topicTitlePlaceholder" : "Enter topic title",
-      "topicSubTitlePlaceholder" : "Will you add the first message?",
+      "topicTitlePlaceholder": "Enter topic title",
+      "topicSubTitlePlaceholder": "Will you add the first message?",
       "cancelButtonText": "Cancel",
       "createButtonText": "Create",
       "requireRule": "No topic, no go"
     }
   },
-  "ForumTopicPage" : {
+  "ForumTopicPage": {
     "topicTitle": "Topic",
     "error": "Topic not found :("
   },
@@ -90,13 +90,18 @@
     "emptyText": "Write the first message?"
   },
   "ForumMessageForm": {
-    "topicMessageTextPlaceholder" : "Enter message",
+    "topicMessageTextPlaceholder": "Enter message",
     "sendButtonText": "Send",
     "requireRule": "Message is required"
   },
   "ForumLoginSuggest": {
     "buttonText": "Login",
     "explanation": " to create topics and reply to messages"
+  },
+  "CommentComponent": {
+    "replyButtonText": "Reply",
+    "hideRepliesButtonText": "Hide replies",
+    "showRepliesButtonText": "Show replies"
   },
   "StartScreen": {
     "title": "Best result!",
