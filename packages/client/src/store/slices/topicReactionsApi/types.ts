@@ -6,7 +6,7 @@ export type GetTopicReactionsListResponse = {
 
 export type AddTopicReactionsRequest = {
   topicId: number
-  userId: number
+  userId?: number
   emoji: string
   unified: string
 }

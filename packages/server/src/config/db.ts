@@ -4,15 +4,16 @@ import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
 import { User } from '../models/userModel'
 import { ForumTopic } from '../models/forumTopicModel'
 import { ForumComment } from '../models/forumCommentModel'
+import { ForumTopicReaction } from '../models/forumTopicReactionModel'
 
 const sequelizeOptions: SequelizeOptions = {
-  host: POSTGRES_HOST || 'localhost',
+  host: POSTGRES_HOST || POSTGRES_HOST,
   port: Number(POSTGRES_PORT) || 5432,
   username: POSTGRES_USER || 'postgres',
   password: POSTGRES_PASSWORD || 'postgres',
   database: POSTGRES_DB || 'postgres',
   dialect: 'postgres',
-  models: [User, ForumTopic, ForumComment],
+  models: [User, ForumTopic, ForumComment, ForumTopicReaction],
 }
 
 export const sequelize = new Sequelize(sequelizeOptions)

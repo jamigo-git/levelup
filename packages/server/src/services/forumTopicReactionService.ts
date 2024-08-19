@@ -9,7 +9,7 @@ interface GetListRequest {
 }
 
 export type DeleteTopicReactionsRequest = {
-  id: string
+  id: number
 }
 
 interface AddTopicReactionsRequest {
@@ -22,7 +22,7 @@ interface AddTopicReactionsRequest {
 class forumTopicReactionService {
   public createTopicReaction = async ({ topicId, userId, emoji, unified }: AddTopicReactionsRequest) => {
     const user = await User.findByPk(userId)
-    const topic = await ForumTopic.findByPk(userId)
+    const topic = await ForumTopic.findByPk(topicId)
 
     if (!user) {
       throw new NotFoundError('User not found')

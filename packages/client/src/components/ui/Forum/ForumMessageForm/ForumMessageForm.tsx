@@ -21,6 +21,7 @@ interface ForumMessageFormProps {
   commentToReply?: Comment
   onReply: () => void
 }
+
 interface EmojiClickData {
   unified: string
   unifiedWithoutSkinTone: string
@@ -44,7 +45,6 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId, commentTo
   const { t } = useTranslation()
   const [form] = Form.useForm<FormValues>()
   const inputRef = useRef<TextAreaRef>(null)
-
   const [addNewComment, { isLoading }] = useAddCommentMutation()
 
   useEffect(() => {
