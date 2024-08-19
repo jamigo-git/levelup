@@ -31,6 +31,10 @@ const App = () => {
     oAuthLoginAttempt()
   }, [dispatch])
 
+  useEffect(() => {
+    Notification.requestPermission()
+  }, [])
+
   return (
     <HelmetProvider>
       <RouterProvider router={router} />
