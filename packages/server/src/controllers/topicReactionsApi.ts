@@ -17,6 +17,7 @@ const forumTopicReactionSchema = z.object({
 const topicReactionDeleteSchema = z.object({
   id: z.number(),
 })
+
 class ForumTopicAPI {
   public static createTopicReaction = async (request: Request, response: Response, next: NextFunction) => {
     try {

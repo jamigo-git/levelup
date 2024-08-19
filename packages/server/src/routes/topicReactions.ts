@@ -8,7 +8,7 @@ export const topicReactionsRoutes = (router: Router) => {
   const topicReaction = Router()
   topicReaction.post(BASE_TOPIC_REACTIONS_ROUTE, authCheck, TopicReactionsApi.createTopicReaction)
   topicReaction.get(BASE_TOPIC_REACTIONS_ROUTE, TopicReactionsApi.getTopicReactionsList)
-  topicReaction.delete(BASE_TOPIC_REACTIONS_ROUTE, TopicReactionsApi.deleteTopicReaction)
+  topicReaction.delete(BASE_TOPIC_REACTIONS_ROUTE, authCheck, TopicReactionsApi.deleteTopicReaction)
 
   router.use('/', topicReaction)
 }

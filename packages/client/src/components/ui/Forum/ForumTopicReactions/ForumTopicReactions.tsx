@@ -56,7 +56,6 @@ export const ForumTopicReactions: FC<TopicReactionsProps> = ({ topicId }) => {
     } else {
       const topicReactionsSend: TopicReactionsData = {
         topicId,
-        userId: user!.id,
         emoji: emojiData.emoji,
         unified: emojiData.unified,
       }
