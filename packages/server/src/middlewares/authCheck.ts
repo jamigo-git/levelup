@@ -20,6 +20,7 @@ export const authCheck = async (req: Request, _: Response, next: NextFunction) =
     })
 
     if (response.status === 200 || response.status === 304) {
+      req.body.userId = response.data.id
       return next()
     } else {
       next(new AuthenticationError('Unauthorized'))
