@@ -8,18 +8,34 @@ interface TopicReactionListOptions {
 }
 
 const forumTopicReactionSchema = z.object({
-  id: z.string(),
   topicId: z.number(),
   userId: z.number(),
   emoji: z.string(),
   unified: z.string(),
 })
 
+const topicReactionDeleteSchema = z.object({
+  id: z.number(),
+})
 class ForumTopicAPI {
   public static createTopicReaction = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const topicReaction = forumTopicReactionSchema.parse(request.body)
       const result = await forumTopicReactionService.createTopicReaction(topicReaction)
+      return response.json(result)
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        next(new BadRequestError(JSON.stringify({ error: error.errors })))
+      }
+      next(error)
+    }
+    return undefined
+  }
+
+  public static deleteTopicReaction = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const { id } = topicReactionDeleteSchema.parse(request.body)
+      const result = await forumTopicReactionService.deleteTopicReaction({ id })
       return response.json(result)
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -37,7 +53,6 @@ class ForumTopicAPI {
   ) => {
     try {
       const topicIds = request.query.topicIds.split(',')
-
       const data = await forumTopicReactionService.getTopicReactionList({ topicIds })
       return response.status(200).json(data)
     } catch (error) {

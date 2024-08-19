@@ -1,33 +1,34 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { API_HOST } from '@/constants/serverHost'
 import { AddTopicReactionsResponse, AddTopicReactionsRequest, GetTopicReactionsListResponse } from './types'
 
 const topicReactionApiService = createApi({
   reducerPath: 'topicReactions',
   tagTypes: ['TopicReaction', 'MessageReaction'],
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api/topicReactions' }),
+  baseQuery: fetchBaseQuery({ baseUrl: `${API_HOST}/api/topicReactions` }),
   endpoints: builder => ({
-    getTopicReactionsList: builder.query<GetTopicReactionsListResponse, { topicIds: string[] }>({
+    getTopicReactionsList: builder.query<GetTopicReactionsListResponse, { topicIds: number[] }>({
       query: ({ topicIds }) => ({
-        url: `/reactions?topicIds=${topicIds}`,
+        url: `?topicIds=${topicIds}`,
         credentials: 'include',
       }),
       providesTags: ['TopicReaction'],
     }),
     addTopicReaction: builder.mutation<AddTopicReactionsResponse, { reaction: AddTopicReactionsRequest }>({
       query: ({ reaction }) => ({
-        url: '/reactions',
+        url: '',
         method: 'POST',
         credentials: 'include',
         body: reaction,
       }),
       invalidatesTags: ['TopicReaction'],
     }),
-    deleteTopicReaction: builder.mutation<string, { id: string }>({
+    deleteTopicReaction: builder.mutation<string, { id: number }>({
       query: ({ id }) => ({
-        url: '/reactions',
+        url: '',
         method: 'DELETE',
         credentials: 'include',
-        body: id,
+        body: { id },
       }),
       invalidatesTags: ['TopicReaction'],
     }),

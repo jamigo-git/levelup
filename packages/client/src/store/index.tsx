@@ -3,8 +3,8 @@ import authReducer from './slices/auth/authSlice'
 import gameReducer from './slices/game/gameSlice'
 import leaderboardReducer from './slices/leaderboard/leaderboardSlice'
 import emojiPickerReducer from './slices/emojiPicker/emojiPickerSlice'
-import topicReactionsReducer from './slices/topicReactions/topicReactionsSlice'
 import forumApiService from './slices/forumApi/forumApiService'
+import topicReactionApiService from './slices/topicReactionsApi/topicReactionsApiService'
 
 declare global {
   interface Window {
@@ -18,13 +18,14 @@ export const rootReducer = combineReducers({
   game: gameReducer,
   leaderboard: leaderboardReducer,
   emojiPicker: emojiPickerReducer,
-  topicReactions: topicReactionsReducer,
+  [topicReactionApiService.reducerPath]: topicReactionApiService.reducer,
   [forumApiService.reducerPath]: forumApiService.reducer,
 })
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(forumApiService.middleware),
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(forumApiService.middleware, topicReactionApiService.middleware),
   preloadedState: typeof window === 'undefined' ? undefined : window.APP_INITIAL_STATE,
 })
 
