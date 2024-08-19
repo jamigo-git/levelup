@@ -20,7 +20,6 @@
   position: fixed;
   inset: 0;
 
-  background-image: url('/img/background.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -34,6 +33,14 @@
     background: rgb(0 0 0 / 50%);
     backdrop-filter: blur(5px);
   }
+}
+
+.background_light {
+  background-image: url('/img/background.png');
+}
+
+.background_dark {
+  background-image: url('/img/background-dark.png');
 }
 
 .content {

@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useRef } from 'react'
 import { SmileOutlined } from '@ant-design/icons'
 import { Button, Form, Input, message } from 'antd'
 import { getUser } from '@/store/slices/auth/authSelector'
@@ -7,7 +7,6 @@ import EmojiPicker, { Theme } from 'emoji-picker-react'
 import { getEmojiPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSelector'
 import { setPickerConfig } from '@/store/slices/emojiPicker/emojiPickerSlice'
 import { TextAreaRef } from 'antd/es/input/TextArea'
-
 import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
 import { AddCommentRequestBody, useAddCommentMutation } from '@/store/slices/forumApi'
 import { Comment } from '@/types/forum'
@@ -32,7 +31,6 @@ interface EmojiClickData {
 }
 
 export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId, commentToReply, onReply }) => {
-  const [confirmLoading, setConfirmLoading] = useState(false)
   const user = useAppSelector(getUser)
   const dispatch = useAppDispatch()
   const defaultEmojiPickerConfig = {
@@ -43,7 +41,6 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId, commentTo
   }
 
   const { open, theme } = useAppSelector(state => getEmojiPickerConfig(state, topicId)) || defaultEmojiPickerConfig
-
   const { t } = useTranslation()
   const [form] = Form.useForm<FormValues>()
   const inputRef = useRef<TextAreaRef>(null)
@@ -73,11 +70,9 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId, commentTo
   }
 
   const handleSubmit = async (values: FormValues) => {
-    setConfirmLoading(true)
     const newMessage: AddCommentRequestBody = {
       text: values.message,
       topicId,
-      userId: user.id,
       parentId: commentToReply?.id,
     }
 
@@ -111,7 +106,6 @@ export const ForumMessageForm: FC<ForumMessageFormProps> = ({ topicId, commentTo
             type='primary'
             shape='circle'
             icon={<SmileOutlined />}
-            loading={confirmLoading}
             onClick={() => dispatch(setPickerConfig({ id: topicId, reactionsDefaultOpen: false, theme, open: !open }))}
           />
           <EmojiPicker open={open} theme={theme} reactionsDefaultOpen={false} onEmojiClick={onEmojiClick} />
