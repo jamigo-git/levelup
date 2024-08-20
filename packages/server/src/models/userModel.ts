@@ -33,5 +33,5 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   @Column({
     type: DataType.STRING,
   })
-  declare avatar?: string
+  declare avatar?: string | null
 }

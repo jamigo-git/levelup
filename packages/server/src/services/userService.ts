@@ -6,7 +6,7 @@ interface CreateUserRequest {
   first_name: string
   second_name: string
   display_name?: string
-  avatar?: string
+  avatar?: string | null
 }
 
 class UserService implements BaseRESTService {
