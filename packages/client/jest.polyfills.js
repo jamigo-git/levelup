@@ -39,3 +39,4 @@ Object.defineProperties(globalThis, {
   Request: { value: Request },
   Response: { value: Response },
 })
+

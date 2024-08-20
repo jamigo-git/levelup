@@ -1,14 +1,14 @@
 ### Основные данные по проектной работе
 1. Ссылка на репозиторий https://github.com/jamigo-git/LevelUp
 2. Ссылка на борд https://linear.app/levelup-team/team/LVL/all 
-3. Ссылка на работающий проект в vercel https://levelup-tower-defense.vercel.app
-4. Ссылка на видео с работой проекта https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2?sid=ce871578-ec9c-4e17-8ade-c1fd4831b36c 
+3. Ссылка на "работающий проект" в vercel https://levelup-tower-defense.vercel.app - проект возможно не запуститься в vercel с ssh и контейнеризацией
+4. Ссылка на видео с работой проекта https://www.loom.com/share/46d4fd03f8f0474f8d3b2937c4ba7256?sid=ad815414-fd0d-40c8-8072-ce01f5accc84 
 <div>
-    <a href="https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2">
-      <p>LVL UP! - 13 July 2024 - Watch Video</p>
+    <a href="https://www.loom.com/share/46d4fd03f8f0474f8d3b2937c4ba7256">
+      <p>LEVELUP 2 командный зачет - Watch Video</p>
     </a>
-    <a href="https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2">
-      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/db09e09d4048438e969ec7f7e4f635e2-with-play.gif">
+    <a href="https://www.loom.com/share/46d4fd03f8f0474f8d3b2937c4ba7256">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/46d4fd03f8f0474f8d3b2937c4ba7256-1b5c1827abc4092c-full-play.gif">
     </a>
   </div>
 
