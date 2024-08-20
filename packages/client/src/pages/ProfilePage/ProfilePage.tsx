@@ -6,7 +6,8 @@ export const ProfilePage = () => {
   return (
     <>
       <Helmet>
-        <title>LVL UP | {routes.profile.title}</title>
+        <title>{routes.profile.title}</title>
+        <meta name='description' content={routes.profile.description} />
       </Helmet>
       <Profile />
     </>

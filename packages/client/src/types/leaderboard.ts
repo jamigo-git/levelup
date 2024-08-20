@@ -1,5 +1,5 @@
-export interface TableData {
-  key: string
+export interface LeaderboardData {
+  key: number
   position: number
   avatar: string
   name: string
@@ -8,4 +8,50 @@ export interface TableData {
   rang: Rang
 }
 
+/** Интерфейс запроса обновления данных в БД по пользователю */
+export interface LeaderboardUpdateReq {
+  data: {
+    waves: number
+    kills_orcs_td: number
+    rang: Rang
+    name: string
+    avatar: string
+    money: number
+  }
+  ratingFieldName: string
+  teamName: string
+}
+
+/** Интерфейс запроса по лидерборду команды */
+export interface LeaderboardTeamReq {
+  ratingFieldName: string
+  cursor: number
+  limit: number
+}
+
+/** Интерфейс ответа по лидерборду */
+export interface LeaderboardTeamResponse {
+  data: {
+    name: string
+    rang: string
+    money: number
+    waves: number
+    avatar: string
+    kills_orcs_td: number
+  }
+}
+
 export type Rang = 'Kid' | 'Bro' | 'Master' | 'Pro' | 'God'
+
+/** Интерфейс данных статистики для отправки */
+export interface StatisticData {
+  bestWavesCount: number
+  bestKillCount: number
+  currentCoins: number
+}
+
+/** Интерфейс данных пользователя для отправки статистики */
+export interface UserStatisticData {
+  login: string
+  avatar: string
+}

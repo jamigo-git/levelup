@@ -1,0 +1,24 @@
+@import 'src/styles/variables';
+
+.list {
+  padding: 20px;
+  background-color: $background-color;
+  border-radius: var(--ant-border-radius);
+  box-shadow: var(--ant-box-shadow);
+}
+
+.emojiContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reactionContainer {
+    display: flex;
+    padding-right: .5rem;
+    border-radius: 12px;
+}
+
+.emojiPicker {
+    position: absolute;
+    z-index: 100;
+}

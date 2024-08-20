@@ -1,12 +1,12 @@
 import { FC, useState } from 'react'
-import { nanoid } from '@reduxjs/toolkit'
-import { Button, Flex, Form, Input, Modal } from 'antd'
+import { Button, Flex, Form, Input, Modal, message as antdMessage } from 'antd'
 import { PlusSquareOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
+
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary'
 import { getUser } from '@/store/slices/auth/authSelector'
-import { useAppDispatch, useAppSelector } from '@/hooks/reduxHooks'
-import { addTopic } from '@/store/slices/forumTopic/forumTopicSlice'
-import { addMessage } from '@/store/slices/forumMessage/forumMessageSlice'
-import { Message, Topic } from '@/types/forum'
+import { useAppSelector } from '@/hooks/reduxHooks'
+import { AddTopicRequestBody, useAddTopicMutation } from '@/store/slices/forumApi'
 import { ForumLoginSuggest } from '../ForumLoginSuggest'
 
 interface FormValues {
@@ -15,11 +15,12 @@ interface FormValues {
 }
 
 export const ForumAddTopic: FC = () => {
+  const user = useAppSelector(getUser)
+  const { t } = useTranslation()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [form] = Form.useForm<FormValues>()
-  const [confirmLoading, setConfirmLoading] = useState(false)
-  const user = useAppSelector(getUser)
-  const dispatch = useAppDispatch()
+
+  const [addNewTopic, { isLoading }] = useAddTopicMutation()
 
   if (!user) {
     return <ForumLoginSuggest />
@@ -31,73 +32,63 @@ export const ForumAddTopic: FC = () => {
 
   const handleCancel = () => {
     setIsModalOpen(false)
-    setConfirmLoading(false)
-    setTimeout(() => {
-      form.resetFields()
-    }, 300)
+    form.resetFields()
   }
 
-  const handleSubmit = (values: FormValues) => {
-    setConfirmLoading(true)
-
+  const handleSubmit = async (values: FormValues) => {
     const { title, message } = values
 
-    const newTopic: Topic = {
-      id: nanoid(),
+    const newTopic: AddTopicRequestBody = {
       title,
-      createdAt: new Date().toISOString(),
-      author: user,
-      messageIds: [],
+      message,
     }
 
-    let newMessage: Message | undefined
-    if (message) {
-      const messageId = nanoid()
-      newMessage = {
-        id: messageId,
-        text: message,
-        createdAt: new Date().toISOString(),
-        author: user,
+    try {
+      const reply = await addNewTopic({ topic: newTopic }).unwrap()
+      if (reply) {
+        form.resetFields()
+        handleCancel()
       }
-      newTopic.messageIds.push(messageId)
+    } catch (err) {
+      antdMessage.error('Что-то пошло не так при отправке сообщения')
     }
-
-    if (newMessage) {
-      dispatch(addMessage({ message: newMessage }))
-    }
-    dispatch(addTopic({ topic: newTopic }))
-    handleCancel()
   }
 
   return (
-    <>
+    <ErrorBoundary>
       <Button icon={<PlusSquareOutlined />} iconPosition='end' onClick={showModal} size='large'>
-        Добавить топик
+        {t('ForumAddTopic.addTopicButtonText')}
       </Button>
       <Modal
-        title='О чем поговорим?'
+        title={t('ForumAddTopic.ForumAddTopicModal.forumAddTopicModalTitle')}
         width={400}
         open={isModalOpen}
         centered
         footer={null}
         closeIcon={null}
         onCancel={handleCancel}
-        confirmLoading={confirmLoading}>
+        confirmLoading={isLoading}>
         <Form form={form} onFinish={handleSubmit}>
-          <Form.Item name='title' rules={[{ required: true, message: 'Без темы никак' }]}>
-            <Input placeholder='Введите название темы' autoComplete='off' />
+          <Form.Item
+            name='title'
+            rules={[{ required: true, message: `${t('ForumAddTopic.ForumAddTopicModal.requireRule')}` }]}>
+            <Input placeholder={t('ForumAddTopic.ForumAddTopicModal.topicTitlePlaceholder')} autoComplete='off' />
           </Form.Item>
           <Form.Item name='message'>
-            <Input.TextArea rows={4} autoSize={{ minRows: 4, maxRows: 6 }} placeholder='Добавите первое сообщение?' />
+            <Input.TextArea
+              rows={4}
+              autoSize={{ minRows: 4, maxRows: 6 }}
+              placeholder={t('ForumAddTopic.ForumAddTopicModal.topicSubTitlePlaceholder')}
+            />
           </Form.Item>
           <Flex justify='flex-end' gap={8}>
-            <Button onClick={handleCancel}>Отмена</Button>
-            <Button type='primary' htmlType='submit' loading={confirmLoading}>
-              Создать
+            <Button onClick={handleCancel}>{t('ForumAddTopic.ForumAddTopicModal.cancelButtonText')}</Button>
+            <Button type='primary' htmlType='submit' loading={isLoading}>
+              {t('ForumAddTopic.ForumAddTopicModal.createButtonText')}
             </Button>
           </Flex>
         </Form>
       </Modal>
-    </>
+    </ErrorBoundary>
   )
 }

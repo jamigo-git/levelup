@@ -1,0 +1,21 @@
+0 silly argv {
+0 silly argv   _: [ 'run' ],
+0 silly argv   lernaVersion: '5.6.2',
+0 silly argv   '$0': '/Users/a1/code/LevelUp/node_modules/.bin/lerna',
+0 silly argv   script: 'lint'
+0 silly argv }
+1 notice cli v5.6.2
+2 verbose rootPath /Users/a1/code/LevelUp
+3 error JSONError: Expected double-quoted property name in JSON at position 704 while parsing '{  "name": "client",  "version": "0.0.' in packages/client/package.json
+3 error
+3 error [0m [90m 11 |[39m     [32m"test"[39m[33m:[39m [32m"jest ./"[39m[33m,[39m
+3 error  [90m 12 |[39m     [32m"interface"[39m[33m:[39m [32m"i18next-resources-for-ts interface -i ./public/locales/en -o ./src/types/resources.d.ts"[39m[33m,[39m
+3 error [31m[1m>[22m[39m[90m 13 |[39m   }[33m,[39m
+3 error  [90m    |[39m   [31m[1m^[22m[39m
+3 error  [90m 14 |[39m   [32m"dependencies"[39m[33m:[39m {
+3 error  [90m 15 |[39m     [32m"@ant-design/icons"[39m[33m:[39m [32m"^5.3.7"[39m[33m,[39m
+3 error  [90m 16 |[39m     [32m"@reduxjs/toolkit"[39m[33m:[39m [32m"^2.2.5"[39m[33m,[39m[0m
+3 error
+3 error     at parseJson (/Users/a1/code/LevelUp/node_modules/parse-json/index.js:29:21)
+3 error     at parse (/Users/a1/code/LevelUp/node_modules/load-json-file/index.js:15:9)
+3 error     at module.exports (/Users/a1/code/LevelUp/node_modules/load-json-file/index.js:18:47)

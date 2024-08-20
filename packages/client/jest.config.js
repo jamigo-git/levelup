@@ -16,7 +16,9 @@ const config = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   globals: {
-    __SERVER_PORT__: process.env.SERVER_PORT,
+    __SERVER_PORT__: 3001,
+    __EXTERNAL_SERVER_URL__: "localhost:3001",
+    __INTERNAL_SERVER_URL__: "localhost:3001",
   },
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'identity-obj-proxy',

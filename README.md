@@ -1,14 +1,14 @@
 ### Основные данные по проектной работе
 1. Ссылка на репозиторий https://github.com/jamigo-git/LevelUp
 2. Ссылка на борд https://linear.app/levelup-team/team/LVL/all 
-3. Ссылка на работающий проект в vercel https://levelup-tower-defense.vercel.app
-4. Ссылка на видео с работой проекта https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2?sid=ce871578-ec9c-4e17-8ade-c1fd4831b36c 
+3. Ссылка на "работающий проект" в vercel https://levelup-tower-defense.vercel.app - проект возможно не запуститься в vercel с ssh и контейнеризацией
+4. Ссылка на видео с работой проекта https://www.loom.com/share/46d4fd03f8f0474f8d3b2937c4ba7256?sid=ad815414-fd0d-40c8-8072-ce01f5accc84 
 <div>
-    <a href="https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2">
-      <p>LVL UP! - 13 July 2024 - Watch Video</p>
+    <a href="https://www.loom.com/share/46d4fd03f8f0474f8d3b2937c4ba7256">
+      <p>LEVELUP 2 командный зачет - Watch Video</p>
     </a>
-    <a href="https://www.loom.com/share/db09e09d4048438e969ec7f7e4f635e2">
-      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/db09e09d4048438e969ec7f7e4f635e2-with-play.gif">
+    <a href="https://www.loom.com/share/46d4fd03f8f0474f8d3b2937c4ba7256">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/46d4fd03f8f0474f8d3b2937c4ba7256-1b5c1827abc4092c-full-play.gif">
     </a>
   </div>
 
@@ -78,13 +78,21 @@
 Все ваши PR будут автоматически деплоиться на vercel. URL вам предоставит деплоящий бот
 
 ## Production окружение в докере
-Перед первым запуском выполните `node init.js`
+Перед первым запуском выполните `node init.js` (добавит env переменные и подготовит данные для базы данных)
 
-
-`docker compose up` - запустит три сервиса
-1. nginx, раздающий клиентскую статику (client)
-2. node, ваш сервер (server)
-3. postgres, вашу базу данных (postgres)
+`docker-compose build` - скомпилирует образы
+`docker-compose up` - запустит сервисы (используя флаг -d запустит фоново)
+1. postgres, вашу базу данных (postgres)
+2. pgadmin, графическая утилита для управления БД
+3. node, ваш сервер (server)
+4. node, раздающий клиентскую статику (client)
+`docker-compose stop` - остановит сервисы
+`docker-compose ps` - выведет все активные сервисы
 
 Если вам понадобится только один сервис, просто уточните какой в команде
-`docker compose up {sevice_name}`, например `docker compose up server`
+Для билда `docker-compose build {sevice_name}`, например `docker-compose build server`
+Для запуска `docker-compose up {sevice_name}`, например `docker-compose up server`
+Для остановки `docker-compose stop {service_name}`, например `docker-compose stop server`
+
+pgadmin находится по адресу http://localhost:8080/
+Данные по-умолчанию для входа находятся в .env

@@ -6,3 +6,9 @@
   border-radius: var(--ant-border-radius);
   box-shadow: var(--ant-box-shadow);
 }
+
+.emojiContainer {
+    display: flex;
+    justify-content: flex-end;
+}
+

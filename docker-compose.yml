@@ -1,20 +1,30 @@
-version: "3.9"
-
 services:
-    client:
-        container_name: prakticum-client
-        image: prakticum-client
-        build:
-            context: .
-            dockerfile: Dockerfile.client
-            args:
-              CLIENT_PORT: ${CLIENT_PORT}
-        restart: always
-        ports:
-            - "${CLIENT_PORT}:80"
-        environment:
-          - CLIENT_PORT=${CLIENT_PORT}
-          - SERVER_PORT=${SERVER_PORT}
+    postgres:
+      image: postgres:14     
+      env_file:
+        ./.env 
+      ports:
+        - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+      volumes:
+        - ./tmp/pgdata:/var/lib/postgresql/data
+      networks:
+        - prakticum-network
+
+    pgadmin:
+      container_name: pgadmin
+      image: dpage/pgadmin4:4.18
+      restart: always
+      env_file:
+        ./.env
+      ports:
+        - "${PGADMIN_MAIN_PORT}:${PGADMIN_LISTEN_PORT}"
+      volumes:
+        - ./tmp/pgadmin-data:/var/lib/pgadmin
+      depends_on:
+        - postgres
+      networks:
+        - prakticum-network
+
     server:
         container_name: prakticum-server
         image: prackicum-server
@@ -28,15 +38,37 @@ services:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
           SERVER_PORT: ${SERVER_PORT}
+          POSTGRES_HOST: postgres
+        env_file:
+          ./.env 
+        depends_on:
+          - postgres
+        networks:
+          - prakticum-network
 
-    postgres:
-      image: postgres:14     
-      ports:
-        - "${POSTGRES_PORT}:${POSTGRES_PORT}"
-      environment:
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        POSTGRES_USER: ${POSTGRES_USER}
-        POSTGRES_DB: ${POSTGRES_DB}
-      volumes:
-        - ./tmp/pgdata:/var/lib/postgresql/data
+    client:
+        container_name: prakticum-client
+        image: prakticum-client
+        build:
+            context: .
+            dockerfile: Dockerfile.client
+            args:
+              CLIENT_PORT: ${CLIENT_PORT}
+        restart: always
+        ports:
+            - "${CLIENT_PORT}:3000"
+        environment:
+          - CLIENT_PORT=${CLIENT_PORT}
+          - SERVER_PORT=${SERVER_PORT}
+          - EXTERNAL_SERVER_URL=${EXTERNAL_SERVER_URL}
+          - INTERNAL_SERVER_URL=${INTERNAL_SERVER_URL}
+        env_file:
+          ./.env 
+        networks:
+          - prakticum-network
+
+networks:
+  prakticum-network:
+      driver: bridge 
+
 

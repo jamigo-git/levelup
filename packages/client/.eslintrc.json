@@ -28,7 +28,8 @@
     "vite.config.ts",
     "**/*.js",
     "**/*.d.ts",
-    "service-worker.ts"
+    "service-worker.ts",
+    "server/index.ts"
   ],
   "settings": {
     "react": {
