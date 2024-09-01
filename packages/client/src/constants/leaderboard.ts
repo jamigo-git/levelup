@@ -53,4 +53,9 @@ export const RANG_REMAINING_MAP = {
     remainingCount: 8000,
     rang: 'God',
   },
+
+  God: {
+    remainingCount: 80000,
+    rang: 'God',
+  },
 }
