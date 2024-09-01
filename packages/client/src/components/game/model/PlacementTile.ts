@@ -22,7 +22,7 @@ export class PlacementTile {
     this.position = position
     this.sizes = sizes
     this.ctx = ctx
-    this.color = color || 'rgba(255, 255,255,0.2)'
+    this.color = color || 'rgba(255, 255,255,0.8)'
   }
 
   get getPosition() {
@@ -48,7 +48,7 @@ export class PlacementTile {
       mouse.y > this.position.y &&
       mouse.y < this.position.y + this.sizes.height
     ) {
-      this.color = 'white'
+      this.color = 'rgba(0, 0, 0, 0.15)'
     } else {
       this.color = 'rgba(255, 255, 255, 0.15)'
     }

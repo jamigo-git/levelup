@@ -154,7 +154,7 @@ export class GameConfig {
 
         if (distance < projectile.enemy.getRadius + projectile.getRadius) {
           projectile.enemy.subtractHealth(building.damage)
-          if (projectile.enemy.health <= 0) {
+          if (projectile.enemy.health < 0) {
             this.coins += projectile.enemy.goldCost
             this.killCount++
             const enemyIndex = this.enemies.findIndex(enemy => {
