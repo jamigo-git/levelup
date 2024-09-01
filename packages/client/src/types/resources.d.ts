@@ -118,12 +118,19 @@ interface Resources {
       repeatButtonText: 'Repeat?'
     }
     Game: {
+      killsCount: 'Kills count'
       coinsCount: 'Coin count'
       stopButtonText: 'Stop game'
       towerCost: 'Tower costs'
       currency: 'coins!'
       expandButtonText: 'Expand to full screen'
       collapseButtonText: 'Collapse'
+      notification: 'rang notification'
+      notificationOne: 'rang notificationOne'
+      notificationTwo: 'rang notificationTwo'
+      notificationThree: 'rang notificationThree'
+      notificationFour: 'rang notificationFour'
+      notificationFive: 'rang notificationFive'
     }
   }
 }

@@ -119,16 +119,17 @@
   },
   "Game": {
     "coinsCount": "Количество монет",
+    "killsCount": "Количество убитых",
     "stopButtonText": "Остановить игру",
     "towerCost": "Башня стоит",
     "currency": "монет!",
     "expandButtonText": "Развернуть на полный экран",
     "collapseButtonText": "Свернуть",
     "notification": "Поздравляем!",
-    "notification.one": "Вы получили ранг",
-    "notification.two": "Уничтожьте еще",
-    "notification.three": "орков и получите ранг",
-    "notification.four": "Ваше текущее место в рейтинге",
-    "notification.five": "Статистики нет"
+    "notificationOne": "Вы получили ранг",
+    "notificationTwo": "Уничтожьте еще",
+    "notificationThree": "орков и получите ранг",
+    "notificationFour": "Ваше текущее место в рейтинге",
+    "notificationFive": "Статистики нет"
 }
 }
