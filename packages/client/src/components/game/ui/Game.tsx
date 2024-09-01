@@ -134,23 +134,23 @@ export const Game: FC = () => {
 
   useEffect(() => {
     const handleStatistic = async () => {
-      const tasks = RANG_KILLS_MAP.entries()
+      const tasks = Array.from(RANG_KILLS_MAP.entries())
         .filter(([key]) => gameStatistic.currenKillCount === key && gameStatistic.isRunning)
         .map(async ([, value]) => {
           // Получаем информацию о позиции пользователя в лидерборде
-          const stat = leaderboardRows.find(row => row.name === user.login)
+          const stat = leaderboardRows?.find(row => row.name === user?.login)
           const target = RANG_REMAINING_MAP[value]
-            ? `${t('Game.notification.two')} ${RANG_REMAINING_MAP[value].remainingCount} ${t(
-                'Game.notification.three'
+            ? `${t('Game.notificationTwo')} ${RANG_REMAINING_MAP[value].remainingCount} ${t(
+                'Game.notificationThree'
               )} "${RANG_REMAINING_MAP[value].rang}"`
             : ''
           const rate = stat?.position
-            ? `${t('Game.notification.four')} - ${stat.position}`
-            : `${t('Game.notification.five')}`
+            ? `${t('Game.notificationFour')} - ${stat.position}`
+            : `${t('Game.notificationFive')}`
 
           // eslint-disable-next-line no-new
           new Notification(`${t('Game.notification')}`, {
-            body: `${t('Game.notification.one')} "${value}"! ${target}. ${rate}`,
+            body: `${t('Game.notificationOne')} "${value}"! ${target}. ${rate}`,
           })
         })
 
@@ -188,6 +188,9 @@ export const Game: FC = () => {
             <>
               <Text className={`${style.text} ${style.coins}`}>
                 {t('Game.coinsCount')}: {gameStatistic.currentCoins}
+              </Text>
+              <Text className={`${style.text} ${style.coins}`}>
+                {t('Game.killsCount')}: {gameStatistic.currenKillCount}
               </Text>
               <Button
                 onClick={() => {

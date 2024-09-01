@@ -119,16 +119,17 @@
   },
   "Game": {
     "coinsCount": "Coin count",
+    "killsCount": "Kills count",
     "stopButtonText": "Stop game",
     "towerCost": "Tower costs",
     "currency": "coins!",
     "expandButtonText": "Expand to full screen",
     "collapseButtonText": "Collapse",
     "notification": "Congratulations!",
-    "notification.one": "You have gained rank",
-    "notification.two": "Destroy",
-    "notification.three": "more orcs and get the rank of",
-    "notification.four": "Your current position in the ranking is",
-    "notification.five": "There are no statistics"
+    "notificationOne": "You have gained rank",
+    "notificationTwo": "Destroy",
+    "notificationThree": "more orcs and get the rank of",
+    "notificationFour": "Your current position in the ranking is",
+    "notificationFive": "There are no statistics"
   }
 }
