@@ -21,9 +21,7 @@ export const sequelize = new Sequelize(sequelizeOptions)
 export async function dbConnect() {
   try {
     await sequelize.authenticate()
-    await sequelize.sync({
-      force: true,
-    })
+    await sequelize.sync()
     console.log('Connection with the database has been established successfully.')
   } catch (error) {
     console.log('POSTGRES_HOST: ', POSTGRES_HOST)
