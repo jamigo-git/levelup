@@ -7,7 +7,7 @@ import { ForumComment } from '../models/forumCommentModel'
 import { ForumTopicReaction } from '../models/forumTopicReactionModel'
 
 const sequelizeOptions: SequelizeOptions = {
-  host: POSTGRES_HOST || POSTGRES_HOST,
+  host: POSTGRES_HOST || '0.0.0.0',
   port: Number(POSTGRES_PORT) || 5432,
   username: POSTGRES_USER || 'postgres',
   password: POSTGRES_PASSWORD || 'postgres',
@@ -21,10 +21,10 @@ export const sequelize = new Sequelize(sequelizeOptions)
 export async function dbConnect() {
   try {
     await sequelize.authenticate()
-    // await sequelize.sync({ force: true })
     await sequelize.sync()
     console.log('Connection with the database has been established successfully.')
   } catch (error) {
-    console.error('Unable to connect to the database:', error)
+    console.log('POSTGRES_HOST: ', POSTGRES_HOST)
+    console.error('Unable to connect to the database: ', error)
   }
 }
