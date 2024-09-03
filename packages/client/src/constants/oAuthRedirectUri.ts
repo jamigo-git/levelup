@@ -1,1 +1,1 @@
-export default 'https://level-up.ya-praktikum.tech/login'
+export default 'http://levelup-towerdefense-39.ya-praktikum.tech/login'
