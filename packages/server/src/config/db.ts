@@ -7,7 +7,7 @@ import { ForumComment } from '../models/forumCommentModel'
 import { ForumTopicReaction } from '../models/forumTopicReactionModel'
 
 const sequelizeOptions: SequelizeOptions = {
-  host: POSTGRES_HOST || '0.0.0.0',
+  host: POSTGRES_HOST || 'coi-postgres-1',
   port: Number(POSTGRES_PORT) || 5432,
   username: POSTGRES_USER || 'postgres',
   password: POSTGRES_PASSWORD || 'postgres',
