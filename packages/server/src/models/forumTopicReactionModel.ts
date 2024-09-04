@@ -30,7 +30,7 @@ export class ForumTopicReaction extends Model<
 
   @ForeignKey(() => ForumTopic)
   @Column({
-    type: DataType.STRING,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   declare topicId: number
