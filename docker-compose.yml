@@ -28,7 +28,7 @@ services:
 
     server:
         container_name: prakticum-server
-        image: prackicum-server
+        image: prakticum-server
         build:
             context: .
             dockerfile: Dockerfile.server
@@ -63,6 +63,26 @@ services:
           - SERVER_PORT=${SERVER_PORT}
           - EXTERNAL_SERVER_URL=${EXTERNAL_SERVER_URL}
           - INTERNAL_SERVER_URL=${INTERNAL_SERVER_URL}
+        env_file:
+          ./.env 
+        networks:
+          - prakticum-network
+
+    nginx:
+        container_name: nginx
+        image: nginx
+        build:
+            context: .
+            dockerfile: Dockerfile.nginx
+            args:
+              NGINX_PORT: ${NGINX_PORT}
+        restart: always
+        ports:
+            - "${NGINX_PORT}:80"
+        environment:
+          - NGINX_PORT=${NGINX_PORT}
+          - CLIENT_PORT=${CLIENT_PORT}
+          - SERVER_PORT=${SERVER_PORT}
         env_file:
           ./.env 
         networks:

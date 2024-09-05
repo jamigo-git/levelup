@@ -14,7 +14,7 @@ const clientPath = path.join(__dirname, '..')
 
 dotenv.config({ path: path.resolve(__dirname, '../../../.env') })
 
-const port = process.env.CLIENT_PORT || 80
+const port = process.env.CLIENT_PORT || 3000
 const isDev = process.env.NODE_ENV === 'development'
 
 async function createServer() {
