@@ -6,7 +6,7 @@ import path from 'path'
 import cookieParser from 'cookie-parser'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 
-import { CORS_ORIGINS, EXTERNAL_API_URL } from './src/utils/constants'
+import { EXTERNAL_API_URL } from './src/utils/constants'
 import { dbConnect } from './src/config/db'
 import { errorLogger, requestLogger } from './src/middlewares/logger'
 import { handleError } from './src/middlewares/handleError'
@@ -16,8 +16,7 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 
 const port = Number(process.env.SERVER_PORT) || 3001
 const corsOptions = {
-  credentials: true,
-  origin: CORS_ORIGINS,
+  origin: '*',
 }
 
 const app = express()
