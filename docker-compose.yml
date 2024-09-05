@@ -85,6 +85,8 @@ services:
           - SERVER_PORT=${SERVER_PORT}
         env_file:
           ./.env 
+        depends_on:
+          - client
         networks:
           - prakticum-network
 
