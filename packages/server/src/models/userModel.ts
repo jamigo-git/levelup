@@ -28,7 +28,7 @@ export class User extends Model<InferAttributes<User>, InferCreationAttributes<U
   @Column({
     type: DataType.STRING,
   })
-  declare display_name?: string
+  declare display_name?: string | null
 
   @Column({
     type: DataType.STRING,

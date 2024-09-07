@@ -5,7 +5,7 @@ interface CreateUserRequest {
   id: number
   first_name: string
   second_name: string
-  display_name?: string
+  display_name?: string | null
   avatar?: string | null
 }
 

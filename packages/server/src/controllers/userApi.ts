@@ -7,7 +7,7 @@ const userSchema = z.object({
   id: z.number(),
   first_name: z.string(),
   second_name: z.string(),
-  display_name: z.string().optional(),
+  display_name: z.string().optional().nullable(),
   avatar: z.string().optional().nullable(),
 })
 
