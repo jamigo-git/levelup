@@ -1,6 +1,5 @@
 import dotenv from 'dotenv'
 
-
 dotenv.config()
 
 const config = {
@@ -17,8 +16,8 @@ const config = {
   },
   globals: {
     __SERVER_PORT__: 3001,
-    __EXTERNAL_SERVER_URL__: "localhost:3001",
-    __INTERNAL_SERVER_URL__: "localhost:3001",
+    __EXTERNAL_SERVER_URL__: 'localhost:3001',
+    __INTERNAL_SERVER_URL__: 'localhost:3001',
   },
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'identity-obj-proxy',

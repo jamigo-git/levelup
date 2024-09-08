@@ -8,17 +8,17 @@
 }
 
 .emojiContainer {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .reactionContainer {
-    display: flex;
-    padding-right: .5rem;
-    border-radius: 12px;
+  display: flex;
+  padding-right: 0.5rem;
+  border-radius: 12px;
 }
 
 .emojiPicker {
-    position: absolute;
-    z-index: 100;
+  position: absolute;
+  z-index: 100;
 }

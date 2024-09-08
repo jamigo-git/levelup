@@ -24,15 +24,16 @@
 }
 
 .canvas {
-  background: rgba(0, 0, 0, 0);
+  background: rgb(0 0 0 / 0%);
 }
 
 .castle {
-  width: 225px;
-  height: 225px;
   position: absolute;
   top: -59px;
   right: -13px;
+
+  width: 225px;
+  height: 225px;
 
   &__image {
     width: 100%;
