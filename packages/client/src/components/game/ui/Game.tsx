@@ -13,6 +13,7 @@ import { getUser } from '@/store/slices/auth/authSelector'
 import { CURSOR, LIMIT, RANG_KILLS_MAP, RANG_REMAINING_MAP, RATING_FIELD_NAME } from '@/constants/leaderboard'
 import { getLeaderboardData } from '@/slices/leaderboard/leaderboardSelector'
 import { leaderboardTeamReq } from '@/slices/leaderboard/leaderboardSlice'
+import castleImage from '../assets/castle.png'
 import { GameConfig } from '../model/Game'
 import { StartScreen } from './StartScreen/StartScreen'
 import { EndScreen } from './EndScreen/EndScreen'
@@ -20,8 +21,9 @@ import { Building } from '../model/Building'
 import { MapConfig } from '../commonTypes'
 import { maps } from '../maps'
 import { Overlay } from './Overlay/Overlay'
-import style from './game.module.scss'
 import { StatisticData } from '@/types/leaderboard'
+
+import style from './game.module.scss'
 
 export const Game: FC = () => {
   const { Text } = Typography
@@ -167,6 +169,7 @@ export const Game: FC = () => {
   return (
     <Flex
       style={{ width: `${mapConfig.mapPixelWidth}px` }}
+      className={style.wrapper}
       vertical
       justify='center'
       align='center'
@@ -178,9 +181,12 @@ export const Game: FC = () => {
         <canvas
           height={mapConfig.mapPixelHeight}
           width={mapConfig.mapPixelWidth}
-          style={{ background: 'rgba(0, 0, 0, 0)' }}
+          className={style.canvas}
           ref={canvasRef as LegacyRef<HTMLCanvasElement>}
         />
+        <div className={style.castle}>
+          <img src={castleImage} alt='castle' className={style.castle__image} />
+        </div>
       </Overlay>
       <div style={{ width: `${mapConfig.mapPixelWidth}px` }} className={style.controls}>
         <div className={style.statistic}>

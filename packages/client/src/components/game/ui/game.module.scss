@@ -1,3 +1,7 @@
+.wrapper {
+  height: 100%;
+}
+
 .controls {
   display: grid;
   grid-template-columns: 1fr 260px;
@@ -17,4 +21,22 @@
 
 .text {
   min-width: 200px;
+}
+
+.canvas {
+  background: rgba(0, 0, 0, 0);
+}
+
+.castle {
+  width: 225px;
+  height: 225px;
+  position: absolute;
+  top: -59px;
+  right: -13px;
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
 }

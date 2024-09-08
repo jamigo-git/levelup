@@ -1,7 +1,7 @@
 .end {
-  position: absolute;
+  position: fixed;
   z-index: 10;
-  inset: 0;
+  inset: 64px 0 0 0;
 
   display: flex;
   align-items: center;
@@ -13,6 +13,8 @@
 .background {
   width: 80%;
   height: 80%;
+  max-width: 800px;
+  max-height: 400px;
   padding: 20px;
 
   background: #231701;
